@@ -80,13 +80,13 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
                       <span className={`text-[11px] ${active ? "text-slate-300" : "text-slate-500"}`}>{row.category}</span>
                     </div>
                   </td>
-                  <td className={`px-4 py-3 text-right text-xs font-semibold tabular-nums ${active ? "text-white" : isUnset ? "text-slate-400 italic" : "text-slate-800"}`}>
+                  <td className={`px-4 py-3 text-right text-sm font-bold font-mono tabular-nums ${active ? "text-white" : isUnset ? "text-slate-400 italic" : "text-slate-900"}`}>
                     {row.adjusted > 0 ? formatWon(row.adjusted) : "미입력"}
                   </td>
-                  <td className={`px-4 py-3 text-right text-xs tabular-nums hidden lg:table-cell ${active ? "text-amber-300" : "text-amber-700"}`}>
+                  <td className={`px-4 py-3 text-right text-sm font-semibold font-mono tabular-nums hidden lg:table-cell ${active ? "text-amber-300" : "text-amber-700"}`}>
                     {formatWon(row.executed)}
                   </td>
-                  <td className={`px-4 py-3 text-right text-xs tabular-nums hidden lg:table-cell ${active ? "text-slate-300" : "text-slate-500"}`}>
+                  <td className={`px-4 py-3 text-right text-sm font-semibold font-mono tabular-nums hidden lg:table-cell ${active ? "text-slate-300" : "text-slate-700"}`}>
                     {formatWon(row.remaining)}
                   </td>
                   <td className="px-4 py-3">
@@ -98,7 +98,7 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
                           active ? "bg-amber-400" : "bg-gradient-to-r from-amber-500 to-orange-400"
                         }`} style={{ width: `${barWidth}%` }} />
                       </div>
-                      <span className={`text-[11px] tabular-nums font-medium w-10 text-right ${active ? "text-slate-300" : "text-slate-500"}`}>
+                      <span className={`text-xs font-mono tabular-nums font-bold w-10 text-right ${active ? "text-slate-200" : "text-indigo-700"}`}>
                         {formatPct(row.executionRate)}
                       </span>
                     </div>
@@ -112,10 +112,10 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
           <tfoot>
             <tr className="bg-slate-50 font-semibold text-xs text-slate-700 border-t-2 border-slate-200">
               <td className="px-4 py-3" colSpan={2}>과정 소계 (13개)</td>
-              <td className="px-4 py-3 text-right tabular-nums">{formatWon(programTotal.adjusted)}</td>
-              <td className="px-4 py-3 text-right hidden lg:table-cell text-amber-700 tabular-nums">{formatWon(programTotal.executed)}</td>
-              <td className="px-4 py-3 text-right hidden lg:table-cell tabular-nums">{formatWon(programTotal.adjusted - programTotal.executed)}</td>
-              <td className="px-4 py-3 text-right tabular-nums">{formatPct(programTotal.adjusted === 0 ? 0 : programTotal.executed / programTotal.adjusted)}</td>
+              <td className="px-4 py-3 text-right text-sm font-bold font-mono tabular-nums text-slate-900">{formatWon(programTotal.adjusted)}</td>
+              <td className="px-4 py-3 text-right hidden lg:table-cell text-sm font-bold font-mono text-amber-700 tabular-nums">{formatWon(programTotal.executed)}</td>
+              <td className="px-4 py-3 text-right hidden lg:table-cell text-sm font-bold font-mono tabular-nums">{formatWon(programTotal.adjusted - programTotal.executed)}</td>
+              <td className="px-4 py-3 text-right text-sm font-bold font-mono tabular-nums text-indigo-700">{formatPct(programTotal.adjusted === 0 ? 0 : programTotal.executed / programTotal.adjusted)}</td>
             </tr>
 
             {commonCourse && commonTotal && (
@@ -133,24 +133,24 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
                     <span>공통 운영비</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-right font-semibold tabular-nums">{formatWon(commonTotal.adjusted)}</td>
-                <td className="px-4 py-3 text-right hidden lg:table-cell tabular-nums">{formatWon(commonTotal.executed)}</td>
-                <td className="px-4 py-3 text-right hidden lg:table-cell tabular-nums">{formatWon(commonTotal.remaining)}</td>
-                <td className="px-4 py-3 text-right tabular-nums">{formatPct(commonTotal.executionRate)}</td>
+                <td className="px-4 py-3 text-right text-sm font-bold font-mono tabular-nums">{formatWon(commonTotal.adjusted)}</td>
+                <td className="px-4 py-3 text-right hidden lg:table-cell font-mono tabular-nums">{formatWon(commonTotal.executed)}</td>
+                <td className="px-4 py-3 text-right hidden lg:table-cell font-mono tabular-nums">{formatWon(commonTotal.remaining)}</td>
+                <td className="px-4 py-3 text-right font-mono tabular-nums">{formatPct(commonTotal.executionRate)}</td>
               </tr>
             )}
 
             <tr className="bg-gradient-to-r from-slate-800 to-slate-900 text-white text-xs font-bold">
               <td className="px-4 py-3.5" colSpan={2}>총 배분 합계</td>
-              <td className="px-4 py-3.5 text-right tabular-nums">{formatWon(grandAdjusted)}</td>
-              <td className="px-4 py-3.5 text-right hidden lg:table-cell text-amber-300 tabular-nums">{formatWon(programTotal.executed + (commonTotal?.executed ?? 0))}</td>
-              <td className="px-4 py-3.5 text-right hidden lg:table-cell text-slate-300 tabular-nums">{formatWon(grandAdjusted - programTotal.executed - (commonTotal?.executed ?? 0))}</td>
+              <td className="px-4 py-3.5 text-right text-sm font-mono tabular-nums">{formatWon(grandAdjusted)}</td>
+              <td className="px-4 py-3.5 text-right hidden lg:table-cell text-sm text-amber-300 font-mono tabular-nums">{formatWon(programTotal.executed + (commonTotal?.executed ?? 0))}</td>
+              <td className="px-4 py-3.5 text-right hidden lg:table-cell text-sm text-slate-300 font-mono tabular-nums">{formatWon(grandAdjusted - programTotal.executed - (commonTotal?.executed ?? 0))}</td>
               <td className="px-4 py-3.5 text-right text-slate-400">—</td>
             </tr>
 
             <tr className="bg-gradient-to-r from-emerald-800 to-emerald-900 text-white text-xs">
               <td className="px-4 py-3.5 font-semibold" colSpan={2}>총 사업비 (고정)</td>
-              <td className="px-4 py-3.5 text-right font-bold text-emerald-300 tabular-nums">{formatWon(totalBudget)}</td>
+              <td className="px-4 py-3.5 text-right text-sm font-bold text-emerald-300 font-mono tabular-nums">{formatWon(totalBudget)}</td>
               <td className="px-4 py-3.5 hidden lg:table-cell" />
               <td className="px-4 py-3.5 hidden lg:table-cell" />
               <td className="px-4 py-3.5 text-right">

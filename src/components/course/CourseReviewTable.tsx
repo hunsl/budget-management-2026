@@ -116,17 +116,17 @@ export function CourseReviewTable({
                     <td className="px-3 py-2.5 text-[11px] text-slate-400">{item.group}</td>
                     <td className="px-3 py-2.5 text-xs font-medium text-slate-800">{item.name}</td>
                     <td className="px-3 py-2.5 text-slate-400 text-[11px] max-w-[120px] truncate">{item.calc}</td>
-                    <td className="px-3 py-2.5 text-right text-xs tabular-nums text-slate-600">{formatWon(item.original)}</td>
-                    <td className="px-3 py-2.5 text-right text-xs font-semibold tabular-nums text-slate-800">{formatWon(item.adjusted)}</td>
-                    <td className={`px-3 py-2.5 text-right text-xs font-semibold tabular-nums ${item.variance > 0 ? "text-amber-600" : item.variance < 0 ? "text-emerald-600" : "text-slate-400"}`}>
+                    <td className="px-3 py-2.5 text-right text-xs font-mono tabular-nums text-slate-600">{formatWon(item.original)}</td>
+                    <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-slate-900">{formatWon(item.adjusted)}</td>
+                    <td className={`px-3 py-2.5 text-right text-xs font-semibold font-mono tabular-nums ${item.variance > 0 ? "text-amber-600" : item.variance < 0 ? "text-emerald-600" : "text-slate-400"}`}>
                       {item.variance >= 0 ? "+" : ""}{formatWon(item.variance)}
                     </td>
-                    <td className="px-3 py-2.5 text-right text-[11px] tabular-nums text-slate-500">
+                    <td className="px-3 py-2.5 text-right text-[11px] font-mono tabular-nums text-slate-500">
                       {item.original > 0 ? `${(item.changeRate * 100).toFixed(1)}%` : "—"}
                     </td>
-                    <td className="px-3 py-2.5 text-right text-xs tabular-nums text-slate-600">{formatWon(item.executed)}</td>
-                    <td className="px-3 py-2.5 text-right text-xs tabular-nums text-slate-500">{formatWon(item.remaining)}</td>
-                    <td className="px-3 py-2.5 text-right text-xs tabular-nums text-slate-600">{formatPct(item.executionRate)}</td>
+                    <td className="px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums text-amber-700">{formatWon(item.executed)}</td>
+                    <td className="px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums text-slate-700">{formatWon(item.remaining)}</td>
+                    <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-indigo-700">{formatPct(item.executionRate)}</td>
                     <td className="px-3 py-2.5 text-center">
                       <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ring-1 ring-inset ${statusStyle(item.status)}`}>
                         {item.status}
@@ -138,15 +138,15 @@ export function CourseReviewTable({
                   <td className="px-3 py-2.5" colSpan={3}>
                     <span className="text-slate-500">{group}</span> 소계
                   </td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.original)}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.adjusted)}</td>
-                  <td className={`px-3 py-2.5 text-right tabular-nums ${sub.variance > 0 ? "text-amber-600" : sub.variance < 0 ? "text-emerald-600" : ""}`}>
+                  <td className="px-3 py-2.5 text-right font-mono tabular-nums">{formatWon(sub.original)}</td>
+                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-slate-900">{formatWon(sub.adjusted)}</td>
+                  <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${sub.variance > 0 ? "text-amber-600" : sub.variance < 0 ? "text-emerald-600" : ""}`}>
                     {sub.variance >= 0 ? "+" : ""}{formatWon(sub.variance)}
                   </td>
                   <td className="px-3 py-2.5" />
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.executed)}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.remaining)}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">
+                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-amber-700">{formatWon(sub.executed)}</td>
+                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-slate-700">{formatWon(sub.remaining)}</td>
+                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-indigo-700">
                     {formatPct(sub.adjusted === 0 ? 0 : sub.executed / sub.adjusted)}
                   </td>
                   <td className="px-3 py-2.5" />
