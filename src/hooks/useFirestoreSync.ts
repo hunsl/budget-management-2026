@@ -25,22 +25,31 @@ export function useFirestoreSync(
   const [status, setStatus] = useState<SyncStatus>(enabled ? "syncing" : "offline");
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      setStatus("offline");
+      return;
+    }
+    setStatus("syncing");
 
     const unsubCourses = onSnapshot(
       collection(db, COURSES),
       (snap) => {
+        setStatus("synced");
         snap.docChanges().forEach((change) => {
           if (change.type === "removed") return;
           dispatch({ type: "REMOTE_COURSE_SYNCED", course: change.doc.data() as Course });
         });
       },
-      (err) => console.error("[FirestoreSync] courses 구독 실패", err),
+      (err) => {
+        console.error("[FirestoreSync] courses 구독 실패", err);
+        setStatus("offline");
+      },
     );
 
     const unsubExecutions = onSnapshot(
       collection(db, EXECUTIONS),
       (snap) => {
+        setStatus("synced");
         snap.docChanges().forEach((change) => {
           if (change.type === "removed") {
             dispatch({ type: "REMOTE_EXECUTION_DELETED", id: Number(change.doc.id) });
@@ -49,18 +58,25 @@ export function useFirestoreSync(
           dispatch({ type: "REMOTE_EXECUTION_SYNCED", execution: change.doc.data() as ExecutionRow });
         });
       },
-      (err) => console.error("[FirestoreSync] executions 구독 실패", err),
+      (err) => {
+        console.error("[FirestoreSync] executions 구독 실패", err);
+        setStatus("offline");
+      },
     );
 
     const unsubLogs = onSnapshot(
       collection(db, LOGS),
       (snap) => {
+        setStatus("synced");
         snap.docChanges().forEach((change) => {
           if (change.type === "removed") return;
           dispatch({ type: "REMOTE_LOG_ADDED", log: change.doc.data() as import("../types").AdjustmentLog });
         });
       },
-      (err) => console.error("[FirestoreSync] logs 구독 실패", err),
+      (err) => {
+        console.error("[FirestoreSync] logs 구독 실패", err);
+        setStatus("offline");
+      },
     );
 
     return () => {
