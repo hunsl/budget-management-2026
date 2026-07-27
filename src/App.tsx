@@ -11,6 +11,10 @@ import {
   savePersistedData,
   usePersistence,
 } from "./hooks/usePersistence";
+import { firebaseConfigured } from "./lib/firebase";
+import { useAuth } from "./hooks/useAuth";
+import { useFirestoreSync } from "./hooks/useFirestoreSync";
+import { LoginScreen } from "./components/auth/LoginScreen";
 
 import { DashboardHeader } from "./components/dashboard/DashboardHeader";
 import { OverallTable } from "./components/dashboard/OverallTable";
@@ -52,6 +56,10 @@ function categoryBadge(category: string) {
 }
 
 export default function App() {
+  // 로그인 필요 여부: Firebase 설정이 안 되어 있으면(로컬 개발 초기 단계) 기존처럼 로그인 없이 동작
+  const requireAuth = firebaseConfigured;
+  const { user, status: authStatus, login } = useAuth();
+
   // localStorage에서 복원된 상태로 초기화
   const [state, dispatch] = useReducer(budgetReducer, initialState, (init) => {
     const persisted = loadPersistedState();
@@ -64,6 +72,16 @@ export default function App() {
   const [isPrinting, setIsPrinting] = useState(false);
   const importInputRef = useRef<HTMLInputElement>(null);
   const { addToast } = useToast();
+
+  // Firestore 실시간 동기화 (로그인 완료 후에만 활성화)
+  const firestoreEnabled = requireAuth && authStatus === "signedIn";
+  const { status: firestoreStatus, dispatchSynced } = useFirestoreSync(state, dispatch, firestoreEnabled);
+
+  useEffect(() => {
+    if (!user) return;
+    const name = user.displayName || user.email?.split("@")[0] || "사용자";
+    dispatch({ type: "SET_CURRENT_USER", name });
+  }, [user]);
 
   // 반응형 감지
   useEffect(() => {
@@ -78,6 +96,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (firebaseConfigured) return; // Firestore가 데이터 원본일 때는 로컬 스냅샷으로 되돌리지 않음
     if (matchesSavedBudgetCourses(state.courses)) return;
     if (localStorage.getItem(RESTORE_KEY) === "yes") return;
 
@@ -93,12 +112,17 @@ export default function App() {
   // localStorage 영속성 + 다른 탭 동기화
   const { lastSavedAt } = usePersistence(state, dispatch);
 
-  // 저장 상태 표시
+  // 저장 상태 표시 (Firebase 미설정 시에는 기존 로컬 저장 타이머 사용)
   useEffect(() => {
+    if (firebaseConfigured) return;
     setSyncStatus("saving");
     const timer = setTimeout(() => setSyncStatus("synced"), 800);
     return () => clearTimeout(timer);
   }, [state.courses, state.executions, state.logs]);
+
+  const effectiveSyncStatus: "synced" | "syncing" | "offline" = firebaseConfigured
+    ? firestoreStatus
+    : syncStatus === "synced" ? "synced" : "syncing";
 
   const { courses, executions, logs, selectedCourseId, editingItemId, filterMode, sortMode, reportType } = state;
 
@@ -124,10 +148,10 @@ export default function App() {
 
   const warnings = useMemo(() => buildWarnings(courses), [courses]);
 
-  // Toast 연동 dispatch 래퍼
+  // Toast 연동 dispatch 래퍼 (Firestore write-through 포함)
   const dispatchWithToast = useCallback(
     (action: Parameters<typeof dispatch>[0]) => {
-      dispatch(action);
+      dispatchSynced(action);
       switch (action.type) {
         case "UPDATE_ITEM":
           addToast("success", "예산현액이 업데이트되었습니다");
@@ -149,7 +173,7 @@ export default function App() {
           break;
       }
     },
-    [dispatch, addToast],
+    [dispatchSynced, addToast],
   );
 
   const handleExportBackup = useCallback(() => {
@@ -165,13 +189,18 @@ export default function App() {
       try {
         const backup = parseBudgetBackup(String(reader.result ?? ""));
         savePersistedData(backup);
-        dispatch({
+        dispatchSynced({
           type: "HYDRATE",
           courses: backup.data.courses,
           executions: backup.data.executions,
           logs: backup.data.logs,
         });
-        addToast("success", "백업 파일을 불러왔습니다. 현재 상태로 이어서 작업할 수 있습니다.");
+        addToast(
+          "success",
+          firebaseConfigured
+            ? "백업 파일을 불러와 모든 사용자에게 반영했습니다."
+            : "백업 파일을 불러왔습니다. 현재 상태로 이어서 작업할 수 있습니다.",
+        );
       } catch (error) {
         console.error(error);
         addToast("error", "백업 파일을 읽지 못했습니다. JSON 파일을 확인해주세요.");
@@ -184,7 +213,7 @@ export default function App() {
       if (importInputRef.current) importInputRef.current.value = "";
     };
     reader.readAsText(file, "utf-8");
-  }, [addToast]);
+  }, [addToast, dispatchSynced]);
 
   const totalAllocated = programSummary.adjusted + commonSummary.adjusted;
   const totalExecuted = programSummary.executed + commonSummary.executed;
@@ -206,6 +235,18 @@ export default function App() {
     { id: "report", label: "분석 리포트", icon: "📈" },
     { id: "log", label: "수정 이력", icon: "🕓" },
   ];
+
+  if (requireAuth && authStatus === "loading") {
+    return (
+      <div className="h-full min-h-screen bg-mesh-1 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 flex items-center justify-center">
+        <div className="text-sm text-slate-400">불러오는 중...</div>
+      </div>
+    );
+  }
+
+  if (requireAuth && authStatus === "signedOut") {
+    return <LoginScreen onLogin={login} />;
+  }
 
   return (
     <div className="h-full bg-mesh-1 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 text-slate-900 flex flex-col">
@@ -239,13 +280,25 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-3 md:gap-5 flex-shrink-0">
-            {/* 저장 상태 표시 */}
+            {/* 저장/동기화 상태 표시 */}
             <div className="hidden xs:flex items-center gap-1.5">
-              <div className={`w-2 h-2 rounded-full transition-colors ${syncStatus === "synced" ? "bg-emerald-400" : "bg-amber-400 animate-pulse"}`} />
+              <div className={`w-2 h-2 rounded-full transition-colors ${
+                effectiveSyncStatus === "synced" ? "bg-emerald-400"
+                : effectiveSyncStatus === "offline" ? "bg-rose-400"
+                : "bg-amber-400 animate-pulse"
+              }`} />
               <span className="text-[10px] font-medium text-slate-400">
-                {syncStatus === "synced" ? "저장 완료" : "저장 중..."}
+                {effectiveSyncStatus === "synced" ? (firebaseConfigured ? "실시간 동기화됨" : "저장 완료")
+                  : effectiveSyncStatus === "offline" ? "오프라인"
+                  : "저장 중..."}
               </span>
             </div>
+            {requireAuth && user && (
+              <div className="hidden md:flex items-center gap-1.5 text-[11px] text-slate-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                {state.currentUser}
+              </div>
+            )}
             <div className="hidden md:flex items-center gap-1.5">
               <button
                 onClick={handleExportBackup}

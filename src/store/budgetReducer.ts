@@ -42,7 +42,12 @@ export type BudgetAction =
   | { type: "ADD_EXECUTION"; row: Omit<ExecutionRow, "id"> }
   | { type: "UPDATE_EXECUTION"; id: number; patch: Partial<ExecutionRow> }
   | { type: "DELETE_EXECUTION"; id: number }
-  | { type: "HYDRATE"; courses: Course[]; executions: ExecutionRow[]; logs: AdjustmentLog[] };
+  | { type: "HYDRATE"; courses: Course[]; executions: ExecutionRow[]; logs: AdjustmentLog[] }
+  | { type: "SET_CURRENT_USER"; name: string }
+  | { type: "REMOTE_COURSE_SYNCED"; course: Course }
+  | { type: "REMOTE_EXECUTION_SYNCED"; execution: ExecutionRow }
+  | { type: "REMOTE_EXECUTION_DELETED"; id: number }
+  | { type: "REMOTE_LOG_ADDED"; log: AdjustmentLog };
 
 // ─── Reducer ──────────────────────────────────────────────────
 export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetState {
@@ -179,6 +184,42 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
         executions: action.executions,
         logs: action.logs,
       };
+
+    case "SET_CURRENT_USER":
+      return { ...state, currentUser: action.name };
+
+    // ─── Firestore 원격 변경 병합 (다른 사용자/다른 탭에서 들어온 변경) ───
+
+    case "REMOTE_COURSE_SYNCED": {
+      const exists = state.courses.some((c) => c.id === action.course.id);
+      return {
+        ...state,
+        courses: exists
+          ? state.courses.map((c) => (c.id === action.course.id ? action.course : c))
+          : [...state.courses, action.course],
+      };
+    }
+
+    case "REMOTE_EXECUTION_SYNCED": {
+      const exists = state.executions.some((e) => e.id === action.execution.id);
+      return {
+        ...state,
+        executions: exists
+          ? state.executions.map((e) => (e.id === action.execution.id ? action.execution : e))
+          : [action.execution, ...state.executions],
+      };
+    }
+
+    case "REMOTE_EXECUTION_DELETED":
+      return {
+        ...state,
+        executions: state.executions.filter((e) => e.id !== action.id),
+      };
+
+    case "REMOTE_LOG_ADDED": {
+      if (state.logs.some((l) => l.id === action.log.id)) return state;
+      return { ...state, logs: [action.log, ...state.logs] };
+    }
 
     default:
       return state;
