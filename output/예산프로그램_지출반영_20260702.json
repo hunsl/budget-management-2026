@@ -1,0 +1,2714 @@
+{
+  "version": 2,
+  "savedAt": "2026-07-02T13:17:27",
+  "data": {
+    "courses": [
+      {
+        "id": 0,
+        "name": "공통운영비",
+        "manager": "기획총괄",
+        "category": "공통",
+        "status": "common",
+        "items": [
+          {
+            "id": "c0-1",
+            "group": "사무관리비",
+            "name": "교육과정 홍보물 제작",
+            "calc": "21,450,000 × 1",
+            "unitPrice": 21450000,
+            "qty1": 1,
+            "original": 21450000,
+            "adjusted": 21450000,
+            "executed": 0
+          },
+          {
+            "id": "c0-2",
+            "group": "사무관리비",
+            "name": "SNS·문자 홍보",
+            "calc": "6,500,000 × 1",
+            "unitPrice": 6500000,
+            "qty1": 1,
+            "original": 6500000,
+            "adjusted": 6500000,
+            "executed": 1770500
+          },
+          {
+            "id": "c0-3",
+            "group": "행사운영비",
+            "name": "직종설명회 운영",
+            "calc": "5,500,000 × 1",
+            "unitPrice": 5500000,
+            "qty1": 1,
+            "original": 5500000,
+            "adjusted": 5500000,
+            "executed": 0
+          },
+          {
+            "id": "c0-4",
+            "group": "회의비",
+            "name": "강사 간담회 운영",
+            "calc": "500,000 × 1",
+            "unitPrice": 500000,
+            "qty1": 1,
+            "original": 500000,
+            "adjusted": 500000,
+            "executed": 0
+          },
+          {
+            "id": "c0-5",
+            "group": "회의비",
+            "name": "다과 및 소모품",
+            "calc": "300,000 × 1",
+            "unitPrice": 300000,
+            "qty1": 1,
+            "original": 300000,
+            "adjusted": 300000,
+            "executed": 230000
+          },
+          {
+            "id": "c0-6",
+            "group": "교육훈련비",
+            "name": "심화교육 특강 강사료",
+            "calc": "4,000,000 × 1",
+            "unitPrice": 4000000,
+            "qty1": 1,
+            "original": 4000000,
+            "adjusted": 4000000,
+            "executed": 1600000
+          },
+          {
+            "id": "c0-7",
+            "group": "교육훈련비",
+            "name": "직종설명회 특강 강사료",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 2000000,
+            "executed": 0
+          },
+          {
+            "id": "c0-8",
+            "group": "교육훈련비",
+            "name": "학습동아리 운영(공통)",
+            "calc": "4,900,000 × 1",
+            "unitPrice": 4900000,
+            "qty1": 1,
+            "original": 4900000,
+            "adjusted": 4900000,
+            "executed": 0
+          },
+          {
+            "id": "c0-9",
+            "group": "행사실비보상금",
+            "name": "개강 및 수료식 다과",
+            "calc": "1,500,000 × 1",
+            "unitPrice": 1500000,
+            "qty1": 1,
+            "original": 1500000,
+            "adjusted": 1500000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "행정회계 사무 OA(1기)",
+        "manager": "신동원 주임",
+        "category": "사무분야",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c1-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c1-2",
+            "group": "사무관리비",
+            "name": "교재비용",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 699300
+          },
+          {
+            "id": "c1-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 1016000
+          },
+          {
+            "id": "c1-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "30,000 × 1",
+            "unitPrice": 30000,
+            "qty1": 1,
+            "original": 30000,
+            "adjusted": 30000,
+            "executed": 0
+          },
+          {
+            "id": "c1-5",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "14,720,000 × 1",
+            "unitPrice": 14720000,
+            "qty1": 1,
+            "original": 14720000,
+            "adjusted": 14720000,
+            "executed": 14720000
+          },
+          {
+            "id": "c1-6",
+            "group": "교육훈련비",
+            "name": "취업대비특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c1-7",
+            "group": "교육훈련비",
+            "name": "생성형AI 특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c1-8",
+            "group": "교육훈련비",
+            "name": "사후관리특강",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c1-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 700000,
+            "executed": 0
+          },
+          {
+            "id": "c1-10",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 2000000,
+            "executed": 1600000
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "행정회계 사무 OA(2기)",
+        "manager": "신동원 주임",
+        "category": "사무분야",
+        "status": "fixed",
+        "items": [
+          {
+            "id": "c2-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 800000
+          },
+          {
+            "id": "c2-2",
+            "group": "사무관리비",
+            "name": "교재비용",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          },
+          {
+            "id": "c2-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 935000
+          },
+          {
+            "id": "c2-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "30,000 × 1",
+            "unitPrice": 30000,
+            "qty1": 1,
+            "original": 30000,
+            "adjusted": 30000,
+            "executed": 0
+          },
+          {
+            "id": "c2-5",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "14,720,000 × 1",
+            "unitPrice": 14720000,
+            "qty1": 1,
+            "original": 14720000,
+            "adjusted": 14720000,
+            "executed": 0
+          },
+          {
+            "id": "c2-6",
+            "group": "교육훈련비",
+            "name": "취업대비특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c2-7",
+            "group": "교육훈련비",
+            "name": "생성형AI 특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c2-8",
+            "group": "교육훈련비",
+            "name": "사후관리특강",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c2-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 700000,
+            "executed": 0
+          },
+          {
+            "id": "c2-10",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 2000000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "HACCP 전문인력 양성",
+        "manager": "이상훈 과장",
+        "category": "식품분야",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c3-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c3-2",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "1,953,000 × 1",
+            "unitPrice": 1953000,
+            "qty1": 1,
+            "original": 1953000,
+            "adjusted": 1953000,
+            "executed": 1953000
+          },
+          {
+            "id": "c3-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 891000
+          },
+          {
+            "id": "c3-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "30,000 × 1",
+            "unitPrice": 30000,
+            "qty1": 1,
+            "original": 30000,
+            "adjusted": 30000,
+            "executed": 0
+          },
+          {
+            "id": "c3-5",
+            "group": "교육훈련비",
+            "name": "실습용역",
+            "calc": "10,062,000 × 1",
+            "unitPrice": 10062000,
+            "qty1": 1,
+            "original": 10062000,
+            "adjusted": 10062000,
+            "executed": 9915000
+          },
+          {
+            "id": "c3-6",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "15,840,000 × 1",
+            "unitPrice": 15840000,
+            "qty1": 1,
+            "original": 15840000,
+            "adjusted": 15840000,
+            "executed": 19040000
+          },
+          {
+            "id": "c3-7",
+            "group": "교육훈련비",
+            "name": "실험보조",
+            "calc": "2,800,000 × 1",
+            "unitPrice": 2800000,
+            "qty1": 1,
+            "original": 2800000,
+            "adjusted": 2800000,
+            "executed": 0
+          },
+          {
+            "id": "c3-8",
+            "group": "교육훈련비",
+            "name": "AI 특강",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c3-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 700000,
+            "executed": 0
+          },
+          {
+            "id": "c3-10",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "1,000,000 × 1",
+            "unitPrice": 1000000,
+            "qty1": 1,
+            "original": 1000000,
+            "adjusted": 1000000,
+            "executed": 1000000
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "ERP·지게차 물류관리 실무자 양성",
+        "manager": "이상훈 과장",
+        "category": "지역연계형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c4-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c4-2",
+            "group": "사무관리비",
+            "name": "교육장 임차료",
+            "calc": "9,980,000 × 1",
+            "unitPrice": 9980000,
+            "qty1": 1,
+            "original": 9980000,
+            "adjusted": 9980000,
+            "executed": 9975000
+          },
+          {
+            "id": "c4-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 847000
+          },
+          {
+            "id": "c4-4",
+            "group": "교육훈련비",
+            "name": "강사수당(지게차)",
+            "calc": "6,630,000 × 1",
+            "unitPrice": 6630000,
+            "qty1": 1,
+            "original": 6630000,
+            "adjusted": 6630000,
+            "executed": 0
+          },
+          {
+            "id": "c4-5",
+            "group": "교육훈련비",
+            "name": "ERP 강사수당",
+            "calc": "4,680,000 × 1",
+            "unitPrice": 4680000,
+            "qty1": 1,
+            "original": 4680000,
+            "adjusted": 4680000,
+            "executed": 6825000
+          },
+          {
+            "id": "c4-6",
+            "group": "교육훈련비",
+            "name": "취업특강 및 안전교육",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c4-7",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "750,000 × 1",
+            "unitPrice": 750000,
+            "qty1": 1,
+            "original": 750000,
+            "adjusted": 750000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "승강기 전문가 양성",
+        "manager": "이상훈 과장",
+        "category": "지역연계형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c5-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 200000
+          },
+          {
+            "id": "c5-2",
+            "group": "사무관리비",
+            "name": "버스 임차료",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 2000000,
+            "executed": 1800000
+          },
+          {
+            "id": "c5-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 913000
+          },
+          {
+            "id": "c5-4",
+            "group": "공공운영비",
+            "name": "보험료",
+            "calc": "850,000 × 1",
+            "unitPrice": 850000,
+            "qty1": 1,
+            "original": 850000,
+            "adjusted": 850000,
+            "executed": 122000
+          },
+          {
+            "id": "c5-5",
+            "group": "교육훈련비",
+            "name": "교육 운영비",
+            "calc": "3,800,000 × 1",
+            "unitPrice": 3800000,
+            "qty1": 1,
+            "original": 3800000,
+            "adjusted": 3800000,
+            "executed": 0
+          },
+          {
+            "id": "c5-6",
+            "group": "교육훈련비",
+            "name": "실습 교육 비용",
+            "calc": "6,000,000 × 1",
+            "unitPrice": 6000000,
+            "qty1": 1,
+            "original": 6000000,
+            "adjusted": 6000000,
+            "executed": 6000000
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "중장년 기회강사 양성",
+        "manager": "신동원 주임",
+        "category": "지역연계형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c6-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c6-2",
+            "group": "사무관리비",
+            "name": "교재(MBTI 검사지)",
+            "calc": "165,000 × 1",
+            "unitPrice": 165000,
+            "qty1": 1,
+            "original": 165000,
+            "adjusted": 165000,
+            "executed": 0
+          },
+          {
+            "id": "c6-3",
+            "group": "사무관리비",
+            "name": "강사프로필",
+            "calc": "1,050,000 × 1",
+            "unitPrice": 1050000,
+            "qty1": 1,
+            "original": 1050000,
+            "adjusted": 1050000,
+            "executed": 0
+          },
+          {
+            "id": "c6-4",
+            "group": "사무관리비",
+            "name": "강사소개책자",
+            "calc": "4,200,000 × 1",
+            "unitPrice": 4200000,
+            "qty1": 1,
+            "original": 4200000,
+            "adjusted": 4200000,
+            "executed": 0
+          },
+          {
+            "id": "c6-5",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 0
+          },
+          {
+            "id": "c6-6",
+            "group": "교육훈련비",
+            "name": "강사료",
+            "calc": "9,960,000 × 1",
+            "unitPrice": 9960000,
+            "qty1": 1,
+            "original": 9960000,
+            "adjusted": 9960000,
+            "executed": 0
+          },
+          {
+            "id": "c6-7",
+            "group": "교육훈련비",
+            "name": "교육생 특강료 지원",
+            "calc": "1,875,000 × 1",
+            "unitPrice": 1875000,
+            "qty1": 1,
+            "original": 1875000,
+            "adjusted": 1875000,
+            "executed": 0
+          },
+          {
+            "id": "c6-8",
+            "group": "교육훈련비",
+            "name": "훈련수당",
+            "calc": "750,000 × 1",
+            "unitPrice": 750000,
+            "qty1": 1,
+            "original": 750000,
+            "adjusted": 750000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "초등 피지컬 코딩강사 양성",
+        "manager": "이상훈 과장",
+        "category": "강사양성형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c7-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c7-2",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 935000
+          },
+          {
+            "id": "c7-3",
+            "group": "사무관리비",
+            "name": "소모품비",
+            "calc": "60,000 × 1",
+            "unitPrice": 60000,
+            "qty1": 1,
+            "original": 60000,
+            "adjusted": 60000,
+            "executed": 0
+          },
+          {
+            "id": "c7-4",
+            "group": "사무관리비",
+            "name": "재료비",
+            "calc": "3,000,000 × 1",
+            "unitPrice": 3000000,
+            "qty1": 1,
+            "original": 3000000,
+            "adjusted": 3000000,
+            "executed": 3250000
+          },
+          {
+            "id": "c7-5",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          },
+          {
+            "id": "c7-6",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "100,000 × 1",
+            "unitPrice": 100000,
+            "qty1": 1,
+            "original": 100000,
+            "adjusted": 100000,
+            "executed": 0
+          },
+          {
+            "id": "c7-7",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "6,000,000 × 1",
+            "unitPrice": 6000000,
+            "qty1": 1,
+            "original": 6000000,
+            "adjusted": 6000000,
+            "executed": 0
+          },
+          {
+            "id": "c7-8",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          },
+          {
+            "id": "c7-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 700000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "AI 딥러닝 전문강사 양성",
+        "manager": "이상훈 과장",
+        "category": "강사양성형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c8-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c8-2",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 913000
+          },
+          {
+            "id": "c8-3",
+            "group": "사무관리비",
+            "name": "소모품비",
+            "calc": "60,000 × 1",
+            "unitPrice": 60000,
+            "qty1": 1,
+            "original": 60000,
+            "adjusted": 60000,
+            "executed": 0
+          },
+          {
+            "id": "c8-4",
+            "group": "사무관리비",
+            "name": "재료비",
+            "calc": "3,000,000 × 1",
+            "unitPrice": 3000000,
+            "qty1": 1,
+            "original": 3000000,
+            "adjusted": 3000000,
+            "executed": 0
+          },
+          {
+            "id": "c8-5",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "500,000 × 1",
+            "unitPrice": 500000,
+            "qty1": 1,
+            "original": 500000,
+            "adjusted": 500000,
+            "executed": 0
+          },
+          {
+            "id": "c8-6",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "100,000 × 1",
+            "unitPrice": 100000,
+            "qty1": 1,
+            "original": 100000,
+            "adjusted": 100000,
+            "executed": 0
+          },
+          {
+            "id": "c8-7",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "13,800,000 × 1",
+            "unitPrice": 13800000,
+            "qty1": 1,
+            "original": 13800000,
+            "adjusted": 13800000,
+            "executed": 0
+          },
+          {
+            "id": "c8-8",
+            "group": "교육훈련비",
+            "name": "보조강사",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 2000000,
+            "executed": 0
+          },
+          {
+            "id": "c8-9",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          },
+          {
+            "id": "c8-10",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 700000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "늘봄학교 창의융합교육강사 양성",
+        "manager": "신동원 주임",
+        "category": "강사양성형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c9-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c9-2",
+            "group": "사무관리비",
+            "name": "교재 및 재료",
+            "calc": "1,365,000 × 1",
+            "unitPrice": 1365000,
+            "qty1": 1,
+            "original": 1365000,
+            "adjusted": 1365000,
+            "executed": 1345060
+          },
+          {
+            "id": "c9-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 891000
+          },
+          {
+            "id": "c9-4",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "8,320,000 × 1",
+            "unitPrice": 8320000,
+            "qty1": 1,
+            "original": 8320000,
+            "adjusted": 8320000,
+            "executed": 8320000
+          },
+          {
+            "id": "c9-5",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          },
+          {
+            "id": "c9-6",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 700000,
+            "executed": 0
+          },
+          {
+            "id": "c9-7",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "1,000,000 × 1",
+            "unitPrice": 1000000,
+            "qty1": 1,
+            "original": 1000000,
+            "adjusted": 1000000,
+            "executed": 850000
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "AI시대의 캐릭터 크리에이터 양성",
+        "manager": "이상훈 과장",
+        "category": "IT 신직무형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c10-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c10-2",
+            "group": "사무관리비",
+            "name": "구루미 사용",
+            "calc": "200,000 × 1",
+            "unitPrice": 200000,
+            "qty1": 1,
+            "original": 200000,
+            "adjusted": 200000,
+            "executed": 0
+          },
+          {
+            "id": "c10-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 1650000,
+            "executed": 852500
+          },
+          {
+            "id": "c10-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "100,000 × 1",
+            "unitPrice": 100000,
+            "qty1": 1,
+            "original": 100000,
+            "adjusted": 100000,
+            "executed": 0
+          },
+          {
+            "id": "c10-5",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "8,000,000 × 1",
+            "unitPrice": 8000000,
+            "qty1": 1,
+            "original": 8000000,
+            "adjusted": 8000000,
+            "executed": 0
+          },
+          {
+            "id": "c10-6",
+            "group": "교육훈련비",
+            "name": "취업·저작권 특강",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "name": "미지정 공모과정 A",
+        "manager": "이상훈 과장",
+        "category": "공모 미정",
+        "status": "unassigned",
+        "items": []
+      },
+      {
+        "id": 12,
+        "name": "미지정 공모과정 B",
+        "manager": "신동원 주임",
+        "category": "공모 미정",
+        "status": "unassigned",
+        "items": []
+      },
+      {
+        "id": 13,
+        "name": "미지정 공모과정 C",
+        "manager": "이상훈 과장",
+        "category": "공모 미정",
+        "status": "unassigned",
+        "items": []
+      }
+    ],
+    "executions": [
+      {
+        "id": 20260702000001,
+        "courseId": 0,
+        "itemId": "c0-2",
+        "date": "2026-02-23",
+        "amount": 1200000,
+        "vendor": "(주)다날",
+        "memo": "(카드) 경기북부직업교육 카카오톡 홍보계정 캐시 충전비용 지급 건의(26년 1월) / 결의 00409"
+      },
+      {
+        "id": 20260702000002,
+        "courseId": 1,
+        "itemId": "c1-3",
+        "date": "2026-03-12",
+        "amount": 836000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육 행정회계 사무OA 과정(1기) 교육생 모집 홍보물 제작 비용 지출 건의 / 결의 01547"
+      },
+      {
+        "id": 20260702000003,
+        "courseId": 9,
+        "itemId": "c9-3",
+        "date": "2026-03-12",
+        "amount": 836000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육 늘봄학교 창의융합교육강사 양성과정 교육생 모집 홍보물 제작 비용 지출 건의 / 결의 01548"
+      },
+      {
+        "id": 20260702000004,
+        "courseId": 3,
+        "itemId": "c3-3",
+        "date": "2026-03-12",
+        "amount": 836000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육 HACCP 전문인력 양성과정 교육생 모집 홍보물 제작 비용 지출 건의 / 결의 01550"
+      },
+      {
+        "id": 20260702000005,
+        "courseId": 1,
+        "itemId": "c1-1",
+        "date": "2026-03-16",
+        "amount": 364800,
+        "vendor": "김대용",
+        "memo": "2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 면접수당 지급 건의 / 결의 01676"
+      },
+      {
+        "id": 20260702000006,
+        "courseId": 1,
+        "itemId": "c1-1",
+        "date": "2026-03-16",
+        "amount": 32000,
+        "vendor": "세무서",
+        "memo": "2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 면접수당 지급 건의 / 결의 01676"
+      },
+      {
+        "id": 20260702000007,
+        "courseId": 1,
+        "itemId": "c1-1",
+        "date": "2026-03-16",
+        "amount": 3200,
+        "vendor": "시청",
+        "memo": "2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 면접수당 지급 건의 / 결의 01676"
+      },
+      {
+        "id": 20260702000008,
+        "courseId": 1,
+        "itemId": "c1-3",
+        "date": "2026-03-23",
+        "amount": 180000,
+        "vendor": "씨엔피",
+        "memo": "(카드) 2026년 경기북부 직업교육 행정회계 사무OA 과정(1기) 현수막 제작 비용 지출 건의 / 결의 00661"
+      },
+      {
+        "id": 20260702000009,
+        "courseId": 3,
+        "itemId": "c3-1",
+        "date": "2026-03-30",
+        "amount": 364800,
+        "vendor": "한덕영",
+        "memo": "2026년 경기북부 직업교육 HACCP 전문인력 양성과정 면접수당 지급 건의 / 결의 02296"
+      },
+      {
+        "id": 20260702000010,
+        "courseId": 3,
+        "itemId": "c3-1",
+        "date": "2026-03-30",
+        "amount": 32000,
+        "vendor": "세무서",
+        "memo": "2026년 경기북부 직업교육 HACCP 전문인력 양성과정 면접수당 지급 건의 / 결의 02296"
+      },
+      {
+        "id": 20260702000011,
+        "courseId": 3,
+        "itemId": "c3-1",
+        "date": "2026-03-30",
+        "amount": 3200,
+        "vendor": "시청",
+        "memo": "2026년 경기북부 직업교육 HACCP 전문인력 양성과정 면접수당 지급 건의 / 결의 02296"
+      },
+      {
+        "id": 20260702000012,
+        "courseId": 9,
+        "itemId": "c9-1",
+        "date": "2026-04-13",
+        "amount": 364800,
+        "vendor": "윤미경",
+        "memo": "(수당)2026년 경기북부 직업교육 늘봄학교 창의융합교육강사 양성과정 면접수당 지급 건의 / 결의 02955"
+      },
+      {
+        "id": 20260702000013,
+        "courseId": 9,
+        "itemId": "c9-1",
+        "date": "2026-04-13",
+        "amount": 32000,
+        "vendor": "세무서",
+        "memo": "(수당)2026년 경기북부 직업교육 늘봄학교 창의융합교육강사 양성과정 면접수당 지급 건의 / 결의 02955"
+      },
+      {
+        "id": 20260702000014,
+        "courseId": 9,
+        "itemId": "c9-1",
+        "date": "2026-04-13",
+        "amount": 3200,
+        "vendor": "시청",
+        "memo": "(수당)2026년 경기북부 직업교육 늘봄학교 창의융합교육강사 양성과정 면접수당 지급 건의 / 결의 02955"
+      },
+      {
+        "id": 20260702000015,
+        "courseId": 4,
+        "itemId": "c4-3",
+        "date": "2026-04-14",
+        "amount": 847000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부직업교육「ERP·지게차 물류관리 실무자 양성과정」교육생 모집 홍보물 제작 비용 지출 건의 / 결의 03015"
+      },
+      {
+        "id": 20260702000016,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-04-16",
+        "amount": 729600,
+        "vendor": "김상영",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 03170"
+      },
+      {
+        "id": 20260702000017,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-04-16",
+        "amount": 64000,
+        "vendor": "세무서",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 03170"
+      },
+      {
+        "id": 20260702000018,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-04-16",
+        "amount": 6400,
+        "vendor": "시청",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 03170"
+      },
+      {
+        "id": 20260702000019,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-04-16",
+        "amount": 386800,
+        "vendor": "김미진",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 03171"
+      },
+      {
+        "id": 20260702000020,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-04-16",
+        "amount": 12000,
+        "vendor": "세무서",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 03171"
+      },
+      {
+        "id": 20260702000021,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-04-16",
+        "amount": 1200,
+        "vendor": "시청",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 03171"
+      },
+      {
+        "id": 20260702000022,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "강민희",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000023,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "김도이",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000024,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "김선영",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000025,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "김예지",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000026,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "김형미",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000027,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "김효미",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000028,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "남미선",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000029,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "박예은",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000030,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "박지은",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000031,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "변인화",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000032,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "송이령",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000033,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "오수빈",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000034,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "오현명",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000035,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "윤현정",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000036,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "이세권",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000037,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "이정우",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000038,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "이주희",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000039,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "정가현",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000040,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "차소윤",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000041,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-04-16",
+        "amount": 50000,
+        "vendor": "최민우",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계 사무OA과정(1기) 훈련수당 지급 건의 / 결의 03205"
+      },
+      {
+        "id": 20260702000042,
+        "courseId": 9,
+        "itemId": "c9-3",
+        "date": "2026-04-21",
+        "amount": 55000,
+        "vendor": "꽉찬디자인",
+        "memo": "(카드) 2026년 경기북부 직업교육 늘봄학교 창의융합 교육강사 양성과정 현수막 제작 / 결의 03256"
+      },
+      {
+        "id": 20260702000049,
+        "courseId": 1,
+        "itemId": "c1-2",
+        "date": "2026-04-23",
+        "amount": 699300,
+        "vendor": "문화비_영풍문고_(주)영풍문고",
+        "memo": "2026년 경기북부직업교육 행정회계 사무OA(1기)과정 컴활2급 교재 지출 건의 / 결의 02624"
+      },
+      {
+        "id": 20260702000050,
+        "courseId": 9,
+        "itemId": "c9-2",
+        "date": "2026-05-07",
+        "amount": 440000,
+        "vendor": "알투디",
+        "memo": "2026년 경기북부 직업교육 늘봄학교 창의융합교육강사 양성과정 재료비 지출 건의 / 결의 03719"
+      },
+      {
+        "id": 20260702000051,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-05-07",
+        "amount": 711360,
+        "vendor": "윤미경",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」4월 강사료 지급 건의 / 결의 03822"
+      },
+      {
+        "id": 20260702000052,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-05-07",
+        "amount": 711360,
+        "vendor": "권희영",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」4월 강사료 지급 건의 / 결의 03822"
+      },
+      {
+        "id": 20260702000053,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-05-07",
+        "amount": 711360,
+        "vendor": "김승선",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」4월 강사료 지급 건의 / 결의 03822"
+      },
+      {
+        "id": 20260702000054,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-05-07",
+        "amount": 187200,
+        "vendor": "세무서",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」4월 강사료 지급 건의 / 결의 03822"
+      },
+      {
+        "id": 20260702000055,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-05-07",
+        "amount": 18720,
+        "vendor": "시청",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」4월 강사료 지급 건의 / 결의 03822"
+      },
+      {
+        "id": 20260702000056,
+        "courseId": 7,
+        "itemId": "c7-2",
+        "date": "2026-05-14",
+        "amount": 935000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육「초등 피지컬 코딩강사 양성과정」교육생 모집 홍보물 제작 비용 지출 건의 / 결의 04137"
+      },
+      {
+        "id": 20260702000057,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "김규린",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000058,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "김기범",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000059,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "김란희",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000060,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "김지은",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000061,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "김현호",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000062,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "김화진",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000063,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "박민주",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000064,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "박소미",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000065,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "박예나",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000066,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "신어진",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000067,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "양혜원",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000068,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "원지현",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000069,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "이종훈",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000070,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "이혜영",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000071,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "이효진",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000072,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "정종현",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000073,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "최두영",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000074,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "최은서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000075,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "최지수",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000076,
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-05-18",
+        "amount": 50000,
+        "vendor": "홍채영",
+        "memo": "(수당) 2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 훈련수당 지급 건의 / 결의 04285"
+      },
+      {
+        "id": 20260702000077,
+        "courseId": 5,
+        "itemId": "c5-3",
+        "date": "2026-05-18",
+        "amount": 913000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육「승강기 전문가 양성과정」교육생 모집 홍보물 제작 비용 지출 건의 / 결의 04312"
+      },
+      {
+        "id": 20260702000078,
+        "courseId": 3,
+        "itemId": "c3-5",
+        "date": "2026-05-18",
+        "amount": 9915000,
+        "vendor": "(주)한국식품정보원",
+        "memo": "2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 실습용역 지급 건의 / 결의 04437"
+      },
+      {
+        "id": 20260702000079,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "강민희",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000080,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "김선영",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000081,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "김예지",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000082,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "김형미",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000083,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "김효미",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000084,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "박예은",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000085,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "송이령",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000086,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "오현명",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000087,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "이세권",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000088,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "이정우",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000089,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "이주희",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000090,
+        "courseId": 1,
+        "itemId": "c1-10",
+        "date": "2026-05-21",
+        "amount": 50000,
+        "vendor": "정가현",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」훈련수당 지급 건의_2차 / 결의 04563"
+      },
+      {
+        "id": 20260702000091,
+        "courseId": 8,
+        "itemId": "c8-2",
+        "date": "2026-05-21",
+        "amount": 913000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육 AI 딥러닝 전문강사 양성과정 홍보물 제작 비용 지출 건의 / 결의 04644"
+      },
+      {
+        "id": 20260702000092,
+        "courseId": 2,
+        "itemId": "c2-3",
+        "date": "2026-05-21",
+        "amount": 935000,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육 행정회계 사무OA과정(2기) 홍보물 제작 비용 지출 건의 / 결의 04646"
+      },
+      {
+        "id": 20260702000093,
+        "courseId": 3,
+        "itemId": "c3-3",
+        "date": "2026-05-26",
+        "amount": 55000,
+        "vendor": "씨엔피",
+        "memo": "(카드) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 현수막 제작 / 결의 02743"
+      },
+      {
+        "id": 20260702000094,
+        "courseId": 0,
+        "itemId": "c0-5",
+        "date": "2026-05-26",
+        "amount": 120000,
+        "vendor": "오피스넥스(의정부점)",
+        "memo": "(카드)2026년 경기북부 직업교육 소모품비 지출 건의 / 결의 02921"
+      },
+      {
+        "id": 20260702000099,
+        "courseId": 9,
+        "itemId": "c9-2",
+        "date": "2026-05-26",
+        "amount": 647040,
+        "vendor": "KCP-쿠팡_쿠팡",
+        "memo": "(카드) 2026년 경기북부 직업교육 늘봄학교 창의융합 교육강사 양성과정 재료비 지출건의(2차)_재 / 결의 03714"
+      },
+      {
+        "id": 20260702000100,
+        "courseId": 9,
+        "itemId": "c9-2",
+        "date": "2026-05-26",
+        "amount": 152600,
+        "vendor": "쿠팡",
+        "memo": "(카드) 2026년 경기북부 직업교육 늘봄학교 창의융합 교육강사 양성과정 재료비 지출건의(2차)_재 / 결의 03714"
+      },
+      {
+        "id": 20260702000101,
+        "courseId": 9,
+        "itemId": "c9-2",
+        "date": "2026-05-26",
+        "amount": 105420,
+        "vendor": "쿠팡",
+        "memo": "(카드) 2026년 경기북부 직업교육 늘봄학교 창의융합 교육강사 양성과정 재료비 지출건의(3차) / 결의 03728"
+      },
+      {
+        "id": 20260702000104,
+        "courseId": 1,
+        "itemId": "c1-5",
+        "date": "2026-06-01",
+        "amount": 7587840,
+        "vendor": "김대용",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」강사료 지급 건의(김*용) / 결의 04814"
+      },
+      {
+        "id": 20260702000105,
+        "courseId": 1,
+        "itemId": "c1-5",
+        "date": "2026-06-01",
+        "amount": 665600,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」강사료 지급 건의(김*용) / 결의 04814"
+      },
+      {
+        "id": 20260702000106,
+        "courseId": 1,
+        "itemId": "c1-5",
+        "date": "2026-06-01",
+        "amount": 66560,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」강사료 지급 건의(김*용) / 결의 04814"
+      },
+      {
+        "id": 20260702000107,
+        "courseId": 4,
+        "itemId": "c4-1",
+        "date": "2026-06-01",
+        "amount": 364800,
+        "vendor": "김성종",
+        "memo": "(수당)2026년 경기북부 직업교육 ERP·지게차 물류관리 실무자 양성과정 면접수당 지급 건의 / 결의 04975"
+      },
+      {
+        "id": 20260702000108,
+        "courseId": 4,
+        "itemId": "c4-1",
+        "date": "2026-06-01",
+        "amount": 32000,
+        "vendor": "세무서",
+        "memo": "(수당)2026년 경기북부 직업교육 ERP·지게차 물류관리 실무자 양성과정 면접수당 지급 건의 / 결의 04975"
+      },
+      {
+        "id": 20260702000109,
+        "courseId": 4,
+        "itemId": "c4-1",
+        "date": "2026-06-01",
+        "amount": 3200,
+        "vendor": "시청",
+        "memo": "(수당)2026년 경기북부 직업교육 ERP·지게차 물류관리 실무자 양성과정 면접수당 지급 건의 / 결의 04975"
+      },
+      {
+        "id": 20260702000110,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-06-01",
+        "amount": 386800,
+        "vendor": "김미진",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 05017"
+      },
+      {
+        "id": 20260702000111,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-06-01",
+        "amount": 12000,
+        "vendor": "세무서",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 05017"
+      },
+      {
+        "id": 20260702000112,
+        "courseId": 0,
+        "itemId": "c0-6",
+        "date": "2026-06-01",
+        "amount": 1200,
+        "vendor": "시청",
+        "memo": "(수당)2026년 경기북부 직업교육 행정회계사무OA과정 특강 강사수당 지급 건의 / 결의 05017"
+      },
+      {
+        "id": 20260702000113,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "강유정",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000114,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "강은경",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000115,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "고유리",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000116,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "김경원",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000117,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "김민정",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000118,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "김유나",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000119,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "김육남",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000120,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "김채원",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000121,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "안보미",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000122,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "이지우",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000123,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "임세홍",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000124,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "정선주",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000125,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "정성미",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000126,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "조혜영",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000127,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "최윤서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000128,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "황윤정",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000129,
+        "courseId": 9,
+        "itemId": "c9-7",
+        "date": "2026-06-01",
+        "amount": 50000,
+        "vendor": "나선우",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」훈련수당 지급 건의 / 결의 05061"
+      },
+      {
+        "id": 20260702000130,
+        "courseId": 3,
+        "itemId": "c3-2",
+        "date": "2026-06-02",
+        "amount": 1953000,
+        "vendor": "주식회사 제이디디자인",
+        "memo": "2026년 경기북부 직업교육 「HACCP 전문인력 양성과정」 교재비 지급 건의 / 결의 05089"
+      },
+      {
+        "id": 20260702000131,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 875520,
+        "vendor": "이신행",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000132,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 437760,
+        "vendor": "박현수",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000133,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 1751040,
+        "vendor": "류기찬",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000134,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 1313280,
+        "vendor": "김도훈",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000135,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 875520,
+        "vendor": "문유석",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000136,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 5690880,
+        "vendor": "정진영",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000137,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 437760,
+        "vendor": "손기주",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000138,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 437760,
+        "vendor": "이성식",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000139,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 364800,
+        "vendor": "김상영",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000140,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 1751040,
+        "vendor": "허경화",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000141,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 875520,
+        "vendor": "한지영",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000142,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 2553600,
+        "vendor": "한덕영",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000143,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 1523200,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000144,
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-06-04",
+        "amount": 152320,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 HACCP 전문인력 양성과정 강사수당 지급 건의 / 결의 05093"
+      },
+      {
+        "id": 20260702000145,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-04",
+        "amount": 948480,
+        "vendor": "박은미",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」5월 강사료 지급 건의 / 결의 05123"
+      },
+      {
+        "id": 20260702000146,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-04",
+        "amount": 711360,
+        "vendor": "신차숙",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」5월 강사료 지급 건의 / 결의 05123"
+      },
+      {
+        "id": 20260702000147,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-04",
+        "amount": 711360,
+        "vendor": "윤미경",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」5월 강사료 지급 건의 / 결의 05123"
+      },
+      {
+        "id": 20260702000148,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-04",
+        "amount": 237120,
+        "vendor": "김승선",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」5월 강사료 지급 건의 / 결의 05123"
+      },
+      {
+        "id": 20260702000149,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-04",
+        "amount": 237120,
+        "vendor": "권희영",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」5월 강사료 지급 건의 / 결의 05123"
+      },
+      {
+        "id": 20260702000150,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-04",
+        "amount": 249600,
+        "vendor": "세무서",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」5월 강사료 지급 건의 / 결의 05123"
+      },
+      {
+        "id": 20260702000151,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-04",
+        "amount": 24960,
+        "vendor": "시청",
+        "memo": "(수당)2026년 경기북부 직업교육「늘봄학교 창의융합교육강사 양성과정」5월 강사료 지급 건의 / 결의 05123"
+      },
+      {
+        "id": 20260702000152,
+        "courseId": 1,
+        "itemId": "c1-5",
+        "date": "2026-06-04",
+        "amount": 5836800,
+        "vendor": "곽재석",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」강사료 지급 건의(곽*석) / 결의 05124"
+      },
+      {
+        "id": 20260702000153,
+        "courseId": 1,
+        "itemId": "c1-5",
+        "date": "2026-06-04",
+        "amount": 512000,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」강사료 지급 건의(곽*석) / 결의 05124"
+      },
+      {
+        "id": 20260702000154,
+        "courseId": 1,
+        "itemId": "c1-5",
+        "date": "2026-06-04",
+        "amount": 51200,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(1기)」강사료 지급 건의(곽*석) / 결의 05124"
+      },
+      {
+        "id": 20260702000155,
+        "courseId": 5,
+        "itemId": "c5-1",
+        "date": "2026-06-04",
+        "amount": 182400,
+        "vendor": "강인숙",
+        "memo": "(수당) 2026년 경기북부 직업교육 승강기 전문가 양성과정 면접수당 지급 건의(재) / 결의 05152"
+      },
+      {
+        "id": 20260702000156,
+        "courseId": 5,
+        "itemId": "c5-1",
+        "date": "2026-06-04",
+        "amount": 16000,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 승강기 전문가 양성과정 면접수당 지급 건의(재) / 결의 05152"
+      },
+      {
+        "id": 20260702000157,
+        "courseId": 5,
+        "itemId": "c5-1",
+        "date": "2026-06-04",
+        "amount": 1600,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 승강기 전문가 양성과정 면접수당 지급 건의(재) / 결의 05152"
+      },
+      {
+        "id": 20260702000158,
+        "courseId": 5,
+        "itemId": "c5-2",
+        "date": "2026-06-04",
+        "amount": 1800000,
+        "vendor": "(주)홍익관광복지재단",
+        "memo": "2026년 경기북부 직업교육 「승강기 전문가 양성과정」버스임차 지출 건의 / 결의 05173"
+      },
+      {
+        "id": 20260702000159,
+        "courseId": 5,
+        "itemId": "c5-6",
+        "date": "2026-06-18",
+        "amount": 6000000,
+        "vendor": "한국승강기안전공단 거창교육장",
+        "memo": "2026년 경기북부 직업교육 「승강기 전문가 양성과정」 승강기길잡이 교육비 / 결의 05889"
+      },
+      {
+        "id": 20260702000160,
+        "courseId": 7,
+        "itemId": "c7-1",
+        "date": "2026-06-22",
+        "amount": 364800,
+        "vendor": "장성희",
+        "memo": "(수당) 2026년 경기북부 직업교육 초등 피지컬 코딩강사 양성과정 면접수당 지급 건의 / 결의 06019"
+      },
+      {
+        "id": 20260702000161,
+        "courseId": 7,
+        "itemId": "c7-1",
+        "date": "2026-06-22",
+        "amount": 32000,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 초등 피지컬 코딩강사 양성과정 면접수당 지급 건의 / 결의 06019"
+      },
+      {
+        "id": 20260702000162,
+        "courseId": 7,
+        "itemId": "c7-1",
+        "date": "2026-06-22",
+        "amount": 3200,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 초등 피지컬 코딩강사 양성과정 면접수당 지급 건의 / 결의 06019"
+      },
+      {
+        "id": 20260702000163,
+        "courseId": 8,
+        "itemId": "c8-1",
+        "date": "2026-06-22",
+        "amount": 364800,
+        "vendor": "박지경",
+        "memo": "(수당) 2026년 경기북부 직업교육 「AI딥러닝 전문강사 양성과정」 면접수당 지급 건의 / 결의 06046"
+      },
+      {
+        "id": 20260702000164,
+        "courseId": 8,
+        "itemId": "c8-1",
+        "date": "2026-06-22",
+        "amount": 32000,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「AI딥러닝 전문강사 양성과정」 면접수당 지급 건의 / 결의 06046"
+      },
+      {
+        "id": 20260702000165,
+        "courseId": 8,
+        "itemId": "c8-1",
+        "date": "2026-06-22",
+        "amount": 3200,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 「AI딥러닝 전문강사 양성과정」 면접수당 지급 건의 / 결의 06046"
+      },
+      {
+        "id": 20260702000173,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-22",
+        "amount": 711360,
+        "vendor": "권송이",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」6월 강사료 지급 건의 / 결의 06062"
+      },
+      {
+        "id": 20260702000174,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-22",
+        "amount": 1422720,
+        "vendor": "윤미경",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」6월 강사료 지급 건의 / 결의 06062"
+      },
+      {
+        "id": 20260702000175,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-22",
+        "amount": 237120,
+        "vendor": "김승선",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」6월 강사료 지급 건의 / 결의 06062"
+      },
+      {
+        "id": 20260702000176,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-22",
+        "amount": 237120,
+        "vendor": "박은미",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」6월 강사료 지급 건의 / 결의 06062"
+      },
+      {
+        "id": 20260702000177,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-22",
+        "amount": 228800,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」6월 강사료 지급 건의 / 결의 06062"
+      },
+      {
+        "id": 20260702000178,
+        "courseId": 9,
+        "itemId": "c9-4",
+        "date": "2026-06-22",
+        "amount": 22880,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 「늘봄학교 창의융합교육강사 양성과정」6월 강사료 지급 건의 / 결의 06062"
+      },
+      {
+        "id": 20260702000181,
+        "courseId": 5,
+        "itemId": "c5-4",
+        "date": "2026-06-23",
+        "amount": 122000,
+        "vendor": "(주)케이비손해보험",
+        "memo": "(카드)「2026년 승강기 전문가 양성과정」 실습교육 보험가입 지급건의 / 결의 04559"
+      },
+      {
+        "id": 20260702000182,
+        "courseId": 0,
+        "itemId": "c0-5",
+        "date": "2026-06-23",
+        "amount": 110000,
+        "vendor": "오피스넥스(의정부점)",
+        "memo": "(카드) 2026년 경기북부 직업교육 소모품 구입 건의 / 결의 04790"
+      },
+      {
+        "id": 20260702000188,
+        "courseId": 0,
+        "itemId": "c0-2",
+        "date": "2026-06-26",
+        "amount": 570500,
+        "vendor": "슈어엠주식회사",
+        "memo": "워크넷(슈어엠) 문자발송비용 지출건의(2026년 경기북부 직업교육) / 결의 06224"
+      },
+      {
+        "id": 20260702000189,
+        "courseId": 7,
+        "itemId": "c7-4",
+        "date": "2026-06-26",
+        "amount": 780000,
+        "vendor": "(주)로보로보",
+        "memo": "2026년 경기북부 직업교육 「초등 피지컬 코딩강사 양성과정」교구 비용 지출 건의 / 결의 06239"
+      },
+      {
+        "id": 20260702000190,
+        "courseId": 7,
+        "itemId": "c7-4",
+        "date": "2026-06-26",
+        "amount": 2470000,
+        "vendor": "(주)로보로보",
+        "memo": "2026년 경기북부 직업교육 「초등 피지컬 코딩강사 양성과정」교구 비용 지출 건의 / 결의 06239"
+      },
+      {
+        "id": 20260702000191,
+        "courseId": 4,
+        "itemId": "c4-5",
+        "date": "2026-06-26",
+        "amount": 6224400,
+        "vendor": "김성종",
+        "memo": "(수당) 2026년 경기북부 직업교육 「ERP·지게차 물류관리 실무자 양성과정」강사료 지급 건의(김*종 강사) / 결의 06340"
+      },
+      {
+        "id": 20260702000192,
+        "courseId": 4,
+        "itemId": "c4-5",
+        "date": "2026-06-26",
+        "amount": 546000,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「ERP·지게차 물류관리 실무자 양성과정」강사료 지급 건의(김*종 강사) / 결의 06340"
+      },
+      {
+        "id": 20260702000193,
+        "courseId": 4,
+        "itemId": "c4-5",
+        "date": "2026-06-26",
+        "amount": 54600,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 「ERP·지게차 물류관리 실무자 양성과정」강사료 지급 건의(김*종 강사) / 결의 06340"
+      },
+      {
+        "id": 20260702000194,
+        "courseId": 4,
+        "itemId": "c4-2",
+        "date": "2026-06-30",
+        "amount": 9975000,
+        "vendor": "하나중장비학원",
+        "memo": "2026년 경기북부 직업교육 「ERP·지게차 물류관리 실무자 양성과정」실습 장비사용 및 교육시설 임차 비용 지급 건의 / 결의 06491"
+      },
+      {
+        "id": 20260702000195,
+        "courseId": 2,
+        "itemId": "c2-1",
+        "date": "2026-06-30",
+        "amount": 364800,
+        "vendor": "곽재석",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(2기)」면접수당 지급 건의 / 결의 06536"
+      },
+      {
+        "id": 20260702000196,
+        "courseId": 2,
+        "itemId": "c2-1",
+        "date": "2026-06-30",
+        "amount": 364800,
+        "vendor": "문미현",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(2기)」면접수당 지급 건의 / 결의 06536"
+      },
+      {
+        "id": 20260702000197,
+        "courseId": 2,
+        "itemId": "c2-1",
+        "date": "2026-06-30",
+        "amount": 64000,
+        "vendor": "세무서",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(2기)」면접수당 지급 건의 / 결의 06536"
+      },
+      {
+        "id": 20260702000198,
+        "courseId": 2,
+        "itemId": "c2-1",
+        "date": "2026-06-30",
+        "amount": 6400,
+        "vendor": "시청",
+        "memo": "(수당) 2026년 경기북부 직업교육 「행정회계 사무OA과정(2기)」면접수당 지급 건의 / 결의 06536"
+      },
+      {
+        "id": 20260702000199,
+        "courseId": 10,
+        "itemId": "c10-3",
+        "date": "2026-07-02",
+        "amount": 852500,
+        "vendor": "유존디자인",
+        "memo": "2026년 경기북부 직업교육 AI시대의 캐릭터 크리에이터 양성과정 교육생 홍보물 지출 건의 / 결의 06569"
+      }
+    ],
+    "logs": [
+      {
+        "id": "import-20260702",
+        "reason": "지출내역_20260702130555.xlsx 기준 집행액 반영",
+        "editedAt": "2026-07-02T13:17:27",
+        "editedBy": "Codex",
+        "after": {
+          "rows": 199,
+          "matchedRows": 173
+        }
+      }
+    ]
+  }
+}

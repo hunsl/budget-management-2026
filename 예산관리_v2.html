@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>2026 경기북부 직업교육훈련 예산관리 시스템 v2</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<!-- Babel 8의 automatic JSX runtime은 일반 script에 ESM import를 삽입한다.
+     이 단일 HTML은 React UMD를 사용하므로 classic runtime인 Babel 7로 고정한다. -->
+<script src="https://unpkg.com/@babel/standalone@7.28.5/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+html,body,#root{height:100%;margin:0}
+body{font-family:Inter,"Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-0.011em;word-break:keep-all;line-height:1.6}
+h1,h2,h3{font-family:Inter,"Noto Sans KR",sans-serif;letter-spacing:-0.035em;font-weight:800;line-height:1.2}
+.font-mono,.tabular-nums{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
+td.text-right,th.text-right{font-variant-numeric:tabular-nums}
+.glass-card{background:linear-gradient(135deg,rgba(255,255,255,0.92) 0%,rgba(255,255,255,0.78) 100%);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,0.6);box-shadow:0 8px 32px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.06)}
+.glass-card-dark{background:linear-gradient(135deg,rgba(15,23,42,0.95) 0%,rgba(30,41,59,0.9) 50%,rgba(49,46,129,0.85) 100%);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,0.08)}
+.progress-gradient{background:linear-gradient(90deg,#6366f1 0%,#06b6d4 50%,#10b981 100%)}
+.bg-mesh{background-image:radial-gradient(ellipse at 20% 50%,rgba(99,102,241,0.08) 0px,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(16,185,129,0.06) 0px,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(236,72,153,0.05) 0px,transparent 50%)}
+.bg-header-gradient{background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#312e81 100%)}
+.bg-card-shine{background:linear-gradient(135deg,rgba(255,255,255,0.05) 0%,transparent 50%,rgba(255,255,255,0.02) 100%)}
+.hover-lift{transition:transform 0.2s ease,box-shadow 0.2s ease}
+.hover-lift:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.04)}
+@keyframes toast-in{from{opacity:0;transform:translateX(100%) scale(0.95)}to{opacity:1;transform:translateX(0) scale(1)}}
+.animate-toast-in{animation:toast-in .3s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes save-flash{0%{box-shadow:0 0 0 0 rgba(52,211,153,.4)}50%{box-shadow:0 0 0 4px rgba(52,211,153,.2)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+.animate-save-flash{animation:save-flash 1.5s ease-out}
+@keyframes fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.animate-fade-up{animation:fade-up .25s ease-out}
+@keyframes badge-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.animate-badge-pulse{animation:badge-pulse 2s ease-in-out infinite}
+@keyframes slide-in-left{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+.animate-slide-in-left{animation:slide-in-left .25s cubic-bezier(.16,1,.3,1)}
+@keyframes overlay-in{from{opacity:0}to{opacity:1}}
+.animate-overlay-in{animation:overlay-in .2s ease-out}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}
+::selection{background:rgba(99,102,241,.2);color:inherit}
+.shadow-glow-indigo:hover{box-shadow:0 0 20px rgba(99,102,241,.3),0 0 40px rgba(99,102,241,.1)}
+/* ═══ PRINT VIEW ═══ */
+.print-view{display:none;font-family:'Pretendard Variable',Pretendard,'Noto Sans KR',sans-serif;color:#0f172a;line-height:1.45;font-size:11px}
+.pv-page{page-break-after:always}
+.pv-page:last-child{page-break-after:avoid}
+.pv-header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #0f172a;padding-bottom:5px;margin-bottom:10px}
+.pv-tbl{width:100%;border-collapse:collapse;margin-bottom:6px}
+.pv-tbl th{background:#e2e8f0;border:1.5px solid #64748b;padding:4px 6px;font-weight:800;text-align:center;font-size:10px;color:#0f172a;white-space:nowrap}
+.pv-tbl td{border:1px solid #94a3b8;padding:3px 6px;font-size:10.5px}
+.pv-tbl .num{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;white-space:nowrap;font-size:10.5px}
+.pv-tbl .name-col{font-weight:700}
+.pv-tbl tr.pv-total{background:#e2e8f0;font-weight:900}
+.pv-tbl tr.pv-total td{border-top:2.5px solid #1e293b}
+.pv-badge{display:inline-block;font-size:8px;font-weight:800;border-radius:3px;padding:1px 5px;margin-right:4px;vertical-align:middle;border:1px solid #94a3b8}
+.pv-badge-common{background:#f3e8ff;border-color:#c4b5fd}.pv-badge-fixed{background:#dcfce7;border-color:#86efac}.pv-badge-draft{background:#dbeafe;border-color:#93c5fd}.pv-badge-unassigned{background:#f1f5f9;border-color:#cbd5e1}
+.pv-stitle{font-size:12px;font-weight:900;color:#0f172a;border-left:4px solid #1e293b;padding-left:8px;margin:10px 0 5px}
+.pv-stitle.blue{border-left-color:#2563eb}.pv-stitle.green{border-left-color:#059669}
+.pv-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.pv-kpi-card{border:2px solid #94a3b8;border-radius:5px;padding:7px 10px}
+.pv-kpi-label{font-size:8.5px;font-weight:700;color:#475569;margin-bottom:2px}
+.pv-kpi-value{font-size:17px;font-weight:900;font-family:'JetBrains Mono',monospace;line-height:1.2}
+.pv-kpi-sub{font-size:7.5px;font-weight:700;margin-top:2px}
+.pv-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.pv-info-box{border:1.5px solid #94a3b8;border-radius:5px;padding:7px 10px}
+.pv-info-box h4{font-size:10px;font-weight:900;color:#0f172a;border-bottom:1.5px solid #cbd5e1;padding-bottom:3px;margin-bottom:4px}
+.pv-info-box li{font-size:9.5px;color:#1e293b;line-height:1.5}
+.pv-cblock{page-break-inside:avoid;margin-bottom:8px;border:1.5px solid #94a3b8;border-radius:5px;overflow:hidden}
+.pv-chdr{background:#e2e8f0;padding:4px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #94a3b8}
+.pv-chdr .cn{font-size:12px;font-weight:900}.pv-chdr .cm{font-size:9px;color:#475569;font-weight:600;margin-left:6px}
+.pv-chdr .ct{font-size:12px;font-weight:900;color:#1e40af;font-family:'JetBrains Mono',monospace}
+.pv-csum{display:flex;gap:12px;padding:3px 8px;border-bottom:1px solid #cbd5e1;font-size:9px;font-weight:700;color:#475569;background:#f8fafc}
+.pv-csum span{font-family:'JetBrains Mono',monospace}
+.pv-footer{border-top:2px solid #475569;padding-top:5px;margin-top:10px;font-size:8.5px;color:#64748b;text-align:center;font-weight:600}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important;box-shadow:none!important;text-shadow:none!important}
+  @page{size:A4 portrait;margin:7mm 8mm}
+  html,body{height:auto!important;overflow:visible!important;background:#fff!important;margin:0!important;padding:0!important}
+  #root,#root>div,#root>div>*{display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;position:static!important;width:100%!important;max-width:100%!important;min-height:0!important;padding:0!important;margin:0!important;flex:none!important;transform:none!important;opacity:1!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:none!important;background:transparent!important}
+  header,aside,main,nav,.fixed{display:none!important;height:0!important;overflow:hidden!important}
+  .print-view{display:block!important;padding:0!important;margin:0!important;background:#fff!important}
+  .print-view *{box-shadow:none!important}
+  .print-view table{background:#fff!important}
+  .print-view th{background:#e2e8f0!important}
+  .print-view tr.pv-total td{background:#e2e8f0!important}
+  thead{display:table-header-group}tr{page-break-inside:avoid}
+  .pv-cblock{page-break-inside:avoid}
+  .pv-page{page-break-after:always}.pv-page:last-child{page-break-after:avoid}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var BUDGET_TARGETS=[
+{code:"201-01",name:"사무관리비",original:73183000},
+{code:"201-02",name:"공공운영비",original:1740000},
+{code:"201-03",name:"행사운영비",original:5500000},
+{code:"201-14",name:"회의비",original:800000},
+{code:"201-12",name:"교육훈련비",original:195777000},
+{code:"301-10",name:"행사실비보상금",original:1500000},
+{code:"301-11",name:"보상금",original:0}
+];
+var ACCOUNT_CODE_MAP={"사무관리비":"201-01","공공운영비":"201-02","행사운영비":"201-03","회의비":"201-14","교육훈련비":"201-12","행사실비보상금":"301-10","보상금":"301-11","기타":"999-99"};
+var TOTAL_BUDGET=BUDGET_TARGETS.reduce(function(s,t){return s+t.original},0),STORAGE_KEY="budget-mgmt-2026-v2",SCHEMA_VERSION=2;
+function formatWon(n){return new Intl.NumberFormat("ko-KR").format(Math.round(n||0))+"원"}
+function formatPct(n){return((n||0)*100).toFixed(1)+"%"}
+function parseNumber(v,fb){if(fb===void 0)fb=0;if(typeof v==="number")return Number.isFinite(v)?v:fb;var p=Number(String(v==null?"":v).replace(/,/g,"").trim());return Number.isFinite(p)?p:fb}
+function courseTotals(c){var o=0,a=0,e=0;c.items.forEach(function(i){if(!i.isDeleted){o+=i.original;a+=i.adjusted;e+=i.executed}});return{original:o,adjusted:a,executed:e,remaining:a-e,variance:a-o,executionRate:a===0?0:e/a}}
+function toItemDetailed(c){return c.items.filter(function(i){return!i.isDeleted}).map(function(it){var v=it.adjusted-it.original,r=it.adjusted-it.executed,er=it.adjusted===0?0:it.executed/it.adjusted,cr=it.original===0?0:v/it.original;return Object.assign({},it,{variance:v,remaining:r,executionRate:er,changeRate:cr,status:v>0?"증액":v<0?"감액":"유지"})})}
+function buildWarnings(courses){var w=[],s=0;courses.forEach(function(c){var t=courseTotals(c);if(t.adjusted>t.original)w.push({id:"w-"+s++,level:"warning",courseId:c.id,type:"증액",message:"["+c.name+"] 원안 대비 "+formatWon(t.adjusted-t.original)+" 증액"});if(t.executionRate<.15&&t.adjusted>0)w.push({id:"w-"+s++,level:"warning",courseId:c.id,type:"저집행",message:"["+c.name+"] 집행률 "+formatPct(t.executionRate)+" — 집행계획 점검 필요"});c.items.forEach(function(it){if(it.isDeleted)return;if(it.executed>it.adjusted)w.push({id:"w-"+s++,level:"critical",courseId:c.id,itemId:it.id,type:"초과집행",message:"["+c.name+"] "+it.name+" — 조정예산 초과 집행"});if(it.name.indexOf("훈련지원금")>=0&&it.adjusted>it.original)w.push({id:"w-"+s++,level:"warning",courseId:c.id,itemId:it.id,type:"기준성항목",message:"["+c.name+"] "+it.name+" — 기준성 항목 증액"});if(!it.calc||!it.calc.trim())w.push({id:"w-"+s++,level:"info",courseId:c.id,itemId:it.id,type:"입력오류",message:"["+c.name+"] "+it.name+" — 산출근거 누락"});if(it.adjusted<=0)w.push({id:"w-"+s++,level:"info",courseId:c.id,itemId:it.id,type:"입력오류",message:"["+c.name+"] "+it.name+" — 조정금액이 0 이하"})})});return w}
+function generateNewItemId(cid,items){var mx=0;items.forEach(function(i){var n=parseInt((i.id.split("-")[1]||"0"),10);if(n>mx)mx=n});return"c"+cid+"-"+(mx+1)}
+function I(id,g,n,c,u,q,o,a,e){return{id:id,group:g,name:n,calc:c,unitPrice:u,qty1:q,original:o,adjusted:a,executed:e}}
+var initialCourses=[
+{id:0,name:"공통운영비",manager:"기획총괄",category:"공통",status:"common",items:[
+I("c0-1","사무관리비","교육과정 홍보물 제작","21,450,000 × 1",21450000,1,21450000,21450000,0),
+I("c0-2","사무관리비","SNS·문자 홍보","6,500,000 × 1",6500000,1,6500000,6500000,0),
+I("c0-3","행사운영비","직종설명회 운영","5,500,000 × 1",5500000,1,5500000,5500000,0),
+I("c0-4","회의비","강사 간담회 운영","500,000 × 1",500000,1,500000,500000,0),
+I("c0-5","회의비","다과 및 소모품","300,000 × 1",300000,1,300000,300000,0),
+I("c0-6","교육훈련비","심화교육 특강 강사료","4,000,000 × 1",4000000,1,4000000,4000000,0),
+I("c0-7","교육훈련비","직종설명회 특강 강사료","2,000,000 × 1",2000000,1,2000000,2000000,0),
+I("c0-8","교육훈련비","학습동아리 운영(공통)","4,900,000 × 1",4900000,1,4900000,4900000,0),
+I("c0-9","행사실비보상금","개강 및 수료식 다과","1,500,000 × 1",1500000,1,1500000,1500000,0)]},
+{id:1,name:"행정회계 사무 OA(1기)",manager:"신동원 주임",category:"사무분야",status:"draft",items:[
+I("c1-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c1-2","사무관리비","교재비용","1,200,000 × 1",1200000,1,1200000,1200000,0),
+I("c1-3","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c1-4","공공운영비","우편발송료","30,000 × 1",30000,1,30000,30000,0),
+I("c1-5","교육훈련비","강사수당","14,720,000 × 1",14720000,1,14720000,14720000,0),
+I("c1-6","교육훈련비","취업대비특강","800,000 × 1",800000,1,800000,800000,0),
+I("c1-7","교육훈련비","생성형AI 특강","800,000 × 1",800000,1,800000,800000,0),
+I("c1-8","교육훈련비","사후관리특강","400,000 × 1",400000,1,400000,400000,0),
+I("c1-9","교육훈련비","학습동아리","700,000 × 1",700000,1,700000,700000,0),
+I("c1-10","교육훈련비","훈련지원금","2,000,000 × 1",2000000,1,2000000,2000000,0)]},
+{id:2,name:"행정회계 사무 OA(2기)",manager:"신동원 주임",category:"사무분야",status:"fixed",items:[
+I("c2-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c2-2","사무관리비","교재비용","1,200,000 × 1",1200000,1,1200000,1200000,0),
+I("c2-3","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c2-4","공공운영비","우편발송료","30,000 × 1",30000,1,30000,30000,0),
+I("c2-5","교육훈련비","강사수당","14,720,000 × 1",14720000,1,14720000,14720000,0),
+I("c2-6","교육훈련비","취업대비특강","800,000 × 1",800000,1,800000,800000,0),
+I("c2-7","교육훈련비","생성형AI 특강","800,000 × 1",800000,1,800000,800000,0),
+I("c2-8","교육훈련비","사후관리특강","400,000 × 1",400000,1,400000,400000,0),
+I("c2-9","교육훈련비","학습동아리","700,000 × 1",700000,1,700000,700000,0),
+I("c2-10","교육훈련비","훈련지원금","2,000,000 × 1",2000000,1,2000000,2000000,0)]},
+{id:3,name:"HACCP 전문인력 양성",manager:"이상훈 과장",category:"식품분야",status:"draft",items:[
+I("c3-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c3-2","사무관리비","교재비","1,953,000 × 1",1953000,1,1953000,1953000,0),
+I("c3-3","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c3-4","공공운영비","우편발송료","30,000 × 1",30000,1,30000,30000,0),
+I("c3-5","교육훈련비","실습용역","10,062,000 × 1",10062000,1,10062000,10062000,0),
+I("c3-6","교육훈련비","강사수당","15,840,000 × 1",15840000,1,15840000,15840000,0),
+I("c3-7","교육훈련비","실험보조","2,800,000 × 1",2800000,1,2800000,2800000,0),
+I("c3-8","교육훈련비","AI 특강","400,000 × 1",400000,1,400000,400000,0),
+I("c3-9","교육훈련비","학습동아리","700,000 × 1",700000,1,700000,700000,0),
+I("c3-10","교육훈련비","훈련지원금","1,000,000 × 1",1000000,1,1000000,1000000,0)]},
+{id:4,name:"ERP·지게차 물류관리 실무자 양성",manager:"이상훈 과장",category:"지역연계형",status:"draft",items:[
+I("c4-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c4-2","사무관리비","교육장 임차료","9,980,000 × 1",9980000,1,9980000,9980000,0),
+I("c4-3","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c4-4","교육훈련비","강사수당(지게차)","6,630,000 × 1",6630000,1,6630000,6630000,0),
+I("c4-5","교육훈련비","ERP 강사수당","4,680,000 × 1",4680000,1,4680000,4680000,0),
+I("c4-6","교육훈련비","취업특강 및 안전교육","800,000 × 1",800000,1,800000,800000,0),
+I("c4-7","교육훈련비","훈련지원금","750,000 × 1",750000,1,750000,750000,0)]},
+{id:5,name:"승강기 전문가 양성",manager:"이상훈 과장",category:"지역연계형",status:"draft",items:[
+I("c5-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c5-2","사무관리비","버스 임차료","2,000,000 × 1",2000000,1,2000000,2000000,0),
+I("c5-3","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c5-4","공공운영비","보험료","850,000 × 1",850000,1,850000,850000,0),
+I("c5-5","교육훈련비","교육 운영비","3,800,000 × 1",3800000,1,3800000,3800000,0),
+I("c5-6","교육훈련비","실습 교육 비용","6,000,000 × 1",6000000,1,6000000,6000000,0)]},
+{id:6,name:"중장년 기회강사 양성",manager:"신동원 주임",category:"지역연계형",status:"draft",items:[
+I("c6-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c6-2","사무관리비","교재(MBTI 검사지)","165,000 × 1",165000,1,165000,165000,0),
+I("c6-3","사무관리비","강사프로필","1,050,000 × 1",1050000,1,1050000,1050000,0),
+I("c6-4","사무관리비","강사소개책자","4,200,000 × 1",4200000,1,4200000,4200000,0),
+I("c6-5","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c6-6","교육훈련비","강사료","9,960,000 × 1",9960000,1,9960000,9960000,0),
+I("c6-7","교육훈련비","교육생 특강료 지원","1,875,000 × 1",1875000,1,1875000,1875000,0),
+I("c6-8","교육훈련비","훈련수당","750,000 × 1",750000,1,750000,750000,0)]},
+{id:7,name:"초등 피지컬 코딩강사 양성",manager:"이상훈 과장",category:"강사양성형",status:"draft",items:[
+I("c7-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c7-2","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c7-3","사무관리비","소모품비","60,000 × 1",60000,1,60000,60000,0),
+I("c7-4","사무관리비","재료비","3,000,000 × 1",3000000,1,3000000,3000000,0),
+I("c7-5","사무관리비","교재비","1,200,000 × 1",1200000,1,1200000,1200000,0),
+I("c7-6","공공운영비","우편발송료","100,000 × 1",100000,1,100000,100000,0),
+I("c7-7","교육훈련비","강사수당","6,000,000 × 1",6000000,1,6000000,6000000,0),
+I("c7-8","교육훈련비","취업특강","1,200,000 × 1",1200000,1,1200000,1200000,0),
+I("c7-9","교육훈련비","학습동아리","700,000 × 1",700000,1,700000,700000,0)]},
+{id:8,name:"AI 딥러닝 전문강사 양성",manager:"이상훈 과장",category:"강사양성형",status:"draft",items:[
+I("c8-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c8-2","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c8-3","사무관리비","소모품비","60,000 × 1",60000,1,60000,60000,0),
+I("c8-4","사무관리비","재료비","3,000,000 × 1",3000000,1,3000000,3000000,0),
+I("c8-5","사무관리비","교재비","500,000 × 1",500000,1,500000,500000,0),
+I("c8-6","공공운영비","우편발송료","100,000 × 1",100000,1,100000,100000,0),
+I("c8-7","교육훈련비","강사수당","13,800,000 × 1",13800000,1,13800000,13800000,0),
+I("c8-8","교육훈련비","보조강사","2,000,000 × 1",2000000,1,2000000,2000000,0),
+I("c8-9","교육훈련비","취업특강","1,200,000 × 1",1200000,1,1200000,1200000,0),
+I("c8-10","교육훈련비","학습동아리","700,000 × 1",700000,1,700000,700000,0)]},
+{id:9,name:"늘봄학교 창의융합교육강사 양성",manager:"신동원 주임",category:"강사양성형",status:"draft",items:[
+I("c9-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c9-2","사무관리비","교재 및 재료","1,365,000 × 1",1365000,1,1365000,1365000,0),
+I("c9-3","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c9-4","교육훈련비","강사수당","8,320,000 × 1",8320000,1,8320000,8320000,0),
+I("c9-5","교육훈련비","취업특강","1,200,000 × 1",1200000,1,1200000,1200000,0),
+I("c9-6","교육훈련비","학습동아리","700,000 × 1",700000,1,700000,700000,0),
+I("c9-7","교육훈련비","훈련지원금","1,000,000 × 1",1000000,1,1000000,1000000,0)]},
+{id:10,name:"AI시대의 캐릭터 크리에이터 양성",manager:"이상훈 과장",category:"IT 신직무형",status:"draft",items:[
+I("c10-1","사무관리비","심사수당","400,000 × 1",400000,1,400000,400000,0),
+I("c10-2","사무관리비","구루미 사용","200,000 × 1",200000,1,200000,200000,0),
+I("c10-3","사무관리비","모집홍보비","1,650,000 × 1",1650000,1,1650000,1650000,0),
+I("c10-4","공공운영비","우편발송료","100,000 × 1",100000,1,100000,100000,0),
+I("c10-5","교육훈련비","강사수당","8,000,000 × 1",8000000,1,8000000,8000000,0),
+I("c10-6","교육훈련비","취업·저작권 특강","1,200,000 × 1",1200000,1,1200000,1200000,0)]},
+{id:11,name:"미지정 공모과정 A",manager:"이상훈 과장",category:"공모 미정",status:"unassigned",items:[]},
+{id:12,name:"미지정 공모과정 B",manager:"신동원 주임",category:"공모 미정",status:"unassigned",items:[]},
+{id:13,name:"미지정 공모과정 C",manager:"이상훈 과장",category:"공모 미정",status:"unassigned",items:[]}
+];
+</script>
+<script>
+var initialState={courses:initialCourses,executions:[],logs:[],selectedCourseId:0,editingItemId:initialCourses[0].items[0].id,filterMode:"all",sortMode:"varianceDesc",reportType:"summary",currentUser:"관리자"};
+function budgetReducer(state,action){
+  switch(action.type){
+  case"SELECT_COURSE":var cr=state.courses.find(function(c){return c.id===action.courseId});return Object.assign({},state,{selectedCourseId:action.courseId,editingItemId:(cr&&cr.items.find(function(i){return!i.isDeleted})||{id:""}).id});
+  case"SELECT_ITEM":return Object.assign({},state,{editingItemId:action.itemId});
+  case"SET_FILTER":return Object.assign({},state,{filterMode:action.mode});
+  case"SET_SORT":return Object.assign({},state,{sortMode:action.mode});
+  case"SET_REPORT_TYPE":return Object.assign({},state,{reportType:action.reportType});
+  case"UPDATE_ITEM":var bf=null;state.courses.forEach(function(c){if(c.id===action.courseId)c.items.forEach(function(i){if(i.id===action.itemId)bf=Object.assign({},i)})});var lg={id:"log-"+Date.now(),courseId:action.courseId,itemId:action.itemId,before:bf||{},after:action.patch,reason:action.reason,editedAt:new Date().toISOString(),editedBy:state.currentUser};return Object.assign({},state,{courses:state.courses.map(function(c){return c.id!==action.courseId?c:Object.assign({},c,{items:c.items.map(function(i){return i.id!==action.itemId?i:Object.assign({},i,action.patch)})})}),logs:[lg].concat(state.logs)});
+  case"ADD_ITEM":var addLg={id:"log-"+Date.now(),courseId:action.courseId,itemId:action.item.id,before:{},after:{name:action.item.name,adjusted:action.item.adjusted},reason:action.reason||"신규 항목 추가",editedAt:new Date().toISOString(),editedBy:state.currentUser};return Object.assign({},state,{courses:state.courses.map(function(c){return c.id!==action.courseId?c:Object.assign({},c,{items:c.items.concat([action.item])})}),editingItemId:action.item.id,logs:[addLg].concat(state.logs)});
+  case"DELETE_ITEM":return Object.assign({},state,{courses:state.courses.map(function(c){return c.id!==action.courseId?c:Object.assign({},c,{items:c.items.map(function(i){return i.id!==action.itemId?i:Object.assign({},i,{isDeleted:true})})})})});
+  case"UPDATE_COURSE":return Object.assign({},state,{courses:state.courses.map(function(c){return c.id!==action.courseId?c:Object.assign({},c,action.patch)})});
+  case"ADD_EXECUTION":var nr=Object.assign({},action.row,{id:Date.now()});return Object.assign({},state,{executions:[nr].concat(state.executions),courses:state.courses.map(function(c){return c.id!==action.row.courseId?c:Object.assign({},c,{items:c.items.map(function(i){return i.id!==action.row.itemId?i:Object.assign({},i,{executed:i.executed+action.row.amount})})})})});
+  case"UPDATE_EXECUTION":var ol=state.executions.find(function(e){return e.id===action.id});var df=(action.patch.amount!=null?action.patch.amount:ol?ol.amount:0)-(ol?ol.amount:0);return Object.assign({},state,{executions:state.executions.map(function(e){return e.id!==action.id?e:Object.assign({},e,action.patch)}),courses:df===0?state.courses:state.courses.map(function(c){return c.id!==(ol&&ol.courseId)?c:Object.assign({},c,{items:c.items.map(function(i){return i.id!==(ol&&ol.itemId)?i:Object.assign({},i,{executed:i.executed+df})})})})});
+  case"DELETE_EXECUTION":var tg=state.executions.find(function(e){return e.id===action.id});return Object.assign({},state,{executions:state.executions.filter(function(e){return e.id!==action.id}),courses:!tg?state.courses:state.courses.map(function(c){return c.id!==tg.courseId?c:Object.assign({},c,{items:c.items.map(function(i){return i.id!==tg.itemId?i:Object.assign({},i,{executed:Math.max(0,i.executed-tg.amount)})})})})});
+  case"HYDRATE":return Object.assign({},state,{courses:action.courses,executions:action.executions,logs:action.logs});
+  default:return state;
+  }
+}
+function loadPersistedState(){try{var r=localStorage.getItem(STORAGE_KEY);if(!r)return null;var p=JSON.parse(r);if(p.version!==SCHEMA_VERSION||!p.data||!Array.isArray(p.data.courses))return null;return{courses:p.data.courses,executions:p.data.executions||[],logs:p.data.logs||[]}}catch(e){return null}}
+</script>
+<script type="text/babel">
+const {useState,useEffect,useReducer,useMemo,useCallback,useContext,createContext,useRef}=React;
+
+// ═══ TOAST SYSTEM ═══
+const ToastCtx=createContext({addToast:()=>{}});
+const useToast=()=>useContext(ToastCtx);
+const TI={success:"✅",error:"🚨",info:"📋",warning:"⚠️"};
+const TC={error:"bg-rose-50/90 border-rose-200 text-rose-800",success:"bg-emerald-50/90 border-emerald-200 text-emerald-800",warning:"bg-amber-50/90 border-amber-200 text-amber-800",info:"bg-blue-50/90 border-blue-200 text-blue-800"};
+function ToastItem({msg,onRemove}){useEffect(()=>{const t=setTimeout(()=>onRemove(msg.id),3000);return()=>clearTimeout(t)},[msg.id,onRemove]);return(<div className={`pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg border backdrop-blur-xl animate-toast-in ${TC[msg.type]}`} onClick={()=>onRemove(msg.id)} role="alert"><span className="text-base flex-shrink-0">{msg.icon}</span><span className="text-sm font-medium">{msg.message}</span></div>)}
+function ToastProvider({children}){const[msgs,setMsgs]=useState([]);const add=useCallback((type,message)=>{setMsgs(p=>[...p,{id:Date.now()+Math.random(),type,message,icon:TI[type]}])},[]);const rm=useCallback(id=>{setMsgs(p=>p.filter(m=>m.id!==id))},[]);return(<ToastCtx.Provider value={{addToast:add}}>{children}<div className="fixed top-4 right-4 left-4 sm:left-auto z-[9999] flex flex-col gap-2 pointer-events-none">{msgs.map(m=><ToastItem key={m.id} msg={m} onRemove={rm}/>)}</div></ToastCtx.Provider>)}
+
+// ═══ PERSISTENCE HOOK ═══
+function usePersistence(state,dispatch){
+  useEffect(()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify({version:SCHEMA_VERSION,savedAt:new Date().toISOString(),data:{courses:state.courses,executions:state.executions,logs:state.logs}}))},[state.courses,state.executions,state.logs]);
+  const h=useCallback(e=>{if(e.key!==STORAGE_KEY||!e.newValue)return;try{const d=JSON.parse(e.newValue);if(d.version===SCHEMA_VERSION&&d.data?.courses)dispatch({type:"HYDRATE",courses:d.data.courses,executions:d.data.executions||[],logs:d.data.logs||[]})}catch{}},[dispatch]);
+  useEffect(()=>{window.addEventListener("storage",h);return()=>window.removeEventListener("storage",h)},[h]);
+}
+
+// ═══ MINI GAUGE ═══
+function MiniGauge({rate,size=56,stroke=4,color="#34d399"}){const r=(size-stroke)/2,circ=2*Math.PI*r,pct=Math.min(1,Math.max(0,rate));return(<div className="relative" style={{width:size,height:size}}><svg className="-rotate-90" width={size} height={size}><circle cx={size/2} cy={size/2} r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={stroke}/><circle cx={size/2} cy={size/2} r={r} fill="none" stroke={color} strokeWidth={stroke} strokeDasharray={`${pct*circ} ${circ}`} strokeLinecap="round" className="transition-all duration-700"/></svg><span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">{(pct*100).toFixed(0)}%</span></div>)}
+</script>
+<script type="text/babel">
+// ═══ DASHBOARD HEADER ═══
+function DashboardHeader({totalBudget,programSummary,commonSummary,selectedCourse,courses}){
+  const totalExec=programSummary.executed+commonSummary.executed,totalAdj=programSummary.adjusted+commonSummary.adjusted,execRate=totalAdj===0?0:totalExec/totalAdj,unalloc=totalBudget-totalAdj;
+  const acctStats=BUDGET_TARGETS.map(t=>{let adj=0;courses.forEach(c=>c.items.forEach(i=>{if(!i.isDeleted&&ACCOUNT_CODE_MAP[i.group]===t.code)adj+=i.adjusted}));return{...t,adj,remain:t.original-adj}});
+  return(<div className="rounded-2xl glass-card-dark p-4 md:p-6 text-white shadow-xl overflow-hidden relative">
+    <div className="absolute inset-0 opacity-30" style={{backgroundImage:"radial-gradient(ellipse at 20% 50%,rgba(99,102,241,0.15) 0px,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(16,185,129,0.1) 0px,transparent 50%),radial-gradient(ellipse at 60% 80%,rgba(139,92,246,0.08) 0px,transparent 50%)"}}/>
+    <div className="absolute inset-0 bg-card-shine"/>
+    <div className="relative">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between mb-4 md:mb-6">
+        <div><div className="text-[10px] md:text-[11px] text-indigo-300/80 font-semibold uppercase tracking-[0.15em]">2026 경기북부 직업교육훈련</div><h1 className="mt-1 md:mt-1.5 text-xl md:text-2xl font-extrabold tracking-tight">예산 총괄 현황</h1></div>
+        <div className="rounded-xl bg-white/[0.07] backdrop-blur-sm px-3 md:px-4 py-2 md:py-3 text-right border border-white/10 self-start"><div className="text-[10px] text-slate-400 uppercase tracking-wider">선택 과정</div><div className="mt-0.5 text-xs md:text-sm font-semibold truncate max-w-[200px]">{selectedCourse.name}</div></div>
+      </div>
+      <div className="mb-4 md:mb-6 rounded-xl bg-white/[0.06] border border-white/10 px-4 md:px-6 py-4 md:py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-4 md:gap-5"><MiniGauge rate={execRate} size={64} stroke={5}/><div><div className="text-[10px] text-slate-400 uppercase tracking-wider">총 사업비 (고정)</div><div className="text-2xl md:text-3xl font-extrabold mt-1 tabular-nums" style={{background:"linear-gradient(to right,#6ee7b7,#5eead4,#67e8f9)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{formatWon(totalBudget)}</div></div></div>
+        <div className="text-left sm:text-right"><div className="text-[10px] text-slate-400 uppercase tracking-wider">미배분 잔여</div><div className={`text-xl md:text-2xl font-bold mt-1 tabular-nums ${unalloc>=0?"text-sky-300":"text-rose-400"}`}>{unalloc>=0?"+":""}{formatWon(unalloc)}</div></div>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+        {[{l:"과정별 합산",v:formatWon(programSummary.adjusted),s:"13개 과정",i:"📚"},{l:"공통운영비",v:formatWon(commonSummary.adjusted),s:"과정 외 운영",i:"🏢"},{l:"총 집행액",v:formatWon(totalExec),s:"누적 집행",i:"💰",a:true},{l:"집행률",v:formatPct(execRate),s:"배분예산 대비",i:"📊"}].map((c,idx)=>(
+          <div key={idx} className="rounded-xl bg-white/[0.06] border border-white/[0.08] p-3 md:p-4 hover:bg-white/[0.12] hover:border-white/[0.15] transition-all duration-300 hover-lift">
+            <div className="flex items-center gap-1.5 md:gap-2 mb-1.5 md:mb-2"><span className="text-xs md:text-sm">{c.i}</span><span className="text-[9px] md:text-[10px] text-slate-400 font-semibold uppercase tracking-[0.1em]">{c.l}</span></div>
+            <div className={`text-base md:text-lg font-extrabold tabular-nums ${c.a?"text-amber-300":"text-white"}`}>{c.v}</div>
+            <div className="text-[9px] md:text-[10px] text-slate-500 mt-0.5 md:mt-1">{c.s}</div>
+          </div>))}
+      </div>
+      <div className="mt-4 md:mt-5 rounded-xl bg-white/[0.04] border border-white/[0.08] overflow-hidden">
+        <div className="px-4 py-2.5 border-b border-white/[0.06] flex items-center gap-2"><span className="text-xs">📑</span><span className="text-[10px] font-semibold text-slate-300 uppercase tracking-wider">세목별 잔여 배분 현황</span></div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-white/[0.06]">
+          {acctStats.map(st=><div key={st.code} className="px-3 py-3 text-center">
+            <div className="text-[9px] text-slate-400 font-semibold mb-1">{st.name}</div>
+            <div className="text-[10px] text-slate-500 tabular-nums mb-0.5">한도 {formatWon(st.original)}</div>
+            <div className={`text-sm font-extrabold tabular-nums ${st.remain<0?"text-rose-400":st.remain===0?"text-slate-400":"text-emerald-400"}`}>{st.remain<0?"초과 ":"잔여 "}{formatWon(Math.abs(st.remain))}</div>
+          </div>)}
+        </div>
+      </div>
+    </div>
+  </div>);
+}
+</script>
+<script type="text/babel">
+// ═══ OVERALL TABLE ═══
+const CD={"공통":"bg-emerald-500","사무분야":"bg-sky-500","식품분야":"bg-orange-500","지역연계형":"bg-blue-500","강사양성형":"bg-violet-500","IT 신직무형":"bg-cyan-500","공모 미정":"bg-slate-300"};
+function OverallTable({courses,commonCourse,totalBudget,selectedCourseId,onSelect}){
+  const rows=courses.map(c=>({...c,...courseTotals(c)}));
+  const pt=rows.reduce((s,r)=>({adjusted:s.adjusted+r.adjusted,executed:s.executed+r.executed}),{adjusted:0,executed:0});
+  const ct=commonCourse?courseTotals(commonCourse):null;
+  const ga=pt.adjusted+(ct?.adjusted??0);
+  return(<div className="rounded-2xl glass-card shadow-lg overflow-hidden">
+    <div className="px-5 py-4 border-b border-slate-100"><div className="flex items-center justify-between"><div><h2 className="text-base font-bold text-slate-800">과정별 예산 현황</h2><p className="text-[11px] text-slate-400 mt-0.5">13개 과정 + 공통운영비 집계</p></div><span className="text-[10px] text-slate-400 bg-slate-100 rounded-full px-2.5 py-0.5">{rows.length}개 과정</span></div></div>
+    <div className="overflow-x-auto"><table className="min-w-full text-sm">
+      <thead><tr className="bg-slate-50/80 text-[10px] text-slate-500 uppercase tracking-wider"><th className="px-4 py-3 text-left font-semibold">과정명</th><th className="px-4 py-3 text-left font-semibold hidden md:table-cell">구분</th><th className="px-4 py-3 text-right font-semibold">조정예산</th><th className="px-4 py-3 text-right font-semibold hidden lg:table-cell">집행액</th><th className="px-4 py-3 text-right font-semibold hidden lg:table-cell">잔액</th><th className="px-4 py-3 text-right font-semibold w-36">집행률</th></tr></thead>
+      <tbody>{rows.map((row,idx)=>{const ac=row.id===selectedCourseId,un=row.category==="공모 미정",bw=row.adjusted>0?Math.min(100,(row.executed/row.adjusted)*100):0,dt=CD[row.category]??"bg-slate-300";return(
+        <tr key={row.id} onClick={()=>onSelect(row.id)} className={`cursor-pointer transition-all duration-150 border-b border-slate-50 ${ac?"bg-gradient-to-r from-slate-800 to-slate-900 text-white":"hover:bg-slate-50/80"}`}>
+          <td className="px-4 py-3"><div className="flex items-center gap-2.5"><span className={`text-[10px] font-bold w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 ${ac?"bg-white/20 text-white":"bg-slate-100 text-slate-500"}`}>{idx+1}</span><span className={`font-medium text-xs leading-tight ${un?"italic opacity-60":""}`}>{row.name}</span></div></td>
+          <td className="px-4 py-3 hidden md:table-cell"><div className="flex items-center gap-1.5"><span className={`w-1.5 h-1.5 rounded-full ${ac?"bg-white/50":dt}`}/><span className={`text-[11px] ${ac?"text-slate-300":"text-slate-500"}`}>{row.category}</span></div></td>
+          <td className={`px-4 py-3 text-right text-xs font-semibold tabular-nums ${ac?"text-white":un?"text-slate-400 italic":"text-slate-800"}`}>{row.adjusted>0?formatWon(row.adjusted):"미입력"}</td>
+          <td className={`px-4 py-3 text-right text-xs tabular-nums hidden lg:table-cell ${ac?"text-amber-300":"text-amber-700"}`}>{formatWon(row.executed)}</td>
+          <td className={`px-4 py-3 text-right text-xs tabular-nums hidden lg:table-cell ${ac?"text-slate-300":"text-slate-500"}`}>{formatWon(row.remaining)}</td>
+          <td className="px-4 py-3"><div className="flex items-center justify-end gap-2"><div className={`w-16 h-1.5 rounded-full overflow-hidden ${ac?"bg-white/10":"bg-slate-100"}`}><div className={`h-full rounded-full transition-all duration-500 ${ac?"bg-emerald-400":"progress-gradient"}`} style={{width:`${bw}%`}}/></div><span className={`text-[11px] tabular-nums font-medium w-10 text-right ${ac?"text-slate-300":"text-slate-500"}`}>{formatPct(row.executionRate)}</span></div></td>
+        </tr>)})}</tbody>
+      <tfoot>
+        <tr className="bg-slate-50 font-semibold text-xs text-slate-700 border-t-2 border-slate-200"><td className="px-4 py-3" colSpan={2}>과정 소계 (13개)</td><td className="px-4 py-3 text-right tabular-nums">{formatWon(pt.adjusted)}</td><td className="px-4 py-3 text-right hidden lg:table-cell text-amber-700 tabular-nums">{formatWon(pt.executed)}</td><td className="px-4 py-3 text-right hidden lg:table-cell tabular-nums">{formatWon(pt.adjusted-pt.executed)}</td><td className="px-4 py-3 text-right tabular-nums">{formatPct(pt.adjusted===0?0:pt.executed/pt.adjusted)}</td></tr>
+        {commonCourse&&ct&&<tr onClick={()=>onSelect(0)} className={`cursor-pointer transition-all text-xs border-t border-slate-100 ${selectedCourseId===0?"bg-emerald-800 text-white":"hover:bg-emerald-50 text-emerald-800"}`}><td className="px-4 py-3 font-semibold" colSpan={2}><div className="flex items-center gap-2"><span>🏢</span><span>공통 운영비</span></div></td><td className="px-4 py-3 text-right font-semibold tabular-nums">{formatWon(ct.adjusted)}</td><td className="px-4 py-3 text-right hidden lg:table-cell tabular-nums">{formatWon(ct.executed)}</td><td className="px-4 py-3 text-right hidden lg:table-cell tabular-nums">{formatWon(ct.remaining)}</td><td className="px-4 py-3 text-right tabular-nums">{formatPct(ct.executionRate)}</td></tr>}
+        <tr className="bg-gradient-to-r from-slate-800 to-slate-900 text-white text-xs font-bold"><td className="px-4 py-3.5" colSpan={2}>총 배분 합계</td><td className="px-4 py-3.5 text-right tabular-nums">{formatWon(ga)}</td><td className="px-4 py-3.5 text-right hidden lg:table-cell text-amber-300 tabular-nums">{formatWon(pt.executed+(ct?.executed??0))}</td><td className="px-4 py-3.5 text-right hidden lg:table-cell text-slate-300 tabular-nums">{formatWon(ga-pt.executed-(ct?.executed??0))}</td><td className="px-4 py-3.5 text-right text-slate-400">—</td></tr>
+        <tr className="bg-gradient-to-r from-emerald-800 to-emerald-900 text-white text-xs"><td className="px-4 py-3.5 font-semibold" colSpan={2}>총 사업비 (고정)</td><td className="px-4 py-3.5 text-right font-bold text-emerald-300 tabular-nums">{formatWon(totalBudget)}</td><td className="px-4 py-3.5 hidden lg:table-cell"/><td className="px-4 py-3.5 hidden lg:table-cell"/><td className="px-4 py-3.5 text-right"><span className={`font-bold ${totalBudget-ga>=0?"text-emerald-300":"text-rose-300"}`}>잔여 {formatWon(totalBudget-ga)}</span></td></tr>
+      </tfoot>
+    </table></div>
+  </div>);
+}
+</script>
+<script type="text/babel">
+// ═══ GROUP SUMMARY ═══
+const GI={"사무관리비":"📁","공공운영비":"🏛️","교육훈련비":"🎓","행사운영비":"🎪","행사실비보상금":"🎁","회의비":"🤝"};
+function GroupSummary({courses}){
+  const grouped={};courses.flatMap(c=>c.items.filter(i=>!i.isDeleted)).forEach(it=>{if(!grouped[it.group])grouped[it.group]={name:it.group,original:0,adjusted:0,executed:0};grouped[it.group].original+=it.original;grouped[it.group].adjusted+=it.adjusted;grouped[it.group].executed+=it.executed});
+  const rows=Object.values(grouped),ta=rows.reduce((s,g)=>s+g.adjusted,0);
+  return(<div className="rounded-2xl glass-card shadow-lg p-5"><div className="flex items-center justify-between mb-5"><div><h2 className="text-base font-bold text-slate-800">예산구분별 총괄</h2><p className="text-[11px] text-slate-400 mt-0.5">계정과목 단위 집계</p></div></div>
+    <div className="space-y-2.5">{rows.map(g=>{const rt=g.adjusted===0?0:g.executed/g.adjusted,vr=g.adjusted-g.original,sh=ta===0?0:(g.adjusted/ta)*100,ic=GI[g.name]??"📋";return(
+      <div key={g.name} className="rounded-xl border border-slate-100 p-4 hover:border-slate-200 transition-all duration-200 hover-lift">
+        <div className="flex items-center justify-between mb-3"><div className="flex items-center gap-2.5"><span className="text-sm">{ic}</span><span className="font-semibold text-sm text-slate-800">{g.name}</span><span className="text-[10px] text-slate-400 bg-slate-50 rounded-full px-2 py-0.5">{sh.toFixed(1)}%</span></div><span className={`text-xs font-bold tabular-nums ${vr>0?"text-amber-600":vr<0?"text-emerald-600":"text-slate-400"}`}>{vr>=0?"+":""}{formatWon(vr)}</span></div>
+        <div className="h-1.5 rounded-full bg-slate-100 mb-3 overflow-hidden"><div className="h-full rounded-full progress-gradient transition-all duration-500" style={{width:`${Math.min(100,rt*100)}%`}}/></div>
+        <div className="grid grid-cols-3 gap-3 text-[11px]"><div><div className="text-slate-400">조정예산</div><div className="mt-0.5 text-sm font-bold text-slate-800 tabular-nums">{formatWon(g.adjusted)}</div></div><div><div className="text-slate-400">집행액</div><div className="mt-0.5 text-sm font-bold text-slate-800 tabular-nums">{formatWon(g.executed)}</div></div><div><div className="text-slate-400">집행률</div><div className="mt-0.5 text-sm font-bold text-slate-800 tabular-nums">{formatPct(rt)}</div></div></div>
+      </div>)})}</div>
+  </div>);
+}
+
+// ═══ STAT CARD ═══
+const TM={default:"bg-white/90 backdrop-blur-sm ring-slate-200/60 text-slate-900",dark:"bg-gradient-to-br from-slate-800 via-slate-900 to-indigo-900 ring-slate-800 text-white",amber:"bg-gradient-to-br from-amber-50 to-orange-50 ring-amber-200/60 text-amber-900",emerald:"bg-gradient-to-br from-emerald-50 to-teal-50 ring-emerald-200/60 text-emerald-900"};
+function StatCard({title,value,sub,tone="default"}){return(<div className={`rounded-xl p-4 ring-1 transition-all duration-200 hover-lift ${TM[tone]||TM.default}`}><div className={`text-[11px] font-medium uppercase tracking-wider ${tone==="dark"?"text-slate-400":"text-slate-500"}`}>{title}</div><div className="mt-2 text-xl font-extrabold truncate tabular-nums">{value}</div><div className={`mt-1 text-[11px] truncate ${tone==="dark"?"text-slate-400":"text-slate-500"}`}>{sub}</div></div>)}
+
+// ═══ WARNING PANEL ═══
+const LS={critical:"bg-rose-50 border-rose-200 text-rose-800",warning:"bg-amber-50 border-amber-200 text-amber-800",info:"bg-slate-50 border-slate-200 text-slate-700"};
+const LD={critical:"bg-rose-500",warning:"bg-amber-500",info:"bg-slate-400"};
+function WarningPanel({warnings}){if(!warnings.length)return(<div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4 text-sm text-emerald-700 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500"/>검증 경고 없음</div>);return(<div className="space-y-1.5">{warnings.map(w=>(<div key={w.id} className={`rounded-lg border px-4 py-2.5 text-xs flex items-start gap-2.5 ${LS[w.level]}`}><span className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${LD[w.level]}`}/><div><span className="font-bold">[{w.type}]</span> {w.message}</div></div>))}</div>)}
+</script>
+<script type="text/babel">
+// ═══ COURSE REVIEW TABLE (인라인 편집) ═══
+function CourseReviewTable({course,editingItemId,filterMode,sortMode,logs,onSelectItem,onFilterChange,onSortChange,onUpdate,onAdd,onDelete}){
+  const[editId,setEditId]=useState(null);
+  const[ef,setEf]=useState({});
+  const[showAdd,setShowAdd]=useState(false);
+  const[ni,setNi]=useState({group:"교육훈련비",name:"",unitPrice:"",qty1:"1",calc:"",reason:""});
+  const[saved,setSaved]=useState(null);
+  const items=useMemo(()=>{const d=toItemDetailed(course);const f=d.filter(i=>{if(filterMode==="increase")return i.variance>0;if(filterMode==="decrease")return i.variance<0;if(filterMode==="lowExecution")return i.executionRate<0.3;return true});return[...f].sort((a,b)=>{if(sortMode==="executionAsc")return a.executionRate-b.executionRate;if(sortMode==="name")return a.name.localeCompare(b.name,"ko");return Math.abs(b.variance)-Math.abs(a.variance)})},[course,filterMode,sortMode]);
+  const groups=useMemo(()=>items.reduce((a,i)=>{(a[i.group]??=[]).push(i);return a},{}),[items]);
+  const ss=s=>s==="증액"?"text-amber-700 bg-amber-50 ring-amber-200":s==="감액"?"text-emerald-700 bg-emerald-50 ring-emerald-200":"text-slate-500 bg-slate-50 ring-slate-200";
+  const startEdit=(it)=>{setEditId(it.id);setEf({group:it.group,name:it.name,adjusted:String(it.adjusted),calc:it.calc,reason:""})};
+  const saveEdit=()=>{if(!editId)return;onUpdate(editId,{group:ef.group,name:ef.name,adjusted:parseNumber(ef.adjusted),calc:ef.calc},ef.reason||"수정 사유 미입력");setSaved(editId);setTimeout(()=>setSaved(null),1500);setEditId(null);setEf({})};
+  const cancelEdit=()=>{setEditId(null);setEf({})};
+  const addItem=()=>{if(!ni.name.trim())return;const amt=parseNumber(ni.unitPrice)*parseNumber(ni.qty1,1);const id=generateNewItemId(course.id,course.items);onAdd({id,group:ni.group,name:ni.name,calc:ni.calc||`${ni.unitPrice} × ${ni.qty1}`,unitPrice:parseNumber(ni.unitPrice),qty1:parseNumber(ni.qty1,1),original:0,adjusted:amt,executed:0},ni.reason||"신규 항목 추가");setNi({group:"교육훈련비",name:"",unitPrice:"",qty1:"1",calc:"",reason:""});setShowAdd(false)};
+  const getLastReason=(itemId)=>{const l=(logs||[]).find(lg=>lg.itemId===itemId);return l?l.reason:null};
+  const eIC="w-full rounded border border-indigo-300 bg-white px-2 py-1 text-xs outline-none focus:ring-2 focus:ring-indigo-400/30";
+  return(<div className="rounded-2xl glass-card shadow-lg p-5">
+    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-5"><div><h2 className="text-base font-bold text-slate-800">{course.name} — 예산 검토표</h2><p className="text-[11px] text-slate-400 mt-0.5">수정 버튼을 눌러 행에서 바로 편집할 수 있습니다</p></div>
+      <div className="flex flex-wrap gap-2">
+        <select className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs shadow-sm" value={filterMode} onChange={e=>onFilterChange(e.target.value)}><option value="all">전체</option><option value="increase">증액만</option><option value="decrease">감액만</option><option value="lowExecution">집행률 30% 미만</option></select>
+        <select className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs shadow-sm" value={sortMode} onChange={e=>onSortChange(e.target.value)}><option value="varianceDesc">차액 큰 순</option><option value="executionAsc">집행률 낮은 순</option><option value="name">항목명순</option></select>
+        <button onClick={()=>setShowAdd(v=>!v)} className="rounded-lg bg-gradient-to-br from-indigo-500 via-indigo-600 to-violet-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:shadow-glow-indigo transition-all">+ 항목 추가</button>
+      </div></div>
+    {showAdd&&<div className="mb-5 rounded-xl border border-indigo-200 bg-indigo-50/50 p-4 space-y-3"><div className="text-xs font-bold text-indigo-800">신규 항목 추가</div><div className="grid grid-cols-2 sm:grid-cols-4 gap-3"><div><label className={lC}>예산구분</label><select className={iC} value={ni.group} onChange={e=>setNi(p=>({...p,group:e.target.value}))}>{GROUPS.map(g=><option key={g}>{g}</option>)}</select></div><div><label className={lC}>항목명</label><input className={iC} value={ni.name} onChange={e=>setNi(p=>({...p,name:e.target.value}))} placeholder="항목명"/></div><div><label className={lC}>단가</label><input className={iC} value={ni.unitPrice} onChange={e=>setNi(p=>({...p,unitPrice:e.target.value}))} placeholder="0"/></div><div><label className={lC}>수량</label><input className={iC} value={ni.qty1} onChange={e=>setNi(p=>({...p,qty1:e.target.value}))} placeholder="1"/></div></div><div className="mt-2"><label className={lC}>📝 추가 사유</label><input className={iC} value={ni.reason} onChange={e=>setNi(p=>({...p,reason:e.target.value}))} placeholder="항목 추가 사유를 입력하세요"/></div><div className="flex gap-2 mt-2"><button onClick={addItem} className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white">추가</button><button onClick={()=>setShowAdd(false)} className="rounded-lg border border-slate-200 px-4 py-2 text-xs text-slate-600">취소</button></div></div>}
+    <div className="overflow-x-auto rounded-xl border border-slate-200"><table className="min-w-full text-sm">
+      <thead><tr className="bg-slate-50/80 text-[10px] text-slate-500 uppercase tracking-wider"><th className="px-3 py-3 text-left font-semibold">예산구분</th><th className="px-3 py-3 text-left font-semibold">세부항목</th><th className="px-3 py-3 text-left font-semibold">산출근거</th><th className="px-3 py-3 text-right font-semibold">계획금액</th><th className="px-3 py-3 text-right font-semibold">조정금액</th><th className="px-3 py-3 text-right font-semibold">조정차액</th><th className="px-3 py-3 text-right font-semibold">집행액</th><th className="px-3 py-3 text-right font-semibold">잔액</th><th className="px-3 py-3 text-right font-semibold">집행률</th><th className="px-3 py-3 text-center font-semibold">상태</th><th className="px-3 py-3 text-center font-semibold w-28">관리</th></tr></thead>
+      <tbody>{Object.entries(groups).map(([group,gi])=>{const sub=gi.reduce((a,i)=>({original:a.original+i.original,adjusted:a.adjusted+i.adjusted,executed:a.executed+i.executed,variance:a.variance+i.variance,remaining:a.remaining+i.remaining}),{original:0,adjusted:0,executed:0,variance:0,remaining:0});return[
+        ...gi.flatMap(it=>{const isEd=editId===it.id;const justSaved=saved===it.id;const mainRow=(
+          <tr key={it.id} className={`border-b border-slate-50 transition-all duration-150 ${isEd?"bg-indigo-50/80 ring-1 ring-inset ring-indigo-200":justSaved?"bg-emerald-50/60":"hover:bg-slate-50/80"}`}>
+            <td className="px-3 py-2 text-[11px]">{isEd?<select className={eIC} value={ef.group} onChange={e=>setEf(p=>({...p,group:e.target.value}))}>{GROUPS.map(g=><option key={g}>{g}</option>)}</select>:<span className="text-slate-400">{it.group}</span>}</td>
+            <td className="px-3 py-2 text-xs">{isEd?<input className={eIC+" font-semibold"} value={ef.name} onChange={e=>setEf(p=>({...p,name:e.target.value}))}/>:<div><span className="font-medium text-slate-800">{it.name}</span>{(()=>{const r=getLastReason(it.id);return r?<div className="text-[10px] text-indigo-500 mt-0.5 truncate max-w-[200px]" title={r}>💬 {r}</div>:null})()}</div>}</td>
+            <td className="px-3 py-2 text-[11px]">{isEd?<input className={eIC} value={ef.calc} onChange={e=>setEf(p=>({...p,calc:e.target.value}))}/>:<span className="text-slate-400 max-w-[120px] truncate block">{it.calc}</span>}</td>
+            <td className="px-3 py-2 text-right text-xs tabular-nums text-slate-600">{formatWon(it.original)}</td>
+            <td className="px-3 py-2 text-right text-xs tabular-nums">{isEd?<input className={eIC+" text-right font-bold w-28"} value={ef.adjusted} onChange={e=>setEf(p=>({...p,adjusted:e.target.value}))}/>:<span className="font-semibold text-slate-800">{formatWon(it.adjusted)}</span>}</td>
+            <td className={`px-3 py-2 text-right text-xs font-semibold tabular-nums ${it.variance>0?"text-amber-600":it.variance<0?"text-emerald-600":"text-slate-400"}`}>{it.variance>=0?"+":""}{formatWon(it.variance)}</td>
+            <td className="px-3 py-2 text-right text-xs tabular-nums text-slate-600">{formatWon(it.executed)}</td>
+            <td className="px-3 py-2 text-right text-xs tabular-nums text-slate-500">{formatWon(it.remaining)}</td>
+            <td className="px-3 py-2 text-right text-xs tabular-nums text-slate-600">{formatPct(it.executionRate)}</td>
+            <td className="px-3 py-2 text-center"><span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ring-1 ring-inset ${ss(it.status)}`}>{it.status}</span></td>
+            <td className="px-3 py-2 text-center">{isEd?(<div className="flex gap-1 justify-center"><button onClick={saveEdit} className="rounded bg-slate-900 px-2.5 py-1 text-[10px] font-semibold text-white">저장</button><button onClick={cancelEdit} className="rounded border border-slate-200 px-2.5 py-1 text-[10px]">취소</button></div>):(<div className="flex gap-1 justify-center"><button onClick={()=>startEdit(it)} className="rounded border border-slate-200 px-2 py-1 text-[10px] hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-600 transition-all">수정</button><button onClick={()=>onDelete(it.id)} className="rounded border border-rose-200 px-2 py-1 text-[10px] text-rose-500 hover:bg-rose-50 transition-all">삭제</button></div>)}</td>
+          </tr>);const reasonRow=isEd?<tr key={it.id+"-reason"} className="bg-indigo-50/60 border-b border-indigo-200"><td colSpan={11} className="px-3 py-2"><div className="flex items-center gap-3"><span className="text-[11px] font-semibold text-indigo-700 whitespace-nowrap">📝 변경 사유</span><input className="flex-1 rounded border border-indigo-300 bg-white px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-indigo-400/30" placeholder="변경 사유를 입력하세요 (필수)" value={ef.reason||""} onChange={e=>setEf(p=>({...p,reason:e.target.value}))}/></div></td></tr>:null;return isEd?[mainRow,reasonRow]:[mainRow]}),
+        <tr key={`sub-${group}`} className="border-t-2 border-slate-200 bg-slate-50/80 font-semibold text-xs text-slate-700"><td className="px-3 py-2.5" colSpan={3}><span className="text-slate-500">{group}</span> 소계</td><td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.original)}</td><td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.adjusted)}</td><td className={`px-3 py-2.5 text-right tabular-nums ${sub.variance>0?"text-amber-600":sub.variance<0?"text-emerald-600":""}`}>{sub.variance>=0?"+":""}{formatWon(sub.variance)}</td><td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.executed)}</td><td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.remaining)}</td><td className="px-3 py-2.5 text-right tabular-nums">{formatPct(sub.adjusted===0?0:sub.executed/sub.adjusted)}</td><td/><td/></tr>
+      ]})}</tbody>
+    </table></div>
+  </div>);
+}
+</script>
+<script>
+// Shared constants for forms (plain JS so they're global)
+var GROUPS=["사무관리비","공공운영비","교육훈련비","행사운영비","행사실비보상금","보상금","회의비","기타"];
+var iC="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 transition-all outline-none";
+var lC="text-[11px] font-medium text-slate-500 uppercase tracking-wider";
+</script>
+<script type="text/babel">
+// (ItemEditor removed — inline editing is now in CourseReviewTable)
+</script>
+<script type="text/babel">
+// ═══ EXECUTION MANAGER ═══
+function ExecutionManager({course,executions,onAdd,onUpdate,onDelete}){
+  const td0=new Date().toISOString().slice(0,10);
+  const ai=course.items.filter(i=>!i.isDeleted),ce=executions.filter(e=>e.courseId===course.id);
+  const[form,setForm]=useState({date:td0,itemId:ai[0]?.id??"",amount:"",vendor:"",proofNo:"",memo:""});
+  const[eid,setEid]=useState(null);const[ef,setEf]=useState({});const[fi,setFi]=useState("all");
+  const ff=(k,v)=>setForm(p=>({...p,[k]:v}));
+  const ha=()=>{if(!form.itemId||!form.amount)return;const a=parseNumber(form.amount);if(a<=0)return;onAdd({courseId:course.id,itemId:form.itemId,date:form.date,amount:a,vendor:form.vendor||"-",proofNo:form.proofNo||"-",memo:form.memo||"-"});setForm(p=>({...p,amount:"",vendor:"",proofNo:"",memo:""}))};
+  const hes=(id)=>{onUpdate(id,{...ef,amount:parseNumber(String(ef.amount??0))});setEid(null);setEf({})};
+  const fl=fi==="all"?ce:ce.filter(e=>e.itemId===fi);
+  const mt=fl.reduce((a,e)=>{const m=e.date.slice(0,7);a[m]=(a[m]??0)+e.amount;return a},{});
+  return(<div className="rounded-2xl glass-card shadow-lg p-5 space-y-6">
+    <div><h2 className="text-base font-bold text-slate-800">집행내역 관리</h2><p className="text-[11px] text-slate-400 mt-0.5">{course.name}</p></div>
+    <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4 space-y-3"><div className="text-xs font-bold text-slate-700">집행내역 등록</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"><div><label className={lC}>집행일자</label><input type="date" className={iC} value={form.date} onChange={e=>ff("date",e.target.value)}/></div><div><label className={lC}>항목 선택</label><select className={iC} value={form.itemId} onChange={e=>ff("itemId",e.target.value)}>{ai.map(i=><option key={i.id} value={i.id}>{i.name}</option>)}</select></div><div><label className={lC}>집행금액</label><input className={iC} value={form.amount} onChange={e=>ff("amount",e.target.value)} placeholder="0"/></div><div><label className={lC}>거래처</label><input className={iC} value={form.vendor} onChange={e=>ff("vendor",e.target.value)} placeholder="거래처명"/></div><div><label className={lC}>증빙번호</label><input className={iC} value={form.proofNo} onChange={e=>ff("proofNo",e.target.value)} placeholder="증빙-2026-XXX"/></div><div><label className={lC}>비고</label><input className={iC} value={form.memo} onChange={e=>ff("memo",e.target.value)} placeholder="메모"/></div></div>
+      <button onClick={ha} className="rounded-lg bg-gradient-to-br from-slate-800 via-slate-900 to-indigo-900 px-5 py-2.5 text-xs font-semibold text-white hover:shadow-glow-indigo shadow-sm transition-all">등록</button></div>
+    <div className="flex flex-wrap items-center gap-3"><select className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs shadow-sm" value={fi} onChange={e=>setFi(e.target.value)}><option value="all">전체 항목</option>{ai.map(i=><option key={i.id} value={i.id}>{i.name}</option>)}</select><div className="flex gap-2 flex-wrap">{Object.entries(mt).map(([m,t])=><span key={m} className="rounded-lg bg-slate-100 px-3 py-1.5 text-[11px] text-slate-600 font-medium tabular-nums">{m}: {formatWon(t)}</span>)}</div></div>
+    <div className="overflow-x-auto rounded-xl border border-slate-200"><table className="min-w-full text-sm">
+      <thead><tr className="bg-slate-50/80 text-[10px] text-slate-500 uppercase tracking-wider"><th className="px-3 py-3 text-left font-semibold">일자</th><th className="px-3 py-3 text-left font-semibold">항목</th><th className="px-3 py-3 text-right font-semibold">금액</th><th className="px-3 py-3 text-left font-semibold">거래처</th><th className="px-3 py-3 text-left font-semibold">증빙번호</th><th className="px-3 py-3 text-left font-semibold">비고</th><th className="px-3 py-3 text-center font-semibold">관리</th></tr></thead>
+      <tbody>{fl.length===0&&<tr><td colSpan={7} className="px-4 py-12 text-center"><div className="flex flex-col items-center gap-3 text-slate-400"><div className="text-4xl">💳</div><div><p className="font-semibold text-slate-600 text-sm mb-0.5">등록된 집행 내역이 없습니다</p><p className="text-xs">위 등록 폼에서 집행 내역을 추가해주세요.</p></div></div></td></tr>}
+        {fl.map(row=>{const nm=ai.find(i=>i.id===row.itemId)?.name??row.itemId,ie=eid===row.id;return(
+          <tr key={row.id} className="border-b border-slate-50 hover:bg-slate-50/80 transition-colors">
+            <td className="px-3 py-2.5 text-xs tabular-nums">{ie?<input type="date" className="rounded-lg border border-slate-200 px-2 py-1 text-xs w-32" value={String(ef.date??row.date)} onChange={e=>setEf(p=>({...p,date:e.target.value}))}/>:row.date}</td>
+            <td className="px-3 py-2.5 text-xs text-slate-600">{nm}</td>
+            <td className="px-3 py-2.5 text-right text-xs font-semibold tabular-nums">{ie?<input className="rounded-lg border border-slate-200 px-2 py-1 text-xs w-28 text-right" value={String(ef.amount??row.amount)} onChange={e=>setEf(p=>({...p,amount:parseNumber(e.target.value)}))}/>:formatWon(row.amount)}</td>
+            <td className="px-3 py-2.5 text-xs">{ie?<input className="rounded-lg border border-slate-200 px-2 py-1 text-xs w-24" value={String(ef.vendor??row.vendor)} onChange={e=>setEf(p=>({...p,vendor:e.target.value}))}/>:row.vendor}</td>
+            <td className="px-3 py-2.5 text-[11px] text-slate-400">{row.proofNo}</td><td className="px-3 py-2.5 text-[11px] text-slate-400">{row.memo}</td>
+            <td className="px-3 py-2.5 text-center">{ie?<div className="flex gap-1 justify-center"><button onClick={()=>hes(row.id)} className="rounded-lg bg-slate-900 px-2.5 py-1 text-[10px] font-semibold text-white">저장</button><button onClick={()=>{setEid(null);setEf({})}} className="rounded-lg border border-slate-200 px-2.5 py-1 text-[10px]">취소</button></div>:<div className="flex gap-1 justify-center"><button onClick={()=>{setEid(row.id);setEf({date:row.date,amount:row.amount,vendor:row.vendor})}} className="rounded-lg border border-slate-200 px-2.5 py-1 text-[10px] hover:bg-slate-50 transition-all">수정</button><button onClick={()=>onDelete(row.id)} className="rounded-lg border border-rose-200 px-2.5 py-1 text-[10px] text-rose-600 hover:bg-rose-50 transition-all">삭제</button></div>}</td>
+          </tr>)})}</tbody>
+    </table></div>
+  </div>);
+}
+</script>
+<script type="text/babel">
+// ═══ ANALYSIS REPORT ═══
+function AnalysisReport({courses,summary,selectedCourse,reportType,warnings,onReportTypeChange}){
+  const st=courseTotals(selectedCourse),ob=courses.filter(c=>{const t=courseTotals(c);return t.adjusted>t.original});
+  const tv=courses.flatMap(c=>c.items.filter(i=>!i.isDeleted).map(i=>({course:c.name,name:i.name,variance:i.adjusted-i.original}))).sort((a,b)=>Math.abs(b.variance)-Math.abs(a.variance)).slice(0,5);
+  const rt={summary:`전체 조정예산은 계획예산 대비 ${summary.variance>=0?"+":""}${formatWon(summary.variance)} 변동되었습니다. 현재 집행률은 ${formatPct(summary.executionRate)}이며, 공통 운영비와 일부 과정에서 증액 검토가 확인됩니다.`,selected:`${selectedCourse.name}의 조정예산은 ${formatWon(st.adjusted)}이며, 집행률은 ${formatPct(st.executionRate)}입니다. ${st.variance>0?"증액 항목의 사유 검토가 필요합니다.":"감액 조정 항목의 적정성을 확인하면 됩니다."}`,risk:`현재 경고는 ${warnings.length}건입니다. 기준성 항목, 저집행 항목, 증액 과정은 총괄 검토 시 별도 코멘트가 필요합니다.`,common:`공통 운영비 조정예산은 ${formatWon(courseTotals(courses[0]).adjusted)}이며, 집행률은 ${formatPct(courseTotals(courses[0]).executionRate)}입니다. 홍보비·특강비 등 기준성 항목의 집행 진도를 점검하세요.`};
+  const di=toItemDetailed(selectedCourse),le=di.filter(i=>i.executionRate<0.3),inc=di.filter(i=>i.variance>0);
+  return(<div className="rounded-2xl glass-card shadow-lg p-6 space-y-6">
+    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"><div><h2 className="text-base font-bold text-slate-800">분석 리포트</h2><p className="text-[11px] text-slate-400 mt-0.5">예산 조정 방향과 검토 포인트 자동 요약</p></div><select className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs shadow-sm" value={reportType} onChange={e=>onReportTypeChange(e.target.value)}><option value="summary">전체 요약</option><option value="selected">선택 과정</option><option value="risk">리스크 중심</option><option value="common">공통 운영비</option></select></div>
+    <div className="grid gap-6 lg:grid-cols-2">
+      <div className="space-y-4">
+        <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-5"><div className="flex items-center gap-2 mb-3"><span className="w-1.5 h-1.5 rounded-full bg-indigo-500"/><span className="text-xs font-bold text-slate-800">자동 생성 코멘트</span></div><div className="text-sm leading-7 text-slate-600">{rt[reportType]}</div></div>
+        {reportType==="risk"&&<div><div className="text-xs font-bold text-slate-700 mb-2">검증 경고 목록</div><WarningPanel warnings={warnings.slice(0,8)}/></div>}
+        {reportType==="selected"&&<div className="space-y-3">{inc.length>0&&<div className="rounded-xl border border-amber-200 bg-amber-50/50 p-4"><div className="text-xs font-bold text-amber-800 mb-2">증액 항목 ({inc.length}건)</div><ul className="space-y-1 text-sm text-amber-700">{inc.map(i=><li key={i.id} className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-amber-400"/>{i.name}: <span className="font-semibold tabular-nums">+{formatWon(i.variance)}</span></li>)}</ul></div>}{le.length>0&&<div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4"><div className="text-xs font-bold text-slate-700 mb-2">저집행 항목 ({le.length}건)</div><ul className="space-y-1 text-sm text-slate-600">{le.map(i=><li key={i.id} className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-400"/>{i.name}: <span className="font-semibold tabular-nums">{formatPct(i.executionRate)}</span></li>)}</ul></div>}</div>}
+        <div className="rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50/30 p-5"><div className="flex items-center gap-2 mb-3"><span className="text-sm">⚡</span><span className="text-xs font-bold text-amber-800">중점 검토 포인트</span></div><ul className="space-y-2 text-sm leading-6 text-amber-800"><li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-amber-400 mt-2.5 flex-shrink-0"/>공통 운영 예산과 과정 직접비를 분리 관리하되 총괄표는 통합 반영</li><li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-amber-400 mt-2.5 flex-shrink-0"/>증액 항목은 기준 변경인지 물량 변경인지 사유 구분 필요</li><li className="flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-amber-400 mt-2.5 flex-shrink-0"/>훈련지원금, 홍보비, 특강비 등 기준성 항목은 내부 기준과 정합성 재확인</li></ul></div>
+      </div>
+      <div className="space-y-4">
+        <div className="rounded-xl border border-slate-200 p-5"><div className="flex items-center justify-between mb-4"><div className="text-xs font-bold text-slate-800">핵심 지표</div><span className="text-[10px] text-slate-400 bg-slate-100 rounded-full px-2.5 py-0.5">자동 생성</span></div><div className="grid gap-3 sm:grid-cols-2"><StatCard title="증액 과정" value={`${ob.length}개`} sub="공통 운영 포함" tone="amber"/><StatCard title="최대 변동 항목" value={tv[0]?.name??"-"} sub={tv[0]?.course??"-"}/><StatCard title="전체 잔액" value={formatWon(summary.remaining)} sub="집행 가능 재원" tone="emerald"/><StatCard title="선택 과정 집행률" value={formatPct(st.executionRate)} sub={selectedCourse.name} tone="dark"/></div></div>
+        <div className="rounded-xl border border-slate-200 p-5"><div className="text-xs font-bold text-slate-800 mb-4">주요 조정 항목 TOP 5</div><div className="space-y-3">{tv.map((it,idx)=>(<div key={idx} className="flex items-center justify-between"><div className="flex items-center gap-2.5"><span className="w-5 h-5 rounded-md bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">{idx+1}</span><div><span className="text-xs font-medium text-slate-800">{it.name}</span><span className="ml-2 text-[10px] text-slate-400">{it.course}</span></div></div><span className={`text-xs font-bold tabular-nums ${it.variance>0?"text-amber-600":"text-emerald-600"}`}>{it.variance>=0?"+":""}{formatWon(it.variance)}</span></div>))}</div></div>
+      </div>
+    </div>
+  </div>);
+}
+</script>
+<script type="text/babel">
+// ═══ LOG PANEL ═══
+function LogPanel({logs,courseId}){
+  const fl=courseId!==undefined?logs.filter(l=>l.courseId===courseId):logs;
+  if(!fl.length)return(<div className="flex flex-col items-center justify-center gap-3 text-slate-400 py-12"><div className="text-4xl">🕓</div><div className="text-center"><p className="font-semibold text-slate-600 text-sm mb-0.5">수정 이력이 없습니다</p><p className="text-xs">예산 항목을 수정하면 변경 이력이 자동으로 기록됩니다.</p></div></div>);
+  return(<div className="space-y-2 max-h-80 overflow-y-auto">{fl.map(log=>{const ba=log.before.adjusted,aa=log.after.adjusted;return(
+    <div key={log.id} className="rounded-xl border border-slate-100 bg-slate-50/50 px-4 py-3 text-xs hover:border-slate-200 transition-all hover-lift">
+      <div className="flex items-center justify-between gap-2"><span className="font-bold text-slate-800">{log.after.name??log.before.name??log.itemId}</span><span className="text-[10px] text-slate-400 tabular-nums">{log.editedAt.slice(0,16).replace("T"," ")}</span></div>
+      {ba!==undefined&&aa!==undefined&&<div className="mt-1.5 text-slate-600 flex items-center gap-2"><span className="tabular-nums">{formatWon(ba)}</span><span className="text-slate-300">→</span><span className="font-semibold tabular-nums">{formatWon(aa)}</span></div>}
+      <div className="mt-1.5 flex items-center gap-3 text-slate-400"><span>사유: <span className="text-slate-600">{log.reason}</span></span><span>·</span><span>{log.editedBy}</span></div>
+    </div>)})}</div>);
+}
+</script>
+<script type="text/babel">
+// ═══ MAIN APP (single block) ═══
+const CC={"공통":"bg-emerald-50 text-emerald-700 ring-emerald-200","사무분야":"bg-sky-50 text-sky-700 ring-sky-200","식품분야":"bg-orange-50 text-orange-700 ring-orange-200","지역연계형":"bg-blue-50 text-blue-700 ring-blue-200","강사양성형":"bg-violet-50 text-violet-700 ring-violet-200","IT 신직무형":"bg-cyan-50 text-cyan-700 ring-cyan-200","공모 미정":"bg-slate-50 text-slate-500 ring-slate-200"};
+const CDS={"공통":"bg-emerald-500","사무분야":"bg-sky-500","식품분야":"bg-orange-500","지역연계형":"bg-blue-500","강사양성형":"bg-violet-500","IT 신직무형":"bg-cyan-500","공모 미정":"bg-slate-300"};
+
+function App(){
+  const[state,dispatch]=useReducer(budgetReducer,initialState,init=>{const p=loadPersistedState();return p?{...init,...p}:init});
+  const[activeTab,setActiveTab]=useState("dashboard");
+  const[sidebarOpen,setSidebarOpen]=useState(true);
+  const[isMobile,setIsMobile]=useState(false);
+  const[syncStatus,setSyncStatus]=useState("synced");
+  const{addToast}=useToast();
+
+  useEffect(()=>{const mq=window.matchMedia("(max-width:768px)");const h=e=>{setIsMobile(e.matches);if(e.matches)setSidebarOpen(false)};h(mq);mq.addEventListener("change",h);return()=>mq.removeEventListener("change",h)},[]);
+  usePersistence(state,dispatch);
+  useEffect(()=>{setSyncStatus("saving");const t=setTimeout(()=>setSyncStatus("synced"),800);return()=>clearTimeout(t)},[state.courses,state.executions,state.logs]);
+
+  const{courses,executions,logs,selectedCourseId,editingItemId,filterMode,sortMode,reportType}=state;
+  const pc=useMemo(()=>courses.filter(c=>c.id!==0),[courses]);
+  const cc=useMemo(()=>courses.find(c=>c.id===0),[courses]);
+  const sc=useMemo(()=>courses.find(c=>c.id===selectedCourseId)??courses[0],[courses,selectedCourseId]);
+  const ps=useMemo(()=>{const ts=pc.map(c=>courseTotals(c));const a=ts.reduce((s,t)=>s+t.adjusted,0),e=ts.reduce((s,t)=>s+t.executed,0);return{adjusted:a,executed:e,remaining:a-e}},[pc]);
+  const cs=useMemo(()=>{if(!cc)return{adjusted:0,executed:0};const t=courseTotals(cc);return{adjusted:t.adjusted,executed:t.executed}},[cc]);
+  const warns=useMemo(()=>buildWarnings(courses),[courses]);
+  const dwt=useCallback(action=>{dispatch(action);const m={UPDATE_ITEM:"예산현액이 업데이트되었습니다",ADD_ITEM:"새 예산 항목이 추가되었습니다",DELETE_ITEM:"예산 항목이 삭제되었습니다",ADD_EXECUTION:"집행 내역이 등록되었습니다",UPDATE_EXECUTION:"집행 내역이 수정되었습니다",DELETE_EXECUTION:"집행 내역이 삭제되었습니다"};const tp={UPDATE_ITEM:"success",ADD_ITEM:"success",DELETE_ITEM:"info",ADD_EXECUTION:"success",UPDATE_EXECUTION:"success",DELETE_EXECUTION:"info"};if(m[action.type])addToast(tp[action.type],m[action.type])},[dispatch,addToast]);
+  const ta=ps.adjusted+cs.adjusted,te=ps.executed+cs.executed,oer=ta===0?0:te/ta,ua=TOTAL_BUDGET-ta;
+  const tabs=[{id:"dashboard",label:"총괄 대시보드",icon:"📊"},{id:"review",label:"과정별 검토",icon:"📋"},{id:"execution",label:"집행내역",icon:"💳"},{id:"report",label:"분석 리포트",icon:"📈"},{id:"log",label:"수정 이력",icon:"🕓"}];
+  return(
+    <div className="h-full bg-mesh bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 text-slate-900 flex flex-col">
+      <header className="relative bg-header-gradient text-white px-4 md:px-6 py-3 md:py-4 shadow-xl shadow-slate-900/10">
+        <div className="absolute inset-0 bg-card-shine"/>
+        <div className="relative flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 md:gap-4 min-w-0">
+            <button onClick={()=>setSidebarOpen(v=>!v)} className="rounded-xl p-2 md:p-2.5 hover:bg-white/10 active:bg-white/20 transition-all duration-200 flex-shrink-0" aria-label="사이드바 토글"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={sidebarOpen?"M11 19l-7-7 7-7m8 14l-7-7 7-7":"M4 6h16M4 12h16M4 18h16"}/></svg></button>
+            <div className="min-w-0"><div className="text-[10px] md:text-[11px] text-indigo-300/80 font-semibold uppercase tracking-[0.15em] truncate">2026 경기북부 직업교육훈련</div><div className="text-base md:text-lg font-extrabold tracking-tight mt-0.5 truncate">예산관리 시스템</div></div>
+          </div>
+          <div className="flex items-center gap-3 md:gap-5 flex-shrink-0">
+            <div className="hidden sm:flex items-center gap-1.5"><div className={`w-2 h-2 rounded-full transition-colors ${syncStatus==="synced"?"bg-emerald-400":"bg-amber-400 animate-pulse"}`}/><span className="text-[10px] font-medium text-slate-400">{syncStatus==="synced"?"저장 완료":"저장 중..."}</span></div>
+            <div className="hidden lg:flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-2xl px-4 py-2.5 border border-white/10">
+              <div className="relative w-10 h-10"><svg className="w-10 h-10 -rotate-90" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="3"/><circle cx="18" cy="18" r="15" fill="none" stroke="#34d399" strokeWidth="3" strokeDasharray={`${oer*94.2} 94.2`} strokeLinecap="round"/></svg><span className="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-emerald-300">{(oer*100).toFixed(0)}%</span></div>
+              <div><div className="text-[10px] text-slate-400">총 집행률</div><div className="text-sm font-semibold text-emerald-300 tabular-nums">{formatWon(te)}</div></div>
+            </div>
+            <div className="flex items-center gap-2 md:gap-4">
+              <div className="text-right"><div className="text-[10px] text-slate-400 uppercase tracking-wider">총 사업비</div><div className="text-base md:text-xl font-extrabold tabular-nums" style={{background:"linear-gradient(to right,#6ee7b7,#5eead4,#67e8f9)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{formatWon(TOTAL_BUDGET)}</div></div>
+              <div className="hidden md:block w-px h-8 bg-white/20"/>
+              <div className="text-right hidden md:block"><div className="text-[10px] text-slate-400">배분 합계</div><div className="text-sm font-semibold tabular-nums">{formatWon(ta)}</div></div>
+              <div className="text-right hidden lg:block"><div className="text-[10px] text-slate-400">미배분</div><div className={`text-sm font-bold tabular-nums ${ua>=0?"text-sky-300":"text-rose-400"}`}>{formatWon(ua)}</div></div>
+            </div>
+            <button onClick={()=>window.print()} className="hidden md:flex items-center gap-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-2 text-[11px] font-semibold text-slate-300 hover:text-white transition-all" title="브리핑 인쇄">🖨️ 인쇄</button>
+            <button onClick={()=>{const d=JSON.stringify({version:SCHEMA_VERSION,savedAt:new Date().toISOString(),data:{courses:state.courses,executions:state.executions,logs:state.logs}},null,2);const b=new Blob([d],{type:"application/json"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download="예산데이터_"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(u);addToast("success","데이터를 내보냈습니다")}} className="hidden md:flex items-center gap-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-2 text-[11px] font-semibold text-slate-300 hover:text-white transition-all" title="JSON 내보내기">💾 내보내기</button>
+            <label className="hidden md:flex items-center gap-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-2 text-[11px] font-semibold text-slate-300 hover:text-white transition-all cursor-pointer" title="JSON 가져오기"><span>📂 가져오기</span><input type="file" accept=".json" className="hidden" onChange={e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.version&&d.data?.courses){dispatch({type:"HYDRATE",courses:d.data.courses,executions:d.data.executions||[],logs:d.data.logs||[]});addToast("success","데이터를 불러왔습니다")}else{addToast("error","올바른 데이터 파일이 아닙니다")}}catch{addToast("error","파일 읽기 실패")}};r.readAsText(f);e.target.value=""}}/></label>
+          </div>
+        </div>
+      </header>
+      <div className="flex flex-1 overflow-hidden">
+        {isMobile&&sidebarOpen&&<div className="fixed inset-0 z-40 bg-black/40 animate-overlay-in" onClick={()=>setSidebarOpen(false)}/>}
+        <aside className={`${isMobile?`fixed inset-y-0 left-0 z-50 w-72 ${sidebarOpen?"animate-slide-in-left":"hidden"}`:`${sidebarOpen?"w-72":"w-0"} transition-all duration-300 overflow-hidden`} bg-gradient-to-b from-white via-slate-50/80 to-slate-100/60 backdrop-blur-xl border-r border-slate-200/60 flex flex-col shadow-lg md:shadow-none`}>
+          <div className="px-5 pt-5 pb-3"><div className="flex items-center justify-between"><div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">과정 선택</div><span className="text-[10px] text-slate-400 bg-slate-100 rounded-full px-2 py-0.5">{pc.length+(cc?1:0)}개</span></div></div>
+          <div className="flex-1 overflow-y-auto px-3 pb-3 space-y-0.5">
+            {cc&&<><button onClick={()=>{dispatch({type:"SELECT_COURSE",courseId:0});if(isMobile)setSidebarOpen(false)}} className={`w-full text-left rounded-xl px-3 py-3 transition-all duration-200 group ${selectedCourseId===0?"bg-emerald-50 ring-1 ring-emerald-200 shadow-sm":"hover:bg-slate-50"}`}><div className="flex items-center gap-3"><div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm ${selectedCourseId===0?"bg-emerald-500 text-white shadow-sm":"bg-emerald-100 text-emerald-600"}`}>🏢</div><div className="flex-1 min-w-0"><div className="text-xs font-semibold text-slate-800 truncate">공통 운영비</div><div className="text-[11px] text-slate-400 mt-0.5">{formatWon(cs.adjusted)}</div></div></div></button><div className="mx-3 my-2 border-t border-slate-100"/><div className="px-2 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest">교육과정 ({pc.length})</div></>}
+            {pc.map((course,idx)=>{const t=courseTotals(course),ac=course.id===selectedCourseId,un=course.category==="공모 미정",er=t.adjusted>0?(t.executed/t.adjusted)*100:0,dc=CDS[course.category]??"bg-slate-300";return(
+              <button key={course.id} onClick={()=>{dispatch({type:"SELECT_COURSE",courseId:course.id});if(isMobile)setSidebarOpen(false)}} className={`w-full text-left rounded-xl px-3 py-2.5 transition-all duration-200 group ${ac?"bg-slate-900 text-white shadow-md shadow-slate-900/20":"hover:bg-slate-50"}`}>
+                <div className="flex items-center gap-2.5"><div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${ac?"bg-white/20 text-white":"bg-slate-100 text-slate-500"}`}>{idx+1}</div>
+                  <div className="flex-1 min-w-0"><div className="flex items-center gap-1.5"><span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${ac?"bg-white/60":dc}`}/><span className={`text-xs font-medium truncate ${un?"italic opacity-60":""}`}>{course.name}</span></div>
+                    <div className="flex items-center gap-2 mt-1"><span className={`text-[11px] ${ac?"text-slate-300":"text-slate-400"}`}>{t.adjusted>0?formatWon(t.adjusted):"미입력"}</span>{t.adjusted>0&&<div className="flex-1 flex items-center gap-1"><div className={`h-1 rounded-full flex-1 ${ac?"bg-white/10":"bg-slate-100"}`}><div className={`h-full rounded-full transition-all ${ac?"bg-emerald-400":"bg-emerald-500"}`} style={{width:`${Math.min(100,er)}%`}}/></div><span className={`text-[9px] text-slate-400`}>{er.toFixed(0)}%</span></div>}</div>
+                  </div>
+                </div>
+              </button>)})}
+          </div>
+          <div className="p-4 border-t border-slate-200/60 bg-gradient-to-t from-slate-100/80 via-slate-50/50 to-transparent"><div className="text-[11px] text-slate-500 space-y-1.5"><div className="flex justify-between"><span>총 사업비</span><span className="font-bold text-slate-800 tabular-nums">{formatWon(TOTAL_BUDGET)}</span></div><div className="flex justify-between"><span>과정 합산</span><span className="font-semibold text-slate-700 tabular-nums">{formatWon(ps.adjusted)}</span></div><div className="flex justify-between"><span>공통운영비</span><span className="font-semibold text-slate-700 tabular-nums">{formatWon(cs.adjusted)}</span></div><div className="border-t border-slate-200 pt-1.5 flex justify-between"><span className="font-medium">잔여 배분</span><span className={`font-bold tabular-nums ${ua>=0?"text-emerald-600":"text-rose-600"}`}>{formatWon(ua)}</span></div></div></div>
+        </aside>
+        <main className="flex-1 overflow-y-auto">
+          <div className="mx-auto max-w-7xl px-4 py-4 md:p-6 space-y-4 md:space-y-5">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-2 md:gap-3 min-w-0"><h2 className="text-lg md:text-xl font-extrabold text-slate-900 truncate cursor-pointer hover:text-indigo-700 transition-colors" onClick={()=>{const n=prompt("과정명을 입력하세요:",sc.name);if(n&&n.trim())dispatch({type:"UPDATE_COURSE",courseId:sc.id,patch:{name:n.trim()}})}} title="클릭하여 과정명 수정">{sc.name} <span className="text-slate-300 text-sm">✏️</span></h2><span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ring-1 ring-inset ${CC[sc.category]??"bg-slate-50 text-slate-500 ring-slate-200"}`}>{sc.category}</span><span className="text-xs text-slate-400 bg-slate-100 rounded-full px-2.5 py-0.5 hidden sm:inline">{sc.manager}</span></div>
+              <div className="flex items-center gap-2 text-sm overflow-x-auto pb-1 md:pb-0">{(()=>{const t=courseTotals(sc),r=t.adjusted>0?(t.executed/t.adjusted)*100:0;return(<><div className="flex items-center gap-1.5 rounded-xl bg-white/80 backdrop-blur-sm border border-slate-200/60 px-3 py-1.5 shadow-sm"><span className="text-slate-400 text-xs font-medium">조정</span><span className="font-bold text-slate-900 text-xs tabular-nums">{formatWon(t.adjusted)}</span></div><div className="flex items-center gap-1.5 rounded-xl bg-white/80 backdrop-blur-sm border border-slate-200/60 px-3 py-1.5 shadow-sm"><span className="text-slate-400 text-xs font-medium">집행</span><span className="font-bold text-amber-600 text-xs tabular-nums">{formatWon(t.executed)}</span></div><div className="flex items-center gap-2 rounded-xl bg-white/80 backdrop-blur-sm border border-slate-200/60 px-3 py-1.5 shadow-sm"><div className="w-16 h-1.5 rounded-full bg-slate-100 overflow-hidden"><div className="h-full rounded-full progress-gradient transition-all" style={{width:`${Math.min(100,r)}%`}}/></div><span className="font-bold text-slate-900 text-xs tabular-nums">{formatPct(t.executionRate)}</span></div></>)})()}</div>
+            </div>
+            <div className="flex items-center gap-0.5 md:gap-1 glass-card rounded-2xl p-1 md:p-1.5 shadow-sm ring-1 ring-white/60 overflow-x-auto">{tabs.map(tab=>(<button key={tab.id} onClick={()=>setActiveTab(tab.id)} className={`relative flex-1 min-w-0 flex items-center justify-center gap-1.5 md:gap-2 rounded-xl px-2 md:px-3 py-2 md:py-2.5 text-xs md:text-sm font-semibold transition-all duration-200 ${activeTab===tab.id?"bg-gradient-to-br from-slate-800 via-slate-900 to-indigo-900 text-white shadow-lg shadow-slate-900/25":"text-slate-500 hover:text-slate-800 hover:bg-white/60"}`}><span className="text-sm md:text-base">{tab.icon}</span><span className="hidden sm:inline truncate">{tab.label}</span>{tab.id==="log"&&logs.length>0&&<span className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${activeTab===tab.id?"bg-white/20 text-white":"bg-indigo-100 text-indigo-600"}`}>{logs.length}</span>}{tab.id==="report"&&warns.length>0&&<span className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold animate-badge-pulse ${activeTab===tab.id?"bg-white/20 text-white":"bg-amber-100 text-amber-600"}`}>{warns.length}</span>}</button>))}</div>
+
+            {activeTab==="dashboard"&&<div className="space-y-4 md:space-y-5 animate-fade-up"><DashboardHeader totalBudget={TOTAL_BUDGET} programSummary={ps} commonSummary={cs} selectedCourse={sc} courses={courses}/><div className="grid gap-4 md:gap-5 xl:grid-cols-[1.2fr,0.8fr]"><OverallTable courses={pc} commonCourse={cc} totalBudget={TOTAL_BUDGET} selectedCourseId={selectedCourseId} onSelect={id=>dispatch({type:"SELECT_COURSE",courseId:id})}/><GroupSummary courses={courses}/></div></div>}
+            {activeTab==="review"&&<div className="space-y-4 md:space-y-5 animate-fade-up"><CourseReviewTable course={sc} editingItemId={editingItemId} filterMode={filterMode} sortMode={sortMode} logs={logs} onSelectItem={id=>dispatch({type:"SELECT_ITEM",itemId:id})} onFilterChange={m=>dispatch({type:"SET_FILTER",mode:m})} onSortChange={m=>dispatch({type:"SET_SORT",mode:m})} onUpdate={(iid,p,r)=>dwt({type:"UPDATE_ITEM",courseId:selectedCourseId,itemId:iid,patch:p,reason:r})} onAdd={(it,reason)=>dwt({type:"ADD_ITEM",courseId:selectedCourseId,item:it,reason:reason})} onDelete={iid=>dwt({type:"DELETE_ITEM",courseId:selectedCourseId,itemId:iid})}/></div>}
+            {activeTab==="execution"&&<div className="space-y-4 animate-fade-up"><ExecutionManager course={sc} executions={executions} onAdd={row=>dwt({type:"ADD_EXECUTION",row})} onUpdate={(id,p)=>dwt({type:"UPDATE_EXECUTION",id,patch:p})} onDelete={id=>dwt({type:"DELETE_EXECUTION",id})}/></div>}
+            {activeTab==="report"&&<div className="animate-fade-up"><AnalysisReport courses={courses} summary={{...ps,original:ps.adjusted,variance:0,executionRate:ps.adjusted===0?0:ps.executed/ps.adjusted}} selectedCourse={sc} reportType={reportType} warnings={warns} onReportTypeChange={t=>dispatch({type:"SET_REPORT_TYPE",reportType:t})}/></div>}
+            {activeTab==="log"&&<div className="rounded-2xl glass-card shadow-lg p-4 md:p-6 animate-fade-up"><div className="flex items-center justify-between mb-5"><div><h2 className="text-lg font-bold text-slate-800">수정 이력</h2><p className="text-xs text-slate-400 mt-0.5">예산 항목 변경 추적</p></div><span className="text-xs text-slate-500 bg-slate-100 rounded-full px-3 py-1">총 {logs.length}건</span></div><LogPanel logs={logs} courseId={selectedCourseId}/>{logs.length>0&&<div className="mt-5 pt-5 border-t border-slate-100"><div className="text-sm font-semibold text-slate-700 mb-3">전체 이력</div><LogPanel logs={logs}/></div>}</div>}
+          </div>
+        </main>
+      </div>
+      <PrintView courses={courses}/>
+    </div>
+  );
+}
+
+// ═══ PRINT VIEW ═══
+function PrintView({courses}){
+  const stats=BUDGET_TARGETS.map(t=>{let adj=0,ex=0;courses.forEach(c=>c.items.forEach(i=>{if(ACCOUNT_CODE_MAP[i.group]===t.code&&!i.isDeleted){adj+=i.adjusted;ex+=i.executed}}));return{...t,adj,ex}});
+  const tAdj=stats.reduce((s,t)=>s+t.adj,0),tEx=stats.reduce((s,t)=>s+t.ex,0),tOrig=stats.reduce((s,t)=>s+t.original,0);
+  const allCourses=courses;
+  const active=courses.filter(c=>c.items.some(i=>!i.isDeleted));
+  const sLabel=st=>st==="common"?"공통":st==="fixed"?"확정":st==="draft"?"검토":"미정";
+
+  return(<div className="print-view">
+    {/* ═══ 1페이지: 총괄 ═══ */}
+    <div className="pv-page">
+      <div className="pv-header">
+        <div><div style={{fontSize:"16px",fontWeight:900,letterSpacing:"-0.02em"}}>경기북부 직업교육 예산 종합 브리핑 자료</div><div style={{fontSize:"10px",color:"#475569",fontWeight:700,marginTop:"2px"}}>2026년도 직업교육훈련 사업 예산 편성 및 집행 현황</div></div>
+        <div style={{textAlign:"right"}}><div style={{fontSize:"9px",color:"#334155",fontWeight:700}}>경기북부 직업교육훈련센터</div><div style={{fontSize:"8px",color:"#64748b",fontWeight:600}}>출력일: {new Date().toLocaleDateString("ko-KR")}</div></div>
+      </div>
+      <div className="pv-kpi-grid">
+        {[{l:"총 예산 한도",v:formatWon(tOrig),c:"#1e40af",s:"목표 편성액"},{l:"현재 배분 총액",v:formatWon(tAdj),c:"#be185d",s:"편성률 "+(tAdj/tOrig*100).toFixed(1)+"%"},{l:"미배분 잔여",v:formatWon(tOrig-tAdj),c:tOrig-tAdj>=0?"#059669":"#dc2626",s:"가용 재원"},{l:"총 집행률",v:tAdj>0?((tEx/tAdj*100).toFixed(1)+"%"):"0%",c:"#7c3aed",s:"집행 "+formatWon(tEx)}].map((k,i)=><div key={i} className="pv-kpi-card"><div className="pv-kpi-label">{k.l}</div><div className="pv-kpi-value" style={{color:k.c}}>{k.v}</div><div className="pv-kpi-sub" style={{color:k.c}}>{k.s}</div></div>)}
+      </div>
+      <div className="pv-info-grid">
+        <div className="pv-info-box"><h4>📋 사업 총괄</h4><ul style={{margin:0,paddingLeft:"14px"}}><li>사업기간: 2026년 1월 ~ 12월</li><li>사업량: 13개 과정 / 240명</li><li>사업목표: 수료 218명 / 취업 144명</li><li>성과목표: 수료율 90%, 취업률 65%, 만족도 90점↑</li><li>총 예산: 278,500천원</li></ul></div>
+        <div className="pv-info-box"><h4>📌 운영 기준</h4><ul style={{margin:0,paddingLeft:"14px"}}><li>모집: 잡아바 어플라이 + 교육훈련관리시스템</li><li>선발: 서류 → 면접 → 최종선발</li><li>훈련지원금: 20일(60시간) 단위 5만원</li><li>출석률 80% 이상 시 지급</li><li>비대면 과정은 훈련지원금 미지급</li></ul></div>
+        <div className="pv-info-box" style={{gridColumn:"1/-1"}}><h4>⚠️ 리스크 및 검토 포인트</h4><ul style={{margin:0,paddingLeft:"14px",columns:2,columnGap:"20px"}}><li>공모 3개 과정 미확정 (A, B, C)</li><li>OA 1·2기 예산 합산 관리 이슈</li><li>ERP·지게차 일정 조율 필요</li><li>승강기 과정 추가 예산 논의 필요</li></ul></div>
+      </div>
+      <div className="pv-stitle green">세목별 편성 현황</div>
+      <table className="pv-tbl"><thead><tr><th style={{width:"9%"}}>코드</th><th style={{width:"16%",textAlign:"left"}}>세목명</th><th style={{width:"17%"}}>편성 한도</th><th style={{width:"17%"}}>현재 배분</th><th style={{width:"17%"}}>잔여/초과</th><th style={{width:"14%"}}>집행액</th><th style={{width:"10%"}}>집행률</th></tr></thead><tbody>
+        {stats.map(st=>{const d=st.original-st.adj;return <tr key={st.code}><td style={{textAlign:"center",fontWeight:800}}>{st.code}</td><td className="name-col">{st.name}</td><td className="num">{formatWon(st.original)}</td><td className="num" style={{fontWeight:900}}>{formatWon(st.adj)}</td><td className="num" style={{fontWeight:800}}>{d===0?"-":(d<0?"초과 ":"잔여 ")+formatWon(Math.abs(d))}</td><td className="num">{formatWon(st.ex)}</td><td className="num">{st.adj>0?formatPct(st.ex/st.adj):"-"}</td></tr>})}
+        <tr className="pv-total"><td colSpan={2} style={{textAlign:"center"}}>합계</td><td className="num">{formatWon(tOrig)}</td><td className="num">{formatWon(tAdj)}</td><td className="num">{tOrig===tAdj?"-":(tOrig-tAdj<0?"초과 ":"잔여 ")+formatWon(Math.abs(tOrig-tAdj))}</td><td className="num">{formatWon(tEx)}</td><td className="num">{formatPct(tAdj===0?0:tEx/tAdj)}</td></tr>
+      </tbody></table>
+      <div className="pv-stitle blue">과정별 예산 현황</div>
+      <table className="pv-tbl"><thead><tr><th style={{width:"30%",textAlign:"left"}}>과정명</th><th style={{width:"10%"}}>담당</th><th style={{width:"15%"}}>조정예산</th><th style={{width:"12%"}}>집행액</th><th style={{width:"12%"}}>잔액</th><th style={{width:"8%"}}>집행률</th><th style={{width:"8%"}}>상태</th></tr></thead><tbody>
+        {allCourses.map(c=>{const t=courseTotals(c);const un=c.status==="unassigned";return <tr key={c.id} style={un?{color:"#94a3b8",fontStyle:"italic"}:{}}><td className="name-col">{c.name}</td><td style={{textAlign:"center",fontSize:"9px"}}>{c.manager}</td><td className="num" style={{fontWeight:un?400:900}}>{t.adjusted?formatWon(t.adjusted):"-"}</td><td className="num">{t.executed?formatWon(t.executed):"-"}</td><td className="num">{t.remaining?formatWon(t.remaining):"-"}</td><td className="num">{t.adjusted>0?formatPct(t.executionRate):"-"}</td><td style={{textAlign:"center"}}><span className={"pv-badge pv-badge-"+c.status}>{sLabel(c.status)}</span></td></tr>})}
+        <tr className="pv-total"><td>합계</td><td/><td className="num">{formatWon(tAdj)}</td><td className="num">{formatWon(tEx)}</td><td className="num">{formatWon(tAdj-tEx)}</td><td className="num">{formatPct(tAdj===0?0:tEx/tAdj)}</td><td/></tr>
+      </tbody></table>
+    </div>
+
+    {/* ═══ 2페이지~: 과정별 세부 (1과정씩 전체 폭) ═══ */}
+    {active.map(c=>{const items=c.items.filter(i=>!i.isDeleted);const t=courseTotals(c);const grouped={};items.forEach(i=>{(grouped[i.group]??=[]).push(i)});
+      return(<div key={c.id} className="pv-cblock">
+        <div className="pv-chdr"><div style={{display:"flex",alignItems:"center"}}><span className={"pv-badge pv-badge-"+c.status}>{sLabel(c.status)}</span><span className="cn">{c.name}</span><span className="cm">({c.category}) 담당: {c.manager}</span></div><span className="ct">현액 {formatWon(t.adjusted)}</span></div>
+        <div className="pv-csum"><span>계획 {formatWon(t.original)}</span><span>조정 {formatWon(t.adjusted)}</span><span style={{color:t.variance>0?"#ea580c":t.variance<0?"#2563eb":"#475569"}}>증감 {t.variance===0?"-":(t.variance>0?"+":"")+formatWon(t.variance)}</span><span>집행 {formatWon(t.executed)}</span><span>잔액 {formatWon(t.remaining)}</span><span>집행률 {formatPct(t.executionRate)}</span></div>
+        <table className="pv-tbl" style={{margin:0}}><thead><tr><th style={{width:"12%"}}>세목</th><th style={{width:"20%",textAlign:"left"}}>항목명</th><th style={{width:"16%",textAlign:"left"}}>산출근거</th><th style={{width:"12%"}}>계획</th><th style={{width:"12%"}}>조정</th><th style={{width:"9%"}}>증감</th><th style={{width:"9%"}}>집행</th><th style={{width:"10%"}}>잔액</th></tr></thead><tbody>
+          {Object.entries(grouped).map(([grp,its])=>its.map((it,idx)=><tr key={it.id}>{idx===0&&<td rowSpan={its.length} style={{textAlign:"center",fontWeight:800,fontSize:"9.5px",background:"#f1f5f9",verticalAlign:"middle"}}>{grp}</td>}<td className="name-col">{it.name}</td><td style={{fontSize:"9px",color:"#475569"}}>{it.calc||"-"}</td><td className="num" style={{color:"#64748b"}}>{formatWon(it.original)}</td><td className="num" style={{fontWeight:900}}>{formatWon(it.adjusted)}</td><td className="num" style={{color:it.adjusted-it.original>0?"#ea580c":it.adjusted-it.original<0?"#2563eb":"#94a3b8",fontSize:"9.5px"}}>{it.adjusted===it.original?"-":(it.adjusted>it.original?"+":"")+formatWon(it.adjusted-it.original)}</td><td className="num">{it.executed?formatWon(it.executed):"-"}</td><td className="num" style={{color:"#059669"}}>{formatWon(it.adjusted-it.executed)}</td></tr>))}
+          <tr className="pv-total"><td colSpan={3} style={{textAlign:"center"}}>소계</td><td className="num" style={{color:"#64748b"}}>{formatWon(t.original)}</td><td className="num">{formatWon(t.adjusted)}</td><td className="num" style={{fontSize:"9.5px"}}>{t.variance===0?"-":(t.variance>0?"+":"")+formatWon(t.variance)}</td><td className="num">{t.executed?formatWon(t.executed):"-"}</td><td className="num" style={{color:"#059669"}}>{formatWon(t.remaining)}</td></tr>
+        </tbody></table>
+      </div>)})}
+    <div className="pv-footer">경기북부 직업교육훈련센터 | 2026년도 직업교육 예산 종합 브리핑 자료 | 내부 검토용</div>
+  </div>);
+}
+
+// ═══ RENDER ═══
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<ToastProvider><App/></ToastProvider>);
+</script>
+</body>
+</html>

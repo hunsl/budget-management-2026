@@ -1,0 +1,5282 @@
+{
+  "version": 2,
+  "savedAt": "2026-07-22T04:09:01.501Z",
+  "data": {
+    "courses": [
+      {
+        "id": 0,
+        "name": "공통운영비",
+        "manager": "기획총괄",
+        "category": "공통",
+        "status": "common",
+        "items": [
+          {
+            "id": "c0-1",
+            "group": "사무관리비",
+            "name": "교육과정 홍보물 제작",
+            "calc": "21,450,000 × 1",
+            "unitPrice": 21450000,
+            "qty1": 1,
+            "original": 21450000,
+            "adjusted": 15019300,
+            "executed": 8193500
+          },
+          {
+            "id": "c0-2",
+            "group": "사무관리비",
+            "name": "SNS·문자 홍보",
+            "calc": "6,500,000 × 1",
+            "unitPrice": 6500000,
+            "qty1": 1,
+            "original": 6500000,
+            "adjusted": 2500000,
+            "executed": 1770500
+          },
+          {
+            "id": "c0-3",
+            "group": "행사운영비",
+            "name": "직종설명회 운영",
+            "calc": "5,500,000 × 1",
+            "unitPrice": 5500000,
+            "qty1": 1,
+            "original": 5500000,
+            "adjusted": 5500000,
+            "executed": 0
+          },
+          {
+            "id": "c0-4",
+            "group": "회의비",
+            "name": "강사 간담회 운영",
+            "calc": "500,000 × 1",
+            "unitPrice": 500000,
+            "qty1": 1,
+            "original": 500000,
+            "adjusted": 500000,
+            "executed": 0
+          },
+          {
+            "id": "c0-5",
+            "group": "회의비",
+            "name": "다과 및 소모품",
+            "calc": "1000,000 × 1",
+            "unitPrice": 300000,
+            "qty1": 1,
+            "original": 300000,
+            "adjusted": 1000000,
+            "executed": 0
+          },
+          {
+            "id": "c0-6",
+            "group": "교육훈련비",
+            "name": "심화교육 특강 강사료",
+            "calc": "4,000,000 × 1",
+            "unitPrice": 4000000,
+            "qty1": 1,
+            "original": 4000000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c0-7",
+            "group": "교육훈련비",
+            "name": "직종설명회 특강 강사료",
+            "calc": "4,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 4400000,
+            "executed": 0
+          },
+          {
+            "id": "c0-8",
+            "group": "교육훈련비",
+            "name": "학습동아리 운영(공통)",
+            "calc": "4,900,000 × 1",
+            "unitPrice": 4900000,
+            "qty1": 1,
+            "original": 4900000,
+            "adjusted": 3500000,
+            "executed": 0
+          },
+          {
+            "id": "c0-9",
+            "group": "행사실비보상금",
+            "name": "개강 및 수료식 다과",
+            "calc": "1,500,000 × 1",
+            "unitPrice": 1500000,
+            "qty1": 1,
+            "original": 1500000,
+            "adjusted": 2205000,
+            "executed": 0
+          },
+          {
+            "id": "c0-10",
+            "group": "사무관리비",
+            "name": "홍보물품 제작",
+            "calc": "7000,000 × 1",
+            "unitPrice": 6800000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 7100000,
+            "executed": 7100000
+          },
+          {
+            "id": "c0-11",
+            "group": "사무관리비",
+            "name": "설문조사 이벤트",
+            "calc": "5000 × 100",
+            "unitPrice": 5000,
+            "qty1": 50,
+            "original": 0,
+            "adjusted": 250000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c0-12",
+            "group": "사무관리비",
+            "name": "설문조사 이벤트",
+            "calc": "5000 × 100",
+            "unitPrice": 5000,
+            "qty1": 100,
+            "original": 0,
+            "adjusted": 500000,
+            "executed": 0
+          },
+          {
+            "id": "c0-13",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "890,000 × 1",
+            "unitPrice": 890000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 226000,
+            "executed": 126000
+          },
+          {
+            "id": "c0-14",
+            "group": "교육훈련비",
+            "name": "예비비",
+            "calc": "1937000 × 1",
+            "unitPrice": 4617000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c0-15",
+            "group": "사무관리비",
+            "name": "설문조사 포스터 제작",
+            "calc": "900000 × 1",
+            "unitPrice": 500000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 900000,
+            "executed": 0
+          },
+          {
+            "id": "c0-16",
+            "group": "행사실비보상금",
+            "name": "직종설명회",
+            "calc": "60 × 9000",
+            "unitPrice": 60,
+            "qty1": 9000,
+            "original": 0,
+            "adjusted": 540000,
+            "executed": 0
+          },
+          {
+            "id": "c0-17",
+            "group": "사무관리비",
+            "name": "예비비",
+            "calc": "550000 × 1",
+            "unitPrice": 550000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 0,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "행정회계 사무 OA(1기)",
+        "manager": "신동원 주임",
+        "category": "사무분야",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c1-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c1-2",
+            "group": "사무관리비",
+            "name": "교재비용",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1095300,
+            "executed": 1095300
+          },
+          {
+            "id": "c1-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c1-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "30,000 × 1",
+            "unitPrice": 30000,
+            "qty1": 1,
+            "original": 30000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c1-5",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "14,720,000 × 1",
+            "unitPrice": 14720000,
+            "qty1": 1,
+            "original": 14720000,
+            "adjusted": 14720000,
+            "executed": 0
+          },
+          {
+            "id": "c1-6",
+            "group": "교육훈련비",
+            "name": "취업대비특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c1-7",
+            "group": "교육훈련비",
+            "name": "생성형AI 특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c1-8",
+            "group": "교육훈련비",
+            "name": "사후관리특강",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c1-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c1-10",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 2000000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "행정회계 사무 OA(2기)",
+        "manager": "신동원 주임",
+        "category": "사무분야",
+        "status": "fixed",
+        "items": [
+          {
+            "id": "c2-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c2-2",
+            "group": "사무관리비",
+            "name": "교재비용",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          },
+          {
+            "id": "c2-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c2-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "30,000 × 1",
+            "unitPrice": 30000,
+            "qty1": 1,
+            "original": 30000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c2-5",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "14,720,000 × 1",
+            "unitPrice": 14720000,
+            "qty1": 1,
+            "original": 14720000,
+            "adjusted": 14720000,
+            "executed": 0
+          },
+          {
+            "id": "c2-6",
+            "group": "교육훈련비",
+            "name": "취업대비특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c2-7",
+            "group": "교육훈련비",
+            "name": "생성형AI 특강",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c2-8",
+            "group": "교육훈련비",
+            "name": "사후관리특강",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c2-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c2-10",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 1900000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "HACCP 전문인력 양성",
+        "manager": "이상훈 과장",
+        "category": "식품분야",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c3-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c3-2",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "1,953,000 × 1",
+            "unitPrice": 1953000,
+            "qty1": 1,
+            "original": 1953000,
+            "adjusted": 1953000,
+            "executed": 1953000
+          },
+          {
+            "id": "c3-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c3-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "30,000 × 1",
+            "unitPrice": 30000,
+            "qty1": 1,
+            "original": 30000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c3-5",
+            "group": "교육훈련비",
+            "name": "실습용역",
+            "calc": "9,915,000 × 1",
+            "unitPrice": 10062000,
+            "qty1": 1,
+            "original": 10062000,
+            "adjusted": 9915000,
+            "executed": 9915000
+          },
+          {
+            "id": "c3-6",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "15,840,000 × 1",
+            "unitPrice": 15840000,
+            "qty1": 1,
+            "original": 15840000,
+            "adjusted": 15840000,
+            "executed": 15840000
+          },
+          {
+            "id": "c3-7",
+            "group": "교육훈련비",
+            "name": "실험보조",
+            "calc": "2,800,000 × 1",
+            "unitPrice": 2800000,
+            "qty1": 1,
+            "original": 2800000,
+            "adjusted": 2800000,
+            "executed": 2800000
+          },
+          {
+            "id": "c3-8",
+            "group": "교육훈련비",
+            "name": "AI 특강",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 400000
+          },
+          {
+            "id": "c3-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c3-10",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "1,000,000 × 1",
+            "unitPrice": 1000000,
+            "qty1": 1,
+            "original": 1000000,
+            "adjusted": 1000000,
+            "executed": 1000000
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "ERP·지게차 물류관리 실무자 양성",
+        "manager": "이상훈 과장",
+        "category": "지역연계형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c4-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c4-2",
+            "group": "사무관리비",
+            "name": "교육장 임차료",
+            "calc": "9,980,000 × 1",
+            "unitPrice": 9980000,
+            "qty1": 1,
+            "original": 9980000,
+            "adjusted": 9980000,
+            "executed": 0
+          },
+          {
+            "id": "c4-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c4-4",
+            "group": "교육훈련비",
+            "name": "강사수당(지게차)",
+            "calc": "6,630,000 × 1",
+            "unitPrice": 6630000,
+            "qty1": 1,
+            "original": 6630000,
+            "adjusted": 6630000,
+            "executed": 0
+          },
+          {
+            "id": "c4-5",
+            "group": "교육훈련비",
+            "name": "ERP 강사수당",
+            "calc": "4,680,000 × 1",
+            "unitPrice": 4680000,
+            "qty1": 1,
+            "original": 4680000,
+            "adjusted": 4680000,
+            "executed": 0
+          },
+          {
+            "id": "c4-6",
+            "group": "교육훈련비",
+            "name": "취업특강 및 안전교육",
+            "calc": "800,000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 0
+          },
+          {
+            "id": "c4-7",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "2개월(5~6월) * 15명 * 50,000원",
+            "unitPrice": 750000,
+            "qty1": 1,
+            "original": 750000,
+            "adjusted": 1400000,
+            "executed": 0
+          },
+          {
+            "id": "c4-8",
+            "group": "사무관리비",
+            "name": "교재",
+            "calc": "25,000원*16명 ",
+            "unitPrice": 0,
+            "qty1": 560000,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c4-9",
+            "group": "교육훈련비",
+            "name": "취업특강 및 AI특강",
+            "calc": "800000 × 1",
+            "unitPrice": 800000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 800000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "승강기 전문가 양성",
+        "manager": "이상훈 과장",
+        "category": "지역연계형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c5-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 200000
+          },
+          {
+            "id": "c5-2",
+            "group": "사무관리비",
+            "name": "버스 임차료",
+            "calc": "2,000,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 2000000,
+            "executed": 1800000
+          },
+          {
+            "id": "c5-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c5-4",
+            "group": "공공운영비",
+            "name": "보험료",
+            "calc": "850,000 × 1",
+            "unitPrice": 850000,
+            "qty1": 1,
+            "original": 850000,
+            "adjusted": 200000,
+            "executed": 122000
+          },
+          {
+            "id": "c5-5",
+            "group": "교육훈련비",
+            "name": "교육 운영비",
+            "calc": "3,800,000 × 1",
+            "unitPrice": 3800000,
+            "qty1": 1,
+            "original": 3800000,
+            "adjusted": 4800000,
+            "executed": 0
+          },
+          {
+            "id": "c5-6",
+            "group": "교육훈련비",
+            "name": "실습 교육 비용",
+            "calc": "6,000,000 × 1",
+            "unitPrice": 6000000,
+            "qty1": 1,
+            "original": 6000000,
+            "adjusted": 6000000,
+            "executed": 6000000
+          },
+          {
+            "id": "c5-7",
+            "group": "사무관리비",
+            "name": "교재비 ",
+            "calc": "40000 × 20",
+            "unitPrice": 40000,
+            "qty1": 20,
+            "original": 800000,
+            "adjusted": 800000,
+            "executed": 428400
+          },
+          {
+            "id": "c5-8",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "100000 × 6",
+            "unitPrice": 100000,
+            "qty1": 5,
+            "original": 500000,
+            "adjusted": 600000,
+            "executed": 500000
+          },
+          {
+            "id": "c5-9",
+            "group": "교육훈련비",
+            "name": "선배와의만남",
+            "calc": "400000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 400000
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "중장년 기회강사 양성",
+        "manager": "신동원 주임",
+        "category": "지역연계형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c6-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c6-2",
+            "group": "사무관리비",
+            "name": "교재(MBTI 검사지)",
+            "calc": "165,000 × 1",
+            "unitPrice": 165000,
+            "qty1": 1,
+            "original": 165000,
+            "adjusted": 165000,
+            "executed": 0
+          },
+          {
+            "id": "c6-3",
+            "group": "사무관리비",
+            "name": "강사프로필",
+            "calc": "1,050,000 × 1",
+            "unitPrice": 1050000,
+            "qty1": 1,
+            "original": 1050000,
+            "adjusted": 1050000,
+            "executed": 0
+          },
+          {
+            "id": "c6-4",
+            "group": "사무관리비",
+            "name": "강사소개책자",
+            "calc": "4,200,000 × 1",
+            "unitPrice": 4200000,
+            "qty1": 1,
+            "original": 4200000,
+            "adjusted": 4200000,
+            "executed": 0
+          },
+          {
+            "id": "c6-5",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c6-6",
+            "group": "교육훈련비",
+            "name": "강사료",
+            "calc": "8,960,000 × 1",
+            "unitPrice": 9960000,
+            "qty1": 1,
+            "original": 9960000,
+            "adjusted": 8960000,
+            "executed": 0
+          },
+          {
+            "id": "c6-7",
+            "group": "교육훈련비",
+            "name": "교육생 특강료 지원",
+            "calc": "1,875,000 × 1",
+            "unitPrice": 1875000,
+            "qty1": 1,
+            "original": 1875000,
+            "adjusted": 1875000,
+            "executed": 0
+          },
+          {
+            "id": "c6-8",
+            "group": "교육훈련비",
+            "name": "훈련수당",
+            "calc": "750,000 × 1",
+            "unitPrice": 750000,
+            "qty1": 1,
+            "original": 750000,
+            "adjusted": 750000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "초등 피지컬 코딩강사 양성",
+        "manager": "이상훈 과장",
+        "category": "강사양성형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c7-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c7-2",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c7-3",
+            "group": "사무관리비",
+            "name": "소모품비",
+            "calc": "60,000 × 1",
+            "unitPrice": 60000,
+            "qty1": 1,
+            "original": 60000,
+            "adjusted": 60000,
+            "executed": 0
+          },
+          {
+            "id": "c7-4",
+            "group": "사무관리비",
+            "name": "재료비",
+            "calc": "190000 × 13",
+            "unitPrice": 3000000,
+            "qty1": 1,
+            "original": 3000000,
+            "adjusted": 2470000,
+            "executed": 0
+          },
+          {
+            "id": "c7-5",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "60000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 780000,
+            "executed": 0
+          },
+          {
+            "id": "c7-6",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "100,000 × 1",
+            "unitPrice": 100000,
+            "qty1": 1,
+            "original": 100000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c7-7",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "6,000,000 × 1",
+            "unitPrice": 6000000,
+            "qty1": 1,
+            "original": 6000000,
+            "adjusted": 6000000,
+            "executed": 0
+          },
+          {
+            "id": "c7-8",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "900,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 900000,
+            "executed": 0
+          },
+          {
+            "id": "c7-9",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c7-10",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "50000 × 20",
+            "unitPrice": 5000,
+            "qty1": 20,
+            "original": 100000,
+            "adjusted": 1000000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c7-11",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "50000 × 20",
+            "unitPrice": 50000,
+            "qty1": 20,
+            "original": 0,
+            "adjusted": 1000000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "AI 딥러닝 전문강사 양성",
+        "manager": "이상훈 과장",
+        "category": "강사양성형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c8-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c8-2",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c8-3",
+            "group": "사무관리비",
+            "name": "강의 원고료",
+            "calc": "200,000 × 1",
+            "unitPrice": 60000,
+            "qty1": 1,
+            "original": 60000,
+            "adjusted": 200000,
+            "executed": 0
+          },
+          {
+            "id": "c8-4",
+            "group": "사무관리비",
+            "name": "재료비",
+            "calc": "2900,000 × 1",
+            "unitPrice": 3000000,
+            "qty1": 1,
+            "original": 3000000,
+            "adjusted": 2900000,
+            "executed": 0
+          },
+          {
+            "id": "c8-5",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "500,000 × 1",
+            "unitPrice": 500000,
+            "qty1": 1,
+            "original": 500000,
+            "adjusted": 500000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c8-6",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "100,000 × 1",
+            "unitPrice": 100000,
+            "qty1": 1,
+            "original": 100000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c8-7",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "10,400,000 × 1",
+            "unitPrice": 13800000,
+            "qty1": 1,
+            "original": 13800000,
+            "adjusted": 10400000,
+            "executed": 0
+          },
+          {
+            "id": "c8-8",
+            "group": "교육훈련비",
+            "name": "보조강사",
+            "calc": "3,800,000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 2000000,
+            "adjusted": 3800000,
+            "executed": 0
+          },
+          {
+            "id": "c8-9",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c8-10",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c8-11",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "50000 × 20",
+            "unitPrice": 50000,
+            "qty1": 20,
+            "original": 0,
+            "adjusted": 1000000,
+            "executed": 0
+          },
+          {
+            "id": "c8-12",
+            "group": "사무관리비",
+            "name": "프로필촬영",
+            "calc": "1100000 × 1",
+            "unitPrice": 1100000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 1100000,
+            "executed": 0
+          },
+          {
+            "id": "c8-13",
+            "group": "사무관리비",
+            "name": "진단도구비",
+            "calc": "20 × 40000",
+            "unitPrice": 20,
+            "qty1": 40000,
+            "original": 0,
+            "adjusted": 800000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "늘봄학교 창의융합교육강사 양성",
+        "manager": "신동원 주임",
+        "category": "강사양성형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c9-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c9-2",
+            "group": "사무관리비",
+            "name": "교재 및 재료",
+            "calc": "1,365,000 × 1",
+            "unitPrice": 1365000,
+            "qty1": 1,
+            "original": 1365000,
+            "adjusted": 1365000,
+            "executed": 0
+          },
+          {
+            "id": "c9-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c9-4",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "8,320,000 × 1",
+            "unitPrice": 8320000,
+            "qty1": 1,
+            "original": 8320000,
+            "adjusted": 8320000,
+            "executed": 0
+          },
+          {
+            "id": "c9-5",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c9-6",
+            "group": "교육훈련비",
+            "name": "학습동아리",
+            "calc": "700,000 × 1",
+            "unitPrice": 700000,
+            "qty1": 1,
+            "original": 700000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c9-7",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "1,000,000 × 1",
+            "unitPrice": 1000000,
+            "qty1": 1,
+            "original": 1000000,
+            "adjusted": 1000000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "AI시대의 캐릭터 크리에이터 양성",
+        "manager": "이상훈 과장",
+        "category": "IT 신직무형",
+        "status": "draft",
+        "items": [
+          {
+            "id": "c10-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400,000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 400000,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c10-2",
+            "group": "사무관리비",
+            "name": "구루미 사용",
+            "calc": "200,000 × 1",
+            "unitPrice": 200000,
+            "qty1": 1,
+            "original": 200000,
+            "adjusted": 200000,
+            "executed": 0
+          },
+          {
+            "id": "c10-3",
+            "group": "사무관리비",
+            "name": "모집홍보비",
+            "calc": "1,650,000 × 1",
+            "unitPrice": 1650000,
+            "qty1": 1,
+            "original": 1650000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c10-4",
+            "group": "공공운영비",
+            "name": "우편발송료",
+            "calc": "100,000 × 1",
+            "unitPrice": 100000,
+            "qty1": 1,
+            "original": 100000,
+            "adjusted": 0,
+            "executed": 0
+          },
+          {
+            "id": "c10-5",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "8,000,000 × 1",
+            "unitPrice": 8000000,
+            "qty1": 1,
+            "original": 8000000,
+            "adjusted": 8000000,
+            "executed": 0
+          },
+          {
+            "id": "c10-6",
+            "group": "교육훈련비",
+            "name": "취업·저작권 특강",
+            "calc": "1,200,000 × 1",
+            "unitPrice": 1200000,
+            "qty1": 1,
+            "original": 1200000,
+            "adjusted": 1200000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "name": "공공 재정데이터 기반 AI 기초역량 과정",
+        "manager": "이상훈 과장",
+        "category": "공모 미정",
+        "status": "unassigned",
+        "items": [
+          {
+            "id": "c11-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c11-2",
+            "group": "교육훈련비",
+            "name": "강사수당",
+            "calc": "150000 × 80",
+            "unitPrice": 150000,
+            "qty1": 80,
+            "original": 0,
+            "adjusted": 12000000,
+            "executed": 0
+          },
+          {
+            "id": "c11-3",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "35000 × 25",
+            "unitPrice": 35000,
+            "qty1": 22,
+            "original": 0,
+            "adjusted": 875000,
+            "executed": 0
+          },
+          {
+            "id": "c11-4",
+            "group": "교육훈련비",
+            "name": "훈련지원금",
+            "calc": "50000 × 25",
+            "unitPrice": 50000,
+            "qty1": 25,
+            "original": 0,
+            "adjusted": 1250000,
+            "executed": 0
+          },
+          {
+            "id": "c11-5",
+            "group": "교육훈련비",
+            "name": "예비비",
+            "calc": "1000000 × 1",
+            "unitPrice": 2000000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 1000000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "name": "취업역량스킬 재정데이터 공모전",
+        "manager": "신동원 주임",
+        "category": "공모 미정",
+        "status": "unassigned",
+        "items": [
+          {
+            "id": "c12-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c12-2",
+            "group": "교육훈련비",
+            "name": "취업특강",
+            "calc": "100000 × 12 × 2",
+            "unitPrice": 100000,
+            "qty1": 12,
+            "original": 0,
+            "adjusted": 2400000,
+            "executed": 0
+          },
+          {
+            "id": "c12-3",
+            "group": "보상금",
+            "name": "상금",
+            "calc": "3000000 × 1",
+            "unitPrice": 3000000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 3000000,
+            "executed": 0
+          },
+          {
+            "id": "c12-4",
+            "group": "사무관리비",
+            "name": "공모전 운영 용역",
+            "calc": "5500000 × 1",
+            "unitPrice": 5500000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 5500000,
+            "executed": 0
+          },
+          {
+            "id": "c12-5",
+            "group": "교육훈련비",
+            "name": "멘토링 비용",
+            "calc": "90 × 100000",
+            "unitPrice": 30,
+            "qty1": 100000,
+            "original": 0,
+            "adjusted": 9000000,
+            "executed": 0
+          },
+          {
+            "id": "c12-6",
+            "group": "교육훈련비",
+            "name": "특강(모의면접)",
+            "calc": "100000 × 16",
+            "unitPrice": 100000,
+            "qty1": 16,
+            "original": 0,
+            "adjusted": 1600000,
+            "executed": 0
+          },
+          {
+            "id": "c12-7",
+            "group": "교육훈련비",
+            "name": "강사료",
+            "calc": "150000 × 8",
+            "unitPrice": 150000,
+            "qty1": 8,
+            "original": 0,
+            "adjusted": 1200000,
+            "executed": 0
+          },
+          {
+            "id": "c12-8",
+            "group": "사무관리비",
+            "name": "공모전 운영 소모품",
+            "calc": "400000 × 1",
+            "unitPrice": 200000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 0
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "name": "AI-POT 연계 AI 활용 심화과",
+        "manager": "이상훈 과장",
+        "category": "공모 미정",
+        "status": "unassigned",
+        "items": [
+          {
+            "id": "c13-1",
+            "group": "사무관리비",
+            "name": "심사수당",
+            "calc": "400000 × 1",
+            "unitPrice": 400000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c13-2",
+            "group": "교육훈련비",
+            "name": "강사료",
+            "calc": "65000 × 20",
+            "unitPrice": 65000,
+            "qty1": 20,
+            "original": 0,
+            "adjusted": 1300000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c13-3",
+            "group": "교육훈련비",
+            "name": "AI활용 특강",
+            "calc": "100000 × 16",
+            "unitPrice": 100000,
+            "qty1": 16,
+            "original": 0,
+            "adjusted": 1600000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c13-4",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "40000 × 20",
+            "unitPrice": 40000,
+            "qty1": 20,
+            "original": 0,
+            "adjusted": 800000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c13-5",
+            "group": "사무관리비",
+            "name": "교재비",
+            "calc": "30000 × 15",
+            "unitPrice": 20000,
+            "qty1": 15,
+            "original": 0,
+            "adjusted": 450000,
+            "executed": 0
+          },
+          {
+            "id": "c13-6",
+            "group": "교육훈련비",
+            "name": "예비비",
+            "calc": "1000000 × 1",
+            "unitPrice": 1000000,
+            "qty1": 1,
+            "original": 0,
+            "adjusted": 1000000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c13-7",
+            "group": "교육훈련비",
+            "name": "고급스킬 강사 양성",
+            "calc": "65000 × 20",
+            "unitPrice": 65000,
+            "qty1": 20,
+            "original": 0,
+            "adjusted": 1300000,
+            "executed": 0,
+            "isDeleted": true
+          },
+          {
+            "id": "c13-8",
+            "group": "교육훈련비",
+            "name": "강사료",
+            "calc": "150000 × 40",
+            "unitPrice": 150000,
+            "qty1": 40,
+            "original": 0,
+            "adjusted": 6000000,
+            "executed": 0
+          },
+          {
+            "id": "c13-9",
+            "group": "교육훈련비",
+            "name": "AI활용실무",
+            "calc": "100000 × 4",
+            "unitPrice": 100000,
+            "qty1": 4,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 0
+          },
+          {
+            "id": "c13-10",
+            "group": "교육훈련비",
+            "name": "AI취업특강",
+            "calc": "100000 × 4",
+            "unitPrice": 100000,
+            "qty1": 4,
+            "original": 0,
+            "adjusted": 400000,
+            "executed": 0
+          }
+        ]
+      }
+    ],
+    "executions": [
+      {
+        "courseId": 0,
+        "itemId": "c0-13",
+        "date": "2026-07-02",
+        "amount": 126000,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1782967421614
+      },
+      {
+        "courseId": 1,
+        "itemId": "c1-2",
+        "date": "2026-07-02",
+        "amount": 1095300,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1782966770425
+      },
+      {
+        "courseId": 0,
+        "itemId": "c0-2",
+        "date": "2026-07-02",
+        "amount": 1770500,
+        "vendor": "슈어엠, 카카오톡",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1782966110039
+      },
+      {
+        "courseId": 0,
+        "itemId": "c0-10",
+        "date": "2026-07-02",
+        "amount": 7100000,
+        "vendor": "고려기프트",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1782966048525
+      },
+      {
+        "courseId": 5,
+        "itemId": "c5-8",
+        "date": "2026-06-19",
+        "amount": 500000,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1781841037877
+      },
+      {
+        "courseId": 5,
+        "itemId": "c5-9",
+        "date": "2026-06-19",
+        "amount": 400000,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1781841031555
+      },
+      {
+        "courseId": 0,
+        "itemId": "c0-1",
+        "date": "2026-06-15",
+        "amount": 8193500,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1781523171785
+      },
+      {
+        "courseId": 5,
+        "itemId": "c5-4",
+        "date": "2026-06-15",
+        "amount": 122000,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1781503808548
+      },
+      {
+        "courseId": 5,
+        "itemId": "c5-6",
+        "date": "2026-06-15",
+        "amount": 6000000,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1781503696197
+      },
+      {
+        "courseId": 5,
+        "itemId": "c5-7",
+        "date": "2026-06-15",
+        "amount": 428400,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1781503661990
+      },
+      {
+        "courseId": 5,
+        "itemId": "c5-2",
+        "date": "2026-06-08",
+        "amount": 1800000,
+        "vendor": "홍익관광재단",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1780902993343
+      },
+      {
+        "courseId": 3,
+        "itemId": "c3-10",
+        "date": "2026-06-08",
+        "amount": 1000000,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1780902945012
+      },
+      {
+        "courseId": 3,
+        "itemId": "c3-8",
+        "date": "2026-06-08",
+        "amount": 400000,
+        "vendor": "김상영",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1780902927417
+      },
+      {
+        "courseId": 3,
+        "itemId": "c3-7",
+        "date": "2026-05-29",
+        "amount": 2800000,
+        "vendor": "한덕영",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1780043955521
+      },
+      {
+        "courseId": 3,
+        "itemId": "c3-6",
+        "date": "2026-05-29",
+        "amount": 15840000,
+        "vendor": "이신행 등",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1780043734162
+      },
+      {
+        "courseId": 5,
+        "itemId": "c5-1",
+        "date": "2026-05-27",
+        "amount": 200000,
+        "vendor": "강인숙",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1779865416356
+      },
+      {
+        "courseId": 3,
+        "itemId": "c3-2",
+        "date": "2026-05-15",
+        "amount": 1953000,
+        "vendor": "제이디디자인",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1778835604968
+      },
+      {
+        "courseId": 3,
+        "itemId": "c3-5",
+        "date": "2026-05-14",
+        "amount": 9915000,
+        "vendor": "한국식품정보원",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1778735669641
+      },
+      {
+        "courseId": 3,
+        "itemId": "c3-1",
+        "date": "2026-05-12",
+        "amount": 400000,
+        "vendor": "-",
+        "proofNo": "-",
+        "memo": "-",
+        "id": 1778549755269
+      }
+    ],
+    "logs": [
+      {
+        "id": "log-1782968220914",
+        "courseId": 6,
+        "itemId": "c6-6",
+        "before": {
+          "id": "c6-6",
+          "group": "교육훈련비",
+          "name": "강사료",
+          "calc": "9,960,000 × 1",
+          "unitPrice": 9960000,
+          "qty1": 1,
+          "original": 9960000,
+          "adjusted": 8960000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "강사료",
+          "adjusted": 8960000,
+          "calc": "8,960,000 × 1"
+        },
+        "reason": "강사료 10만원",
+        "editedAt": "2026-07-02T04:57:00.914Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782968107287",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 15019500,
+          "executed": 8193500
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 15019300,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:55:07.287Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782968092362",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 15020000,
+          "executed": 8193500
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 15019500,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:54:52.362Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782967913350",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {
+          "id": "c0-13",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "890,000 × 1",
+          "unitPrice": 890000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 300000,
+          "executed": 126000
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 226000,
+          "calc": "890,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:51:53.350Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782967396599",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {
+          "id": "c0-13",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "890,000 × 1",
+          "unitPrice": 890000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 300000,
+          "calc": "890,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:43:16.599Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966872666",
+        "courseId": 6,
+        "itemId": "c6-6",
+        "before": {
+          "id": "c6-6",
+          "group": "교육훈련비",
+          "name": "강사료",
+          "calc": "9,960,000 × 1",
+          "unitPrice": 9960000,
+          "qty1": 1,
+          "original": 9960000,
+          "adjusted": 9960000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "강사료",
+          "adjusted": 8960000,
+          "calc": "9,960,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:34:32.666Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966798085",
+        "courseId": 1,
+        "itemId": "c1-2",
+        "before": {
+          "id": "c1-2",
+          "group": "사무관리비",
+          "name": "교재비용",
+          "calc": "1,200,000 × 1",
+          "unitPrice": 1200000,
+          "qty1": 1,
+          "original": 1200000,
+          "adjusted": 1200000,
+          "executed": 1095300
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교재비용",
+          "adjusted": 1095300,
+          "calc": "1,200,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:33:18.085Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966639677",
+        "courseId": 4,
+        "itemId": "c4-7",
+        "before": {
+          "id": "c4-7",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "2개월(5~6월) * 15명 * 50,000원",
+          "unitPrice": 750000,
+          "qty1": 1,
+          "original": 750000,
+          "adjusted": 1500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 1400000,
+          "calc": "2개월(5~6월) * 15명 * 50,000원"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:30:39.677Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966594526",
+        "courseId": 2,
+        "itemId": "c2-10",
+        "before": {
+          "id": "c2-10",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "2,000,000 × 1",
+          "unitPrice": 2000000,
+          "qty1": 1,
+          "original": 2000000,
+          "adjusted": 1800000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 1900000,
+          "calc": "2,000,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:29:54.526Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966563311",
+        "courseId": 2,
+        "itemId": "c2-10",
+        "before": {
+          "id": "c2-10",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "2,000,000 × 1",
+          "unitPrice": 2000000,
+          "qty1": 1,
+          "original": 2000000,
+          "adjusted": 2000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 1800000,
+          "calc": "2,000,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:29:23.311Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966518408",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "1937000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 177000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 0,
+          "calc": "1937000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:28:38.408Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966470842",
+        "courseId": 0,
+        "itemId": "c0-8",
+        "before": {
+          "id": "c0-8",
+          "group": "교육훈련비",
+          "name": "학습동아리 운영(공통)",
+          "calc": "4,900,000 × 1",
+          "unitPrice": 4900000,
+          "qty1": 1,
+          "original": 4900000,
+          "adjusted": 4500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리 운영(공통)",
+          "adjusted": 3500000,
+          "calc": "4,900,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:27:50.842Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966431169",
+        "courseId": 0,
+        "itemId": "c0-2",
+        "before": {
+          "id": "c0-2",
+          "group": "사무관리비",
+          "name": "SNS·문자 홍보",
+          "calc": "6,500,000 × 1",
+          "unitPrice": 6500000,
+          "qty1": 1,
+          "original": 6500000,
+          "adjusted": 3500000,
+          "executed": 1770500
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "SNS·문자 홍보",
+          "adjusted": 2500000,
+          "calc": "6,500,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:27:11.169Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966340012",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 14020000,
+          "executed": 8193500
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 15020000,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:25:40.012Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966194571",
+        "courseId": 0,
+        "itemId": "c0-17",
+        "before": {
+          "id": "c0-17",
+          "group": "사무관리비",
+          "name": "예비비",
+          "calc": "550000 × 1",
+          "unitPrice": 550000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 550000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "예비비",
+          "adjusted": 0,
+          "calc": "550000 × 1"
+        },
+        "reason": "반납",
+        "editedAt": "2026-07-02T04:23:14.571Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782966154372",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 16020000,
+          "executed": 8193500
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 14020000,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "감액",
+        "editedAt": "2026-07-02T04:22:34.372Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782965939628",
+        "courseId": 0,
+        "itemId": "c0-10",
+        "before": {
+          "id": "c0-10",
+          "group": "사무관리비",
+          "name": "홍보물품 제작",
+          "calc": "7000,000 × 1",
+          "unitPrice": 6800000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 7000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "홍보물품 제작",
+          "adjusted": 7100000,
+          "calc": "7000,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:18:59.628Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782965519876",
+        "courseId": 0,
+        "itemId": "c0-17",
+        "before": {
+          "id": "c0-17",
+          "group": "사무관리비",
+          "name": "예비비",
+          "calc": "550000 × 1",
+          "unitPrice": 550000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 950000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "예비비",
+          "adjusted": 550000,
+          "calc": "550000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:11:59.876Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782965500491",
+        "courseId": 0,
+        "itemId": "c0-15",
+        "before": {
+          "id": "c0-15",
+          "group": "사무관리비",
+          "name": "설문조사 포스터 제작",
+          "calc": "500000 × 1",
+          "unitPrice": 500000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "설문조사 포스터 제작",
+          "adjusted": 900000,
+          "calc": "900000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-07-02T04:11:40.491Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1782175341775",
+        "courseId": 3,
+        "itemId": "c3-1",
+        "before": {
+          "id": "c3-1",
+          "group": "사무관리비",
+          "name": "심사수당",
+          "calc": "400,000 × 1",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 400000,
+          "adjusted": 400000,
+          "executed": 200000
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "심사수당",
+          "adjusted": 400000,
+          "calc": "400,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-06-23T00:42:21.775Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1781523890396",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "1937000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 377000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 177000,
+          "calc": "1937000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-06-15T11:44:50.396Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1781523852408",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "1937000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 577000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 377000,
+          "calc": "1937000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-06-15T11:44:12.408Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1781523805585",
+        "courseId": 0,
+        "itemId": "c0-17",
+        "before": {
+          "id": "c0-17",
+          "group": "사무관리비",
+          "name": "예비비",
+          "calc": "550000 × 1",
+          "unitPrice": 550000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 550000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "예비비",
+          "adjusted": 950000,
+          "calc": "550000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-06-15T11:43:25.585Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1781523732909",
+        "courseId": 0,
+        "itemId": "c0-17",
+        "before": {},
+        "after": {
+          "name": "예비비",
+          "adjusted": 550000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-06-15T11:42:12.909Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1781523408870",
+        "courseId": 7,
+        "itemId": "c7-5",
+        "before": {
+          "id": "c7-5",
+          "group": "사무관리비",
+          "name": "교재비",
+          "calc": "1,200,000 × 1",
+          "unitPrice": 1200000,
+          "qty1": 1,
+          "original": 1200000,
+          "adjusted": 1200000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교재비",
+          "adjusted": 780000,
+          "calc": "60000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-06-15T11:36:48.870Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1781523385351",
+        "courseId": 7,
+        "itemId": "c7-4",
+        "before": {
+          "id": "c7-4",
+          "group": "사무관리비",
+          "name": "재료비",
+          "calc": "3,000,000 × 1",
+          "unitPrice": 3000000,
+          "qty1": 1,
+          "original": 3000000,
+          "adjusted": 3000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "재료비",
+          "adjusted": 2470000,
+          "calc": "190000 × 13"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-06-15T11:36:25.351Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1781503862158",
+        "courseId": 5,
+        "itemId": "c5-9",
+        "before": {},
+        "after": {
+          "name": "선배와의만남",
+          "adjusted": 400000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-06-15T06:11:02.158Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1780044195754",
+        "courseId": 3,
+        "itemId": "c3-8",
+        "before": {
+          "id": "c3-8",
+          "group": "교육훈련비",
+          "name": "AI 특강",
+          "calc": "400,000 × 1",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 400000,
+          "adjusted": 400000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "AI 특강",
+          "adjusted": 400000,
+          "calc": "400,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-05-29T08:43:15.754Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1778198380242",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "1937000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 1537000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 577000,
+          "calc": "1937000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-05-07T23:59:40.242Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1778198353692",
+        "courseId": 0,
+        "itemId": "c0-2",
+        "before": {
+          "id": "c0-2",
+          "group": "사무관리비",
+          "name": "SNS·문자 홍보",
+          "calc": "6,500,000 × 1",
+          "unitPrice": 6500000,
+          "qty1": 1,
+          "original": 6500000,
+          "adjusted": 2000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "SNS·문자 홍보",
+          "adjusted": 3500000,
+          "calc": "6,500,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-05-07T23:59:13.692Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1778198340013",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {
+          "id": "c0-13",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "890,000 × 1",
+          "unitPrice": 890000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 940000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 500000,
+          "calc": "890,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-05-07T23:59:00.013Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1778198300136",
+        "courseId": 5,
+        "itemId": "c5-4",
+        "before": {
+          "id": "c5-4",
+          "group": "공공운영비",
+          "name": "보험료",
+          "calc": "850,000 × 1",
+          "unitPrice": 850000,
+          "qty1": 1,
+          "original": 850000,
+          "adjusted": 300000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "보험료",
+          "adjusted": 200000,
+          "calc": "850,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-05-07T23:58:20.136Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1777447486021",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "1937000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 1937000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 1537000,
+          "calc": "1937000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-29T07:24:46.021Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1777446905592",
+        "courseId": 13,
+        "itemId": "c13-10",
+        "before": {},
+        "after": {
+          "name": "AI취업특강",
+          "adjusted": 400000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-29T07:15:05.592Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1777446892332",
+        "courseId": 13,
+        "itemId": "c13-9",
+        "before": {},
+        "after": {
+          "name": "AI활용실무",
+          "adjusted": 400000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-29T07:14:52.332Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1777446847808",
+        "courseId": 13,
+        "itemId": "c13-1",
+        "before": {
+          "id": "c13-1",
+          "group": "사무관리비",
+          "name": "심사수당",
+          "calc": "400000 × 20",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 800000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "심사수당",
+          "adjusted": 400000,
+          "calc": "400000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-29T07:14:07.808Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1777422634392",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "1000000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 1632000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 1937000,
+          "calc": "1937000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-29T00:30:34.392Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1777422204494",
+        "courseId": 11,
+        "itemId": "c11-3",
+        "before": {
+          "id": "c11-3",
+          "group": "사무관리비",
+          "name": "교재비",
+          "calc": "35000 × 22",
+          "unitPrice": 35000,
+          "qty1": 22,
+          "original": 0,
+          "adjusted": 770000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교재비",
+          "adjusted": 875000,
+          "calc": "35000 × 25"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-29T00:23:24.494Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1777422151785",
+        "courseId": 13,
+        "itemId": "c13-5",
+        "before": {
+          "id": "c13-5",
+          "group": "사무관리비",
+          "name": "교재비",
+          "calc": "20000 × 15",
+          "unitPrice": 20000,
+          "qty1": 15,
+          "original": 0,
+          "adjusted": 300000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교재비",
+          "adjusted": 450000,
+          "calc": "30000 × 15"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-29T00:22:31.785Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776842550791",
+        "courseId": 12,
+        "itemId": "c12-8",
+        "before": {
+          "id": "c12-8",
+          "group": "사무관리비",
+          "name": "공모전 운영 소모품",
+          "calc": "200000 × 1",
+          "unitPrice": 200000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 200000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "공모전 운영 소모품",
+          "adjusted": 400000,
+          "calc": "400000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-22T07:22:30.791Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776837480017",
+        "courseId": 13,
+        "itemId": "c13-8",
+        "before": {},
+        "after": {
+          "name": "강사료",
+          "adjusted": 6000000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-22T05:58:00.017Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776734705641",
+        "courseId": 8,
+        "itemId": "c8-13",
+        "before": {},
+        "after": {
+          "name": "진단도구비",
+          "adjusted": 800000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-21T01:25:05.641Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776734625027",
+        "courseId": 8,
+        "itemId": "c8-8",
+        "before": {
+          "id": "c8-8",
+          "group": "교육훈련비",
+          "name": "보조강사",
+          "calc": "2,000,000 × 1",
+          "unitPrice": 2000000,
+          "qty1": 1,
+          "original": 2000000,
+          "adjusted": 2000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "보조강사",
+          "adjusted": 3800000,
+          "calc": "3,800,000 × 1"
+        },
+        "reason": "76*50000",
+        "editedAt": "2026-04-21T01:23:45.027Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776734572298",
+        "courseId": 8,
+        "itemId": "c8-11",
+        "before": {
+          "id": "c8-11",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "50000 × 76",
+          "unitPrice": 50000,
+          "qty1": 20,
+          "original": 0,
+          "adjusted": 3800000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 1000000,
+          "calc": "50000 × 20"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-21T01:22:52.298Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776732908980",
+        "courseId": 8,
+        "itemId": "c8-11",
+        "before": {
+          "id": "c8-11",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "50000 × 20",
+          "unitPrice": 50000,
+          "qty1": 20,
+          "original": 0,
+          "adjusted": 1000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 3800000,
+          "calc": "50000 × 76"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-21T00:55:08.980Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776732834344",
+        "courseId": 8,
+        "itemId": "c8-7",
+        "before": {
+          "id": "c8-7",
+          "group": "교육훈련비",
+          "name": "강사수당",
+          "calc": "13,800,000 × 1",
+          "unitPrice": 13800000,
+          "qty1": 1,
+          "original": 13800000,
+          "adjusted": 13800000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "강사수당",
+          "adjusted": 10400000,
+          "calc": "10,400,000 × 1"
+        },
+        "reason": "주강사 10만원",
+        "editedAt": "2026-04-21T00:53:54.344Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776732761617",
+        "courseId": 8,
+        "itemId": "c8-12",
+        "before": {
+          "id": "c8-12",
+          "group": "교육훈련비",
+          "name": "프로필촬영",
+          "calc": "1100000 × 1",
+          "unitPrice": 1100000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 1100000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "프로필촬영",
+          "adjusted": 1100000,
+          "calc": "1100000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-21T00:52:41.617Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776732754360",
+        "courseId": 8,
+        "itemId": "c8-12",
+        "before": {},
+        "after": {
+          "name": "프로필촬영",
+          "adjusted": 1100000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-21T00:52:34.360Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776732516423",
+        "courseId": 8,
+        "itemId": "c8-3",
+        "before": {
+          "id": "c8-3",
+          "group": "사무관리비",
+          "name": "소모품비",
+          "calc": "60,000 × 1",
+          "unitPrice": 60000,
+          "qty1": 1,
+          "original": 60000,
+          "adjusted": 60000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "강의 원고료",
+          "adjusted": 200000,
+          "calc": "200,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-21T00:48:36.424Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776732425103",
+        "courseId": 8,
+        "itemId": "c8-4",
+        "before": {
+          "id": "c8-4",
+          "group": "사무관리비",
+          "name": "재료비",
+          "calc": "3,000,000 × 1",
+          "unitPrice": 3000000,
+          "qty1": 1,
+          "original": 3000000,
+          "adjusted": 3000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "재료비",
+          "adjusted": 2900000,
+          "calc": "2900,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-21T00:47:05.103Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776674462504",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "1000000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 1000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 1632000,
+          "calc": "1000000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-20T08:41:02.504Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776673176489",
+        "courseId": 11,
+        "itemId": "c11-5",
+        "before": {
+          "id": "c11-5",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "2000000 × 1",
+          "unitPrice": 2000000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 2000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 1000000,
+          "calc": "1000000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-20T08:19:36.489Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776673156907",
+        "courseId": 12,
+        "itemId": "c12-2",
+        "before": {
+          "id": "c12-2",
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "calc": "100000 × 12",
+          "unitPrice": 100000,
+          "qty1": 12,
+          "original": 0,
+          "adjusted": 1200000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "adjusted": 2400000,
+          "calc": "100000 × 12 × 2"
+        },
+        "reason": "분반 100000 × 12 × 2",
+        "editedAt": "2026-04-20T08:19:16.907Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670940422",
+        "courseId": 5,
+        "itemId": "c5-8",
+        "before": {
+          "id": "c5-8",
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "calc": "100000 × 5",
+          "unitPrice": 100000,
+          "qty1": 5,
+          "original": 500000,
+          "adjusted": 500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "adjusted": 600000,
+          "calc": "100000 × 6"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-20T07:42:20.422Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670918291",
+        "courseId": 4,
+        "itemId": "c4-8",
+        "before": {
+          "id": "c4-8",
+          "group": "사무관리비",
+          "name": "교재",
+          "calc": "35,000원*16명 ",
+          "unitPrice": 0,
+          "qty1": 560000,
+          "original": 0,
+          "adjusted": 560000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교재",
+          "adjusted": 400000,
+          "calc": "25,000원*16명 "
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-20T07:41:58.291Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670790650",
+        "courseId": 0,
+        "itemId": "c0-5",
+        "before": {
+          "id": "c0-5",
+          "group": "회의비",
+          "name": "다과 및 소모품",
+          "calc": "300,000 × 1",
+          "unitPrice": 300000,
+          "qty1": 1,
+          "original": 300000,
+          "adjusted": 300000,
+          "executed": 0
+        },
+        "after": {
+          "group": "회의비",
+          "name": "다과 및 소모품",
+          "adjusted": 1000000,
+          "calc": "1000,000 × 1"
+        },
+        "reason": "MOU 등 기타 예산 반영",
+        "editedAt": "2026-04-20T07:39:50.650Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670714551",
+        "courseId": 0,
+        "itemId": "c0-10",
+        "before": {
+          "id": "c0-10",
+          "group": "사무관리비",
+          "name": "홍보물품 제작",
+          "calc": "6,800,000 × 1",
+          "unitPrice": 6800000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 6800000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "홍보물품 제작",
+          "adjusted": 7000000,
+          "calc": "7000,000 × 1"
+        },
+        "reason": "직종설명회, 교육생 홍보물품 등 350*20,000원",
+        "editedAt": "2026-04-20T07:38:34.551Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670636332",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "4617000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 3257000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 1000000,
+          "calc": "1000000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-20T07:37:16.332Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670574480",
+        "courseId": 0,
+        "itemId": "c0-16",
+        "before": {},
+        "after": {
+          "name": "직종설명회",
+          "adjusted": 540000
+        },
+        "reason": "직종설명회 60명*9,000원",
+        "editedAt": "2026-04-20T07:36:14.480Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670505967",
+        "courseId": 0,
+        "itemId": "c0-9",
+        "before": {
+          "id": "c0-9",
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "calc": "1,500,000 × 1",
+          "unitPrice": 1500000,
+          "qty1": 1,
+          "original": 1500000,
+          "adjusted": 2160000,
+          "executed": 0
+        },
+        "after": {
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "adjusted": 2205000,
+          "calc": "1,500,000 × 1"
+        },
+        "reason": "9,000*245명",
+        "editedAt": "2026-04-20T07:35:05.967Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670415943",
+        "courseId": 0,
+        "itemId": "c0-9",
+        "before": {
+          "id": "c0-9",
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "calc": "1,500,000 × 1",
+          "unitPrice": 1500000,
+          "qty1": 1,
+          "original": 1500000,
+          "adjusted": 2160000,
+          "executed": 0
+        },
+        "after": {
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "adjusted": 2160000,
+          "calc": "1,500,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-20T07:33:35.943Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776670403061",
+        "courseId": 0,
+        "itemId": "c0-9",
+        "before": {
+          "id": "c0-9",
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "calc": "1,500,000 × 1",
+          "unitPrice": 1500000,
+          "qty1": 1,
+          "original": 1500000,
+          "adjusted": 2160000,
+          "executed": 0
+        },
+        "after": {
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "adjusted": 2160000,
+          "calc": "1,500,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-20T07:33:23.061Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392658879",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "4617000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 3557000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 3257000,
+          "calc": "4617000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:24:18.879Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392631339",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "4617000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 3657000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 3557000,
+          "calc": "4617000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:23:51.339Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392625443",
+        "courseId": 0,
+        "itemId": "c0-7",
+        "before": {
+          "id": "c0-7",
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "calc": "4,000,000 × 1",
+          "unitPrice": 2000000,
+          "qty1": 1,
+          "original": 2000000,
+          "adjusted": 4300000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "adjusted": 4400000,
+          "calc": "4,000,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:23:45.443Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392617674",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "4617000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 3957000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 3657000,
+          "calc": "4617000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:23:37.674Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392596269",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {
+          "id": "c0-13",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "890,000 × 1",
+          "unitPrice": 890000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 950000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 940000,
+          "calc": "890,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:23:16.269Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392583990",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {
+          "id": "c0-13",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "890,000 × 1",
+          "unitPrice": 890000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 890000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 950000,
+          "calc": "890,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:23:03.990Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392544256",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {
+          "id": "c0-13",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "890,000 × 1",
+          "unitPrice": 890000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 940000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 890000,
+          "calc": "890,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:22:24.256Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392509964",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {
+          "id": "c0-13",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "890,000 × 1",
+          "unitPrice": 890000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 890000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 940000,
+          "calc": "890,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:21:49.964Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392459324",
+        "courseId": 0,
+        "itemId": "c0-7",
+        "before": {
+          "id": "c0-7",
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "calc": "4,000,000 × 1",
+          "unitPrice": 2000000,
+          "qty1": 1,
+          "original": 2000000,
+          "adjusted": 4000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "adjusted": 4300000,
+          "calc": "4,000,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:20:59.324Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392427833",
+        "courseId": 0,
+        "itemId": "c0-15",
+        "before": {},
+        "after": {
+          "name": "설문조사 포스터 제작",
+          "adjusted": 500000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-17T02:20:27.833Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392374168",
+        "courseId": 5,
+        "itemId": "c5-4",
+        "before": {
+          "id": "c5-4",
+          "group": "공공운영비",
+          "name": "보험료",
+          "calc": "850,000 × 1",
+          "unitPrice": 850000,
+          "qty1": 1,
+          "original": 850000,
+          "adjusted": 850000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "보험료",
+          "adjusted": 300000,
+          "calc": "850,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:19:34.168Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392162381",
+        "courseId": 13,
+        "itemId": "c13-7",
+        "before": {},
+        "after": {
+          "name": "고급스킬 강사 양성",
+          "adjusted": 1300000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-17T02:16:02.381Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776392084922",
+        "courseId": 13,
+        "itemId": "c13-3",
+        "before": {
+          "id": "c13-3",
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "calc": "100000 × 16",
+          "unitPrice": 100000,
+          "qty1": 16,
+          "original": 0,
+          "adjusted": 1600000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "AI활용 특강",
+          "adjusted": 1600000,
+          "calc": "100000 × 16"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-17T02:14:44.922Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776155334618",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {
+          "id": "c0-14",
+          "group": "교육훈련비",
+          "name": "예비비",
+          "calc": "4617000 × 1",
+          "unitPrice": 4617000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 4617000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "예비비",
+          "adjusted": 3957000,
+          "calc": "4617000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T08:28:54.618Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776155289448",
+        "courseId": 0,
+        "itemId": "c0-9",
+        "before": {
+          "id": "c0-9",
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "calc": "1,500,000 × 1",
+          "unitPrice": 1500000,
+          "qty1": 1,
+          "original": 1500000,
+          "adjusted": 1500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "행사실비보상금",
+          "name": "개강 및 수료식 다과",
+          "adjusted": 2160000,
+          "calc": "1,500,000 × 1"
+        },
+        "reason": "수료기준 240명 * 9,000원",
+        "editedAt": "2026-04-14T08:28:09.448Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776155243594",
+        "courseId": 12,
+        "itemId": "c12-3",
+        "before": {
+          "id": "c12-3",
+          "group": "사무관리비",
+          "name": "상금",
+          "calc": "3000000 × 1",
+          "unitPrice": 3000000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 3000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "보상금",
+          "name": "상금",
+          "adjusted": 3000000,
+          "calc": "3000000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T08:27:23.594Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776154570446",
+        "courseId": 0,
+        "itemId": "c0-14",
+        "before": {},
+        "after": {
+          "name": "예비비",
+          "adjusted": 4617000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T08:16:10.446Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776154514499",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 0,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 16020000,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T08:15:14.499Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776154503628",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 16200000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 0,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T08:15:03.628Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776154493525",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 15950000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 16200000,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T08:14:53.525Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776154439718",
+        "courseId": 11,
+        "itemId": "c11-5",
+        "before": {},
+        "after": {
+          "name": "예비비",
+          "adjusted": 2000000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T08:13:59.718Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776153059308",
+        "courseId": 13,
+        "itemId": "c13-6",
+        "before": {},
+        "after": {
+          "name": "예비비",
+          "adjusted": 1000000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:50:59.308Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776153009855",
+        "courseId": 13,
+        "itemId": "c13-5",
+        "before": {},
+        "after": {
+          "name": "교재비",
+          "adjusted": 300000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:50:09.855Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152928164",
+        "courseId": 13,
+        "itemId": "c13-1",
+        "before": {
+          "id": "c13-1",
+          "group": "사무관리비",
+          "name": "심사수당",
+          "calc": "400000 × 1",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 400000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "심사수당",
+          "adjusted": 800000,
+          "calc": "400000 × 20"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T07:48:48.164Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152916273",
+        "courseId": 13,
+        "itemId": "c13-4",
+        "before": {},
+        "after": {
+          "name": "교재비",
+          "adjusted": 800000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:48:36.273Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152834799",
+        "courseId": 13,
+        "itemId": "c13-3",
+        "before": {},
+        "after": {
+          "name": "취업특강",
+          "adjusted": 1600000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:47:14.799Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152756010",
+        "courseId": 13,
+        "itemId": "c13-2",
+        "before": {},
+        "after": {
+          "name": "강사료",
+          "adjusted": 1300000
+        },
+        "reason": "발달장애인 이해 등 심화과정",
+        "editedAt": "2026-04-14T07:45:56.010Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152524761",
+        "courseId": 11,
+        "itemId": "c11-4",
+        "before": {},
+        "after": {
+          "name": "훈련지원금",
+          "adjusted": 1250000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:42:04.761Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152377828",
+        "courseId": 12,
+        "itemId": "c12-8",
+        "before": {},
+        "after": {
+          "name": "공모전 운영 소모품",
+          "adjusted": 200000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:39:37.828Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152319022",
+        "courseId": 12,
+        "itemId": "c12-5",
+        "before": {
+          "id": "c12-5",
+          "group": "교육훈련비",
+          "name": "멘토링 비용",
+          "calc": "30 × 100000",
+          "unitPrice": 30,
+          "qty1": 100000,
+          "original": 0,
+          "adjusted": 3000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "멘토링 비용",
+          "adjusted": 9000000,
+          "calc": "90 × 100000"
+        },
+        "reason": "3차멘토랑 * 10개팀 * 3회",
+        "editedAt": "2026-04-14T07:38:39.022Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152208102",
+        "courseId": 12,
+        "itemId": "c12-7",
+        "before": {},
+        "after": {
+          "name": "강사료",
+          "adjusted": 1200000
+        },
+        "reason": "공공재정데이터 이해 등 강사료",
+        "editedAt": "2026-04-14T07:36:48.102Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776152094581",
+        "courseId": 12,
+        "itemId": "c12-6",
+        "before": {},
+        "after": {
+          "name": "특강(모의면접)",
+          "adjusted": 1600000
+        },
+        "reason": "면접위원 2명 * 2일 * 4시간",
+        "editedAt": "2026-04-14T07:34:54.581Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776151912328",
+        "courseId": 12,
+        "itemId": "c12-5",
+        "before": {},
+        "after": {
+          "name": "멘토링 비용",
+          "adjusted": 3000000
+        },
+        "reason": "3차멘토 * 10개팀",
+        "editedAt": "2026-04-14T07:31:52.328Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776151792746",
+        "courseId": 12,
+        "itemId": "c12-1",
+        "before": {
+          "id": "c12-1",
+          "group": "교육훈련비",
+          "name": "심사수당",
+          "calc": "400000 × 1",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 400000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "심사수당",
+          "adjusted": 400000,
+          "calc": "400000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T07:29:52.746Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776151767349",
+        "courseId": 12,
+        "itemId": "c12-4",
+        "before": {},
+        "after": {
+          "name": "공모전 운영 용역",
+          "adjusted": 5500000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:29:27.349Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776151748037",
+        "courseId": 12,
+        "itemId": "c12-3",
+        "before": {},
+        "after": {
+          "name": "상금",
+          "adjusted": 3000000
+        },
+        "reason": "공모전 상금(추후보상금으로변경)",
+        "editedAt": "2026-04-14T07:29:08.037Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776151394355",
+        "courseId": 12,
+        "itemId": "c12-1",
+        "before": {
+          "id": "c12-1",
+          "group": "사무관리비",
+          "name": "심사수당",
+          "calc": "400000 × 1",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 0,
+          "adjusted": 400000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "심사수당",
+          "adjusted": 400000,
+          "calc": "400000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T07:23:14.355Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776151382669",
+        "courseId": 12,
+        "itemId": "c12-2",
+        "before": {},
+        "after": {
+          "name": "취업특강",
+          "adjusted": 1200000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:23:02.669Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150884489",
+        "courseId": 11,
+        "itemId": "c11-3",
+        "before": {},
+        "after": {
+          "name": "교재비",
+          "adjusted": 770000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:14:44.489Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150826079",
+        "courseId": 5,
+        "itemId": "c5-7",
+        "before": {
+          "id": "c5-7",
+          "group": "사무관리비",
+          "name": "40,000원*20명",
+          "calc": "40000 × 20",
+          "unitPrice": 40000,
+          "qty1": 20,
+          "original": 800000,
+          "adjusted": 800000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교재비 ",
+          "adjusted": 800000,
+          "calc": "40000 × 20"
+        },
+        "reason": "40,000원*20명",
+        "editedAt": "2026-04-14T07:13:46.079Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150762635",
+        "courseId": 11,
+        "itemId": "c11-2",
+        "before": {},
+        "after": {
+          "name": "강사수당",
+          "adjusted": 12000000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:12:42.635Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150713990",
+        "courseId": 4,
+        "itemId": "c4-9",
+        "before": {},
+        "after": {
+          "name": "취업특강 및 AI특강",
+          "adjusted": 800000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:11:53.990Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150624881",
+        "courseId": 13,
+        "itemId": "c13-1",
+        "before": {},
+        "after": {
+          "name": "심사수당",
+          "adjusted": 400000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:10:24.881Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150602417",
+        "courseId": 12,
+        "itemId": "c12-1",
+        "before": {},
+        "after": {
+          "name": "심사수당",
+          "adjusted": 400000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:10:02.417Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150568344",
+        "courseId": 11,
+        "itemId": "c11-1",
+        "before": {},
+        "after": {
+          "name": "심사수당",
+          "adjusted": 400000
+        },
+        "reason": "신규 항목 추가",
+        "editedAt": "2026-04-14T07:09:28.344Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150386322",
+        "courseId": 0,
+        "itemId": "c0-6",
+        "before": {
+          "id": "c0-6",
+          "group": "교육훈련비",
+          "name": "심화교육 특강 강사료",
+          "calc": "4,000,000 × 1",
+          "unitPrice": 4000000,
+          "qty1": 1,
+          "original": 4000000,
+          "adjusted": 4000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "심화교육 특강 강사료",
+          "adjusted": 0,
+          "calc": "4,000,000 × 1"
+        },
+        "reason": "예산 미반영",
+        "editedAt": "2026-04-14T07:06:26.322Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776150344505",
+        "courseId": 0,
+        "itemId": "c0-7",
+        "before": {
+          "id": "c0-7",
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "calc": "2,000,000 × 1",
+          "unitPrice": 2000000,
+          "qty1": 1,
+          "original": 2000000,
+          "adjusted": 2000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "adjusted": 4000000,
+          "calc": "4,000,000 × 1"
+        },
+        "reason": "특강 강사료 집행",
+        "editedAt": "2026-04-14T07:05:44.505Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149789402",
+        "courseId": 0,
+        "itemId": "c0-8",
+        "before": {
+          "id": "c0-8",
+          "group": "교육훈련비",
+          "name": "학습동아리 운영(공통)",
+          "calc": "4,900,000 × 1",
+          "unitPrice": 4900000,
+          "qty1": 1,
+          "original": 4900000,
+          "adjusted": 4500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리 운영(공통)",
+          "adjusted": 4500000,
+          "calc": "4,900,000 × 1"
+        },
+        "reason": "예산 변경 수정",
+        "editedAt": "2026-04-14T06:56:29.402Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149765890",
+        "courseId": 0,
+        "itemId": "c0-8",
+        "before": {
+          "id": "c0-8",
+          "group": "교육훈련비",
+          "name": "학습동아리 운영(공통)",
+          "calc": "4,900,000 × 1",
+          "unitPrice": 4900000,
+          "qty1": 1,
+          "original": 4900000,
+          "adjusted": 4900000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리 운영(공통)",
+          "adjusted": 4500000,
+          "calc": "4,900,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:56:05.890Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149574173",
+        "courseId": 0,
+        "itemId": "c0-13",
+        "before": {},
+        "after": {
+          "name": "우편발송료",
+          "adjusted": 890000
+        },
+        "reason": "전 과정 공통 운영비 반영",
+        "editedAt": "2026-04-14T06:52:54.173Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149304223",
+        "courseId": 0,
+        "itemId": "c0-2",
+        "before": {
+          "id": "c0-2",
+          "group": "사무관리비",
+          "name": "SNS·문자 홍보",
+          "calc": "6,500,000 × 1",
+          "unitPrice": 6500000,
+          "qty1": 1,
+          "original": 6500000,
+          "adjusted": 6500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "SNS·문자 홍보",
+          "adjusted": 2000000,
+          "calc": "6,500,000 × 1"
+        },
+        "reason": "실제 집행 예상금액으로 조정",
+        "editedAt": "2026-04-14T06:48:24.223Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149272404",
+        "courseId": 0,
+        "itemId": "c0-12",
+        "before": {},
+        "after": {
+          "name": "설문조사 이벤트",
+          "adjusted": 500000
+        },
+        "reason": "설문조사 랜덤 키프티콘 발송",
+        "editedAt": "2026-04-14T06:47:52.404Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149236662",
+        "courseId": 0,
+        "itemId": "c0-11",
+        "before": {
+          "id": "c0-11",
+          "group": "사무관리비",
+          "name": "설문조사 이벤트",
+          "calc": "5000 × 50",
+          "unitPrice": 5000,
+          "qty1": 50,
+          "original": 0,
+          "adjusted": 250000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "설문조사 이벤트",
+          "adjusted": 250000,
+          "calc": "5000 × 100"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:47:16.662Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149223393",
+        "courseId": 0,
+        "itemId": "c0-11",
+        "before": {},
+        "after": {
+          "name": "설문조사 이벤트",
+          "adjusted": 250000
+        },
+        "reason": "설문조사 랜덤 키프티콘 발송",
+        "editedAt": "2026-04-14T06:47:03.393Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149176623",
+        "courseId": 0,
+        "itemId": "c0-10",
+        "before": {},
+        "after": {
+          "name": "홍보물품 제작",
+          "adjusted": 6800000
+        },
+        "reason": "전 과정 공통(240명) + 직종설명회(100명)",
+        "editedAt": "2026-04-14T06:46:16.623Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776149040968",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 15950000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 15950000,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "홍보물품 제작",
+        "editedAt": "2026-04-14T06:44:00.968Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148990665",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 1600000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 15950000,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:43:10.665Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148978251",
+        "courseId": 0,
+        "itemId": "c0-1",
+        "before": {
+          "id": "c0-1",
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "calc": "21,450,000 × 1",
+          "unitPrice": 21450000,
+          "qty1": 1,
+          "original": 21450000,
+          "adjusted": 21450000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교육과정 홍보물 제작",
+          "adjusted": 1600000,
+          "calc": "21,450,000 × 1"
+        },
+        "reason": "전 과정 공통",
+        "editedAt": "2026-04-14T06:42:58.251Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148919570",
+        "courseId": 10,
+        "itemId": "c10-4",
+        "before": {
+          "id": "c10-4",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "100,000 × 1",
+          "unitPrice": 100000,
+          "qty1": 1,
+          "original": 100000,
+          "adjusted": 100000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 0,
+          "calc": "100,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:41:59.570Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148907082",
+        "courseId": 10,
+        "itemId": "c10-3",
+        "before": {
+          "id": "c10-3",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:41:47.082Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148882325",
+        "courseId": 9,
+        "itemId": "c9-6",
+        "before": {
+          "id": "c9-6",
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "calc": "700,000 × 1",
+          "unitPrice": 700000,
+          "qty1": 1,
+          "original": 700000,
+          "adjusted": 700000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "adjusted": 0,
+          "calc": "700,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:41:22.325Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148868976",
+        "courseId": 9,
+        "itemId": "c9-3",
+        "before": {
+          "id": "c9-3",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:41:08.976Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148830131",
+        "courseId": 8,
+        "itemId": "c8-11",
+        "before": {},
+        "after": {
+          "name": "훈련지원금",
+          "adjusted": 1000000
+        },
+        "reason": "20명 * 1회(20일기준) * 50,000원",
+        "editedAt": "2026-04-14T06:40:30.131Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148763088",
+        "courseId": 8,
+        "itemId": "c8-10",
+        "before": {
+          "id": "c8-10",
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "calc": "700,000 × 1",
+          "unitPrice": 700000,
+          "qty1": 1,
+          "original": 700000,
+          "adjusted": 700000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "adjusted": 0,
+          "calc": "700,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:39:23.088Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148706807",
+        "courseId": 8,
+        "itemId": "c8-6",
+        "before": {
+          "id": "c8-6",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "100,000 × 1",
+          "unitPrice": 100000,
+          "qty1": 1,
+          "original": 100000,
+          "adjusted": 100000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 0,
+          "calc": "100,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:38:26.807Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148686528",
+        "courseId": 8,
+        "itemId": "c8-2",
+        "before": {
+          "id": "c8-2",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:38:06.528Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148644376",
+        "courseId": 7,
+        "itemId": "c7-11",
+        "before": {},
+        "after": {
+          "name": "훈련지원금",
+          "adjusted": 1000000
+        },
+        "reason": "20명 * 1회(20일기준) * 50,000원",
+        "editedAt": "2026-04-14T06:37:24.376Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148562714",
+        "courseId": 7,
+        "itemId": "c7-10",
+        "before": {
+          "id": "c7-10",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "50000 × 20",
+          "unitPrice": 5000,
+          "qty1": 20,
+          "original": 100000,
+          "adjusted": 1000000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 1000000,
+          "calc": "50000 × 20"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:36:02.714Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148444804",
+        "courseId": 7,
+        "itemId": "c7-9",
+        "before": {
+          "id": "c7-9",
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "calc": "700,000 × 1",
+          "unitPrice": 700000,
+          "qty1": 1,
+          "original": 700000,
+          "adjusted": 700000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "adjusted": 0,
+          "calc": "700,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:34:04.804Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148428291",
+        "courseId": 7,
+        "itemId": "c7-2",
+        "before": {
+          "id": "c7-2",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:33:48.291Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148336316",
+        "courseId": 7,
+        "itemId": "c7-10",
+        "before": {
+          "id": "c7-10",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "50000 × 20",
+          "unitPrice": 5000,
+          "qty1": 20,
+          "original": 100000,
+          "adjusted": 100000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 1000000,
+          "calc": "50000 × 20"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:32:16.316Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148269827",
+        "courseId": 7,
+        "itemId": "c7-10",
+        "before": {
+          "id": "c7-10",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "5000 × 20",
+          "unitPrice": 5000,
+          "qty1": 20,
+          "original": 100000,
+          "adjusted": 100000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 100000,
+          "calc": "50000 × 20"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:31:09.827Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148216097",
+        "courseId": 7,
+        "itemId": "c7-8",
+        "before": {
+          "id": "c7-8",
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "calc": "1,200,000 × 1",
+          "unitPrice": 1200000,
+          "qty1": 1,
+          "original": 1200000,
+          "adjusted": 1200000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "adjusted": 900000,
+          "calc": "900,000 × 1"
+        },
+        "reason": "업체 견적서 반영",
+        "editedAt": "2026-04-14T06:30:16.097Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148188586",
+        "courseId": 7,
+        "itemId": "c7-6",
+        "before": {
+          "id": "c7-6",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "100,000 × 1",
+          "unitPrice": 100000,
+          "qty1": 1,
+          "original": 100000,
+          "adjusted": 100000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 0,
+          "calc": "100,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:29:48.586Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148160200",
+        "courseId": 6,
+        "itemId": "c6-5",
+        "before": {
+          "id": "c6-5",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:29:20.200Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148123224",
+        "courseId": 5,
+        "itemId": "c5-8",
+        "before": {
+          "id": "c5-8",
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "calc": "100000 × 5",
+          "unitPrice": 100000,
+          "qty1": 5,
+          "original": 500000,
+          "adjusted": 500000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "취업특강",
+          "adjusted": 500000,
+          "calc": "100000 × 5"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:28:43.224Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776148078202",
+        "courseId": 5,
+        "itemId": "c5-3",
+        "before": {
+          "id": "c5-3",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:27:58.202Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147720927",
+        "courseId": 5,
+        "itemId": "c5-5",
+        "before": {
+          "id": "c5-5",
+          "group": "교육훈련비",
+          "name": "교육 운영비",
+          "calc": "3,800,000 × 1",
+          "unitPrice": 3800000,
+          "qty1": 1,
+          "original": 3800000,
+          "adjusted": 3800000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "교육 운영비",
+          "adjusted": 4800000,
+          "calc": "3,800,000 × 1"
+        },
+        "reason": "실제금액 반영",
+        "editedAt": "2026-04-14T06:22:00.927Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147669204",
+        "courseId": 4,
+        "itemId": "c4-8",
+        "before": {
+          "id": "c4-8",
+          "group": "사무관리비",
+          "name": "교지",
+          "calc": "35,000원*16명 × 560000",
+          "unitPrice": 0,
+          "qty1": 560000,
+          "original": 0,
+          "adjusted": 0,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "교재",
+          "adjusted": 560000,
+          "calc": "35,000원*16명 "
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:21:09.204Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147590592",
+        "courseId": 4,
+        "itemId": "c4-7",
+        "before": {
+          "id": "c4-7",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "2개월(5~6월) * 15명 * 50,000원",
+          "unitPrice": 750000,
+          "qty1": 1,
+          "original": 750000,
+          "adjusted": 150000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 1500000,
+          "calc": "2개월(5~6월) * 15명 * 50,000원"
+        },
+        "reason": "수정 사유 미입력",
+        "editedAt": "2026-04-14T06:19:50.592Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147569590",
+        "courseId": 4,
+        "itemId": "c4-7",
+        "before": {
+          "id": "c4-7",
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "calc": "750,000 × 1",
+          "unitPrice": 750000,
+          "qty1": 1,
+          "original": 750000,
+          "adjusted": 750000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "훈련지원금",
+          "adjusted": 150000,
+          "calc": "2개월(5~6월) * 15명 * 50,000원"
+        },
+        "reason": "교육기간 증가에 따른 지원금 반영",
+        "editedAt": "2026-04-14T06:19:29.590Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147476184",
+        "courseId": 4,
+        "itemId": "c4-3",
+        "before": {
+          "id": "c4-3",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:17:56.184Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147446251",
+        "courseId": 3,
+        "itemId": "c3-3",
+        "before": {
+          "id": "c3-3",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 변경",
+        "editedAt": "2026-04-14T06:17:26.251Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147172591",
+        "courseId": 3,
+        "itemId": "c3-4",
+        "before": {
+          "id": "c3-4",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "30,000 × 1",
+          "unitPrice": 30000,
+          "qty1": 1,
+          "original": 30000,
+          "adjusted": 30000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 0,
+          "calc": "30,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:12:52.591Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147153091",
+        "courseId": 3,
+        "itemId": "c3-5",
+        "before": {
+          "id": "c3-5",
+          "group": "교육훈련비",
+          "name": "실습용역",
+          "calc": "10,062,000 × 1",
+          "unitPrice": 10062000,
+          "qty1": 1,
+          "original": 10062000,
+          "adjusted": 10062000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "실습용역",
+          "adjusted": 9915000,
+          "calc": "9,915,000 × 1"
+        },
+        "reason": "견전서 금액 반영",
+        "editedAt": "2026-04-14T06:12:33.091Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147072001",
+        "courseId": 3,
+        "itemId": "c3-9",
+        "before": {
+          "id": "c3-9",
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "calc": "700,000 × 1",
+          "unitPrice": 700000,
+          "qty1": 1,
+          "original": 700000,
+          "adjusted": 700000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "adjusted": 0,
+          "calc": "700,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:11:12.001Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147048332",
+        "courseId": 2,
+        "itemId": "c2-3",
+        "before": {
+          "id": "c2-3",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:10:48.332Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776147013303",
+        "courseId": 2,
+        "itemId": "c2-9",
+        "before": {
+          "id": "c2-9",
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "calc": "700,000 × 1",
+          "unitPrice": 700000,
+          "qty1": 1,
+          "original": 700000,
+          "adjusted": 0,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "adjusted": 0,
+          "calc": "700,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:10:13.303Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776146986154",
+        "courseId": 2,
+        "itemId": "c2-4",
+        "before": {
+          "id": "c2-4",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "30,000 × 1",
+          "unitPrice": 30000,
+          "qty1": 1,
+          "original": 30000,
+          "adjusted": 30000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 0,
+          "calc": "30,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:09:46.154Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776146968461",
+        "courseId": 2,
+        "itemId": "c2-9",
+        "before": {
+          "id": "c2-9",
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "calc": "700,000 × 1",
+          "unitPrice": 700000,
+          "qty1": 1,
+          "original": 700000,
+          "adjusted": 700000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "adjusted": 0,
+          "calc": "700,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:09:28.461Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776146956085",
+        "courseId": 2,
+        "itemId": "c2-8",
+        "before": {
+          "id": "c2-8",
+          "group": "교육훈련비",
+          "name": "사후관리특강",
+          "calc": "400,000 × 1",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 400000,
+          "adjusted": 400000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "사후관리특강",
+          "adjusted": 0,
+          "calc": "400,000 × 1"
+        },
+        "reason": "사후관리특강 취소",
+        "editedAt": "2026-04-14T06:09:16.085Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776146931401",
+        "courseId": 1,
+        "itemId": "c1-9",
+        "before": {
+          "id": "c1-9",
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "calc": "700,000 × 1",
+          "unitPrice": 700000,
+          "qty1": 1,
+          "original": 700000,
+          "adjusted": 700000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "학습동아리",
+          "adjusted": 0,
+          "calc": "700,000 × 1"
+        },
+        "reason": "공통운영비로 반영",
+        "editedAt": "2026-04-14T06:08:51.401Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776146900074",
+        "courseId": 1,
+        "itemId": "c1-8",
+        "before": {
+          "id": "c1-8",
+          "group": "교육훈련비",
+          "name": "사후관리특강",
+          "calc": "400,000 × 1",
+          "unitPrice": 400000,
+          "qty1": 1,
+          "original": 400000,
+          "adjusted": 400000,
+          "executed": 0
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "사후관리특강",
+          "adjusted": 0,
+          "calc": "400,000 × 1"
+        },
+        "reason": "사후관리특강 취소",
+        "editedAt": "2026-04-14T06:08:20.074Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776146880073",
+        "courseId": 1,
+        "itemId": "c1-4",
+        "before": {
+          "id": "c1-4",
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "calc": "30,000 × 1",
+          "unitPrice": 30000,
+          "qty1": 1,
+          "original": 30000,
+          "adjusted": 30000,
+          "executed": 0
+        },
+        "after": {
+          "group": "공공운영비",
+          "name": "우편발송료",
+          "adjusted": 0,
+          "calc": "30,000 × 1"
+        },
+        "reason": "공통운영비로 변경",
+        "editedAt": "2026-04-14T06:08:00.073Z",
+        "editedBy": "관리자"
+      },
+      {
+        "id": "log-1776146857213",
+        "courseId": 1,
+        "itemId": "c1-3",
+        "before": {
+          "id": "c1-3",
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "calc": "1,650,000 × 1",
+          "unitPrice": 1650000,
+          "qty1": 1,
+          "original": 1650000,
+          "adjusted": 1650000,
+          "executed": 0
+        },
+        "after": {
+          "group": "사무관리비",
+          "name": "모집홍보비",
+          "adjusted": 0,
+          "calc": "1,650,000 × 1"
+        },
+        "reason": "공통운영비로 변경",
+        "editedAt": "2026-04-14T06:07:37.213Z",
+        "editedBy": "관리자"
+      }
+    ]
+  }
+}
