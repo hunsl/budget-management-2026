@@ -29,6 +29,10 @@ type Tab = "dashboard" | "review" | "execution" | "report" | "log";
 
 const TOTAL_BUDGET = 278_500_000;
 const RESTORE_KEY = "budget-mgmt-2026-restored-from-20260722";
+/** 서버/로컬이 비어 데이터가 날아간 경우 1회 강제 복원 (키 변경 시 전원 재복원) */
+const FORCE_SEED_KEY = "budget-mgmt-2026-force-seed-20260722-v3";
+
+const EXPECTED_COURSE_COUNT = savedBudget20260722.courses.length;
 
 const CATEGORY_COLOR: Record<string, string> = {
   "강사양성형": "bg-violet-50 text-violet-700 ring-violet-200",
@@ -60,28 +64,93 @@ export default function App() {
   const requireAuth = firebaseConfigured;
   const { user, status: authStatus, login } = useAuth();
 
-  // localStorage에서 복원된 상태로 초기화
+  // localStorage에서 복원된 상태로 초기화 (비어 있으면 기본 백업 사용)
   const [state, dispatch] = useReducer(budgetReducer, initialState, (init) => {
     const persisted = loadPersistedState();
-    return persisted ? { ...init, ...persisted } : init;
+    if (!persisted) return init;
+    const courses = Array.isArray(persisted.courses) ? persisted.courses : [];
+    // 과정이 비었거나 기본 백업보다 현저히 적으면 날아간 캐시로 보고 기본 데이터 사용
+    if (courses.length < EXPECTED_COURSE_COUNT) {
+      return {
+        ...init,
+        courses: savedBudget20260722.courses,
+        executions: savedBudget20260722.executions,
+        logs: savedBudget20260722.logs,
+      };
+    }
+    return { ...init, ...persisted };
   });
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [syncStatus, setSyncStatus] = useState<"synced" | "saving">("synced");
   const [isPrinting, setIsPrinting] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(false);
   const importInputRef = useRef<HTMLInputElement>(null);
+  const restoreOnceRef = useRef(false);
   const { addToast } = useToast();
 
   // Firestore 실시간 동기화 (로그인 완료 후에만 활성화)
   const firestoreEnabled = requireAuth && authStatus === "signedIn";
   const { status: firestoreStatus, dispatchSynced } = useFirestoreSync(state, dispatch, firestoreEnabled);
 
+  const restoreSavedBudget = useCallback(
+    (reason: "auto" | "manual") => {
+      setIsRestoring(true);
+      savePersistedData({
+        version: 1,
+        savedAt: new Date().toISOString(),
+        exportedBy: "system-restore",
+        data: {
+          courses: savedBudget20260722.courses,
+          executions: savedBudget20260722.executions,
+          logs: savedBudget20260722.logs,
+        },
+      });
+      return dispatchSynced({
+        type: "HYDRATE",
+        courses: savedBudget20260722.courses,
+        executions: savedBudget20260722.executions,
+        logs: savedBudget20260722.logs,
+      }).then((ok) => {
+        setIsRestoring(false);
+        if (!ok) {
+          addToast("error", "기본 데이터 복원 저장에 실패했습니다. 네트워크 확인 후 다시 시도해주세요.");
+          return false;
+        }
+        localStorage.setItem(FORCE_SEED_KEY, "done");
+        localStorage.setItem(RESTORE_KEY, "yes");
+        addToast(
+          "success",
+          reason === "manual"
+            ? "2026-07-22 기본 예산 데이터로 복원했습니다."
+            : "과정 데이터가 비어 있어 기본 예산 데이터로 복원했습니다.",
+        );
+        return true;
+      });
+    },
+    [dispatchSynced, addToast],
+  );
+
   useEffect(() => {
     if (!user) return;
     const name = user.displayName || user.email?.split("@")[0] || "사용자";
     dispatch({ type: "SET_CURRENT_USER", name });
   }, [user]);
+
+  // 로그인 후 1회: 2026-07-22 기본 예산 데이터를 서버에 다시 올림
+  useEffect(() => {
+    if (!firestoreEnabled) return;
+    if (firestoreStatus !== "synced") return;
+    if (restoreOnceRef.current || isRestoring) return;
+    if (localStorage.getItem(FORCE_SEED_KEY) === "done") {
+      // 플래그는 있는데 화면 과정이 비면 다시 복원
+      if (state.courses.length >= EXPECTED_COURSE_COUNT) return;
+    }
+
+    restoreOnceRef.current = true;
+    restoreSavedBudget("auto");
+  }, [firestoreEnabled, firestoreStatus, state.courses.length, isRestoring, restoreSavedBudget]);
 
   // 반응형 감지
   useEffect(() => {
@@ -185,6 +254,16 @@ export default function App() {
     downloadBudgetBackup(state);
     addToast("success", "공유용 백업 파일을 저장했습니다.");
   }, [state, addToast]);
+
+  const handleRestoreSavedBudget = useCallback(() => {
+    if (isRestoring) return;
+    const ok = window.confirm(
+      "2026-07-22 기본 예산 데이터(과정 14개)로 서버 데이터를 덮어쓸까요?\n현재 화면/서버의 과정·집행내역이 기본 백업으로 대체됩니다.",
+    );
+    if (!ok) return;
+    restoreOnceRef.current = true;
+    restoreSavedBudget("manual");
+  }, [isRestoring, restoreSavedBudget]);
 
   const handleImportBackup = useCallback((file: File | undefined) => {
     if (!file) return;
@@ -323,6 +402,14 @@ export default function App() {
                 title="공유받은 JSON 백업 파일 불러오기"
               >
                 백업 불러오기
+              </button>
+              <button
+                onClick={handleRestoreSavedBudget}
+                disabled={isRestoring}
+                className="rounded-xl border border-amber-300/30 bg-amber-500/20 px-3 py-2 text-xs font-semibold text-amber-100 hover:bg-amber-500/30 transition-all focus-ring disabled:opacity-50"
+                title="2026-07-22 기본 예산 데이터로 복원"
+              >
+                {isRestoring ? "복원 중..." : "기본데이터 복원"}
               </button>
             </div>
             {/* 미니 집행률 게이지 */}
