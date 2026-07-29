@@ -30,7 +30,7 @@ type Tab = "dashboard" | "review" | "execution" | "report" | "log";
 const TOTAL_BUDGET = 278_500_000;
 const RESTORE_KEY = "budget-mgmt-2026-restored-from-20260722";
 /** 서버/로컬이 비어 데이터가 날아간 경우 1회 강제 복원 (키 변경 시 전원 재복원) */
-const FORCE_SEED_KEY = "budget-mgmt-2026-force-seed-20260722-v3";
+const FORCE_SEED_KEY = "budget-mgmt-2026-force-seed-20260722-v4";
 
 const EXPECTED_COURSE_COUNT = savedBudget20260722.courses.length;
 
@@ -115,7 +115,8 @@ export default function App() {
       }).then((ok) => {
         setIsRestoring(false);
         if (!ok) {
-          addToast("error", "기본 데이터 복원 저장에 실패했습니다. 네트워크 확인 후 다시 시도해주세요.");
+          restoreOnceRef.current = false;
+          addToast("error", "기본 데이터 복원 저장에 실패했습니다. 상단 '기본데이터 복원'을 다시 눌러주세요.");
           return false;
         }
         localStorage.setItem(FORCE_SEED_KEY, "done");
@@ -138,19 +139,20 @@ export default function App() {
     dispatch({ type: "SET_CURRENT_USER", name });
   }, [user]);
 
-  // 로그인 후 1회: 2026-07-22 기본 예산 데이터를 서버에 다시 올림
+  // 로그인하면 바로 1회 기본 데이터(2026-07-22)를 서버/화면에 다시 올린다
   useEffect(() => {
     if (!firestoreEnabled) return;
-    if (firestoreStatus !== "synced") return;
     if (restoreOnceRef.current || isRestoring) return;
-    if (localStorage.getItem(FORCE_SEED_KEY) === "done") {
-      // 플래그는 있는데 화면 과정이 비면 다시 복원
-      if (state.courses.length >= EXPECTED_COURSE_COUNT) return;
+    if (localStorage.getItem(FORCE_SEED_KEY) === "done" && state.courses.length >= EXPECTED_COURSE_COUNT) {
+      return;
     }
 
     restoreOnceRef.current = true;
-    restoreSavedBudget("auto");
-  }, [firestoreEnabled, firestoreStatus, state.courses.length, isRestoring, restoreSavedBudget]);
+    const t = window.setTimeout(() => {
+      restoreSavedBudget("auto");
+    }, 500);
+    return () => window.clearTimeout(t);
+  }, [firestoreEnabled, state.courses.length, isRestoring, restoreSavedBudget]);
 
   // 반응형 감지
   useEffect(() => {
@@ -388,17 +390,17 @@ export default function App() {
                 {state.currentUser}
               </div>
             )}
-            <div className="hidden md:flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={handleExportBackup}
-                className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/15 transition-all focus-ring"
+                className="hidden md:inline-flex rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/15 transition-all focus-ring"
                 title={`마지막 저장: ${lastSavedLabel}`}
               >
                 백업 저장
               </button>
               <button
                 onClick={() => importInputRef.current?.click()}
-                className="rounded-xl border border-white/10 bg-slate-950/20 px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-white/10 transition-all focus-ring"
+                className="hidden md:inline-flex rounded-xl border border-white/10 bg-slate-950/20 px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-white/10 transition-all focus-ring"
                 title="공유받은 JSON 백업 파일 불러오기"
               >
                 백업 불러오기
