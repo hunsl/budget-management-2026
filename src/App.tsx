@@ -148,30 +148,35 @@ export default function App() {
 
   const warnings = useMemo(() => buildWarnings(courses), [courses]);
 
-  // Toast 연동 dispatch 래퍼 (Firestore write-through 포함)
+  // Toast 연동 dispatch 래퍼 (Firestore write-through 포함, 실제 저장 성공 여부에 따라 토스트 표시)
   const dispatchWithToast = useCallback(
     (action: Parameters<typeof dispatch>[0]) => {
-      dispatchSynced(action);
-      switch (action.type) {
-        case "UPDATE_ITEM":
-          addToast("success", "예산현액이 업데이트되었습니다");
-          break;
-        case "ADD_ITEM":
-          addToast("success", "새 예산 항목이 추가되었습니다");
-          break;
-        case "DELETE_ITEM":
-          addToast("info", "예산 항목이 삭제되었습니다");
-          break;
-        case "ADD_EXECUTION":
-          addToast("success", "집행 내역이 등록되었습니다");
-          break;
-        case "UPDATE_EXECUTION":
-          addToast("success", "집행 내역이 수정되었습니다");
-          break;
-        case "DELETE_EXECUTION":
-          addToast("info", "집행 내역이 삭제되었습니다");
-          break;
-      }
+      dispatchSynced(action).then((ok) => {
+        if (!ok) {
+          addToast("error", "서버 저장에 실패했습니다. 화면에는 반영됐지만 다른 사람에게는 공유되지 않았어요. 새로고침 후 다시 시도해주세요.");
+          return;
+        }
+        switch (action.type) {
+          case "UPDATE_ITEM":
+            addToast("success", "예산현액이 업데이트되었습니다");
+            break;
+          case "ADD_ITEM":
+            addToast("success", "새 예산 항목이 추가되었습니다");
+            break;
+          case "DELETE_ITEM":
+            addToast("info", "예산 항목이 삭제되었습니다");
+            break;
+          case "ADD_EXECUTION":
+            addToast("success", "집행 내역이 등록되었습니다");
+            break;
+          case "UPDATE_EXECUTION":
+            addToast("success", "집행 내역이 수정되었습니다");
+            break;
+          case "DELETE_EXECUTION":
+            addToast("info", "집행 내역이 삭제되었습니다");
+            break;
+        }
+      });
     },
     [dispatchSynced, addToast],
   );
@@ -194,13 +199,18 @@ export default function App() {
           courses: backup.data.courses,
           executions: backup.data.executions,
           logs: backup.data.logs,
+        }).then((ok) => {
+          if (firebaseConfigured && !ok) {
+            addToast("error", "화면에는 반영됐지만 서버 저장에 실패했습니다. 네트워크/권한을 확인하고 다시 불러와 주세요.");
+            return;
+          }
+          addToast(
+            "success",
+            firebaseConfigured
+              ? "백업 파일을 불러와 모든 사용자에게 반영했습니다."
+              : "백업 파일을 불러왔습니다. 현재 상태로 이어서 작업할 수 있습니다.",
+          );
         });
-        addToast(
-          "success",
-          firebaseConfigured
-            ? "백업 파일을 불러와 모든 사용자에게 반영했습니다."
-            : "백업 파일을 불러왔습니다. 현재 상태로 이어서 작업할 수 있습니다.",
-        );
       } catch (error) {
         console.error(error);
         addToast("error", "백업 파일을 읽지 못했습니다. JSON 파일을 확인해주세요.");

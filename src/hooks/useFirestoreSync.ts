@@ -99,12 +99,12 @@ export function useFirestoreSync(
   }, [enabled]);
 
   const dispatchSynced = useCallback(
-    (action: BudgetAction) => {
+    (action: BudgetAction): Promise<boolean> => {
       const prev = stateRef.current;
       const next = budgetReducer(prev, action);
       dispatch(action);
 
-      if (!enabled) return;
+      if (!enabled) return Promise.resolve(true);
 
       const run = async () => {
         switch (action.type) {
@@ -164,11 +164,15 @@ export function useFirestoreSync(
       };
 
       setStatus("syncing");
-      run().then(
-        () => setStatus("synced"),
+      return run().then(
+        () => {
+          setStatus("synced");
+          return true;
+        },
         (err) => {
           console.error("[FirestoreSync] write 실패", err);
           setStatus("offline");
+          return false;
         },
       );
     },
