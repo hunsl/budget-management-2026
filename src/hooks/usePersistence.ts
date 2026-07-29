@@ -81,14 +81,8 @@ function keepUnreadableSnapshot(raw: string) {
   }
 }
 
-/**
- * localStorage에서 초기 상태를 복원합니다.
- * Firebase 사용 시에는 Firestore가 원본이므로 로컬 캐시로 시작하지 않는다.
- * (오래된 localStorage 집행내역이 서버와 섞이면 집행액이 틀어진다.)
- */
-export function loadPersistedState(options?: { preferRemote?: boolean }): Partial<BudgetState> | null {
-  if (options?.preferRemote) return null;
-
+/** localStorage에서 초기 상태를 복원합니다. */
+export function loadPersistedState(): Partial<BudgetState> | null {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return null;
 
@@ -116,17 +110,11 @@ export function loadPersistedState(options?: { preferRemote?: boolean }): Partia
   }
 }
 
-/**
- * 상태 변경을 localStorage에 저장하고 다른 탭의 변경을 감지합니다.
- * Firebase 모드(preferRemote)에서는 다른 탭 localStorage HYDRATE를 하지 않는다.
- * (Firestore 실시간 구독이 이미 동기화한다.)
- */
+/** 상태 변경을 localStorage에 저장하고 다른 탭의 변경을 감지합니다. */
 export function usePersistence(
   state: BudgetState,
   dispatch: React.Dispatch<BudgetAction>,
-  options?: { preferRemote?: boolean },
 ) {
-  const preferRemote = options?.preferRemote ?? false;
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
 
   useEffect(() => {
@@ -137,7 +125,6 @@ export function usePersistence(
 
   const handleStorageChange = useCallback(
     (e: StorageEvent) => {
-      if (preferRemote) return;
       if (e.key !== STORAGE_KEY || !e.newValue) return;
       try {
         const incoming = parseBudgetBackup(e.newValue);
@@ -152,7 +139,7 @@ export function usePersistence(
         // Ignore malformed data from other tabs.
       }
     },
-    [dispatch, preferRemote],
+    [dispatch],
   );
 
   useEffect(() => {

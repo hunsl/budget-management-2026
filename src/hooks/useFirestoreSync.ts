@@ -1,47 +1,37 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot, runTransaction, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebase";
-import {
-  budgetReducer,
-  getItemExecutedSum,
-  type BudgetAction,
-  type BudgetState,
-} from "../store/budgetReducer";
-import type { BudgetItem, Course, ExecutionRow, AdjustmentLog } from "../types";
+import { budgetReducer, type BudgetAction, type BudgetState } from "../store/budgetReducer";
+import type { BudgetItem, Course, ExecutionRow } from "../types";
 
 const COURSES = "courses";
 const EXECUTIONS = "executions";
 const LOGS = "logs";
-/** 서버 스냅샷에 아직 안 보이는 로컬 신규 집행을 유지하는 시간 */
-const PENDING_EXEC_MS = 60_000;
 
 export type SyncStatus = "offline" | "syncing" | "synced";
 
 /**
- * 서버 course 문서의 item.executed를 절대값으로 맞춘다.
- * 델타 가산은 재시도/레이스에서 중복 반영되기 쉬워 합계 절대값으로 쓴다.
+ * courses/{courseId}의 item.executed를 서버에 실제로 저장된 값 기준으로 델타 반영한다.
+ * (로컬에서 계산해둔 값을 그대로 덮어쓰면, 여러 사용자가 동시에 같은 과정에 집행을
+ * 등록할 때 한쪽 변경이 씹히는 경쟁 상태가 생길 수 있어 트랜잭션으로 처리한다.)
  */
-async function setItemExecutedAbsolute(
+async function applyExecutedDelta(
   courseId: number,
   itemId: string,
-  executed: number,
+  delta: number,
   fallbackCourse: Course | undefined,
 ) {
+  if (delta === 0) return;
   const courseRef = doc(db, COURSES, String(courseId));
   await runTransaction(db, async (tx) => {
     const snap = await tx.get(courseRef);
     if (!snap.exists()) {
-      if (fallbackCourse) {
-        const items = fallbackCourse.items.map((item) =>
-          item.id !== itemId ? item : { ...item, executed },
-        );
-        tx.set(courseRef, { ...fallbackCourse, items });
-      }
+      if (fallbackCourse) tx.set(courseRef, fallbackCourse);
       return;
     }
     const serverCourse = snap.data() as Course;
     const items = serverCourse.items.map((item) =>
-      item.id !== itemId ? item : { ...item, executed: Math.max(0, executed) },
+      item.id !== itemId ? item : { ...item, executed: Math.max(0, item.executed + delta) },
     );
     tx.set(courseRef, { ...serverCourse, items });
   });
@@ -49,7 +39,7 @@ async function setItemExecutedAbsolute(
 
 /**
  * 서버에 있는 과정 문서를 읽어 mutate한 뒤 저장한다.
- * 로컬 스냅샷 전체를 덮어쓰면 다른 사용자가 올린 값이 사라질 수 있어 트랜잭션으로 병합한다.
+ * 로컬 스냅샷 전체를 덮어쓰면 다른 사용자가 올린 집행액이 사라질 수 있어 트랜잭션으로 병합한다.
  */
 async function mergeCourseWrite(
   courseId: number,
@@ -67,30 +57,10 @@ async function mergeCourseWrite(
   });
 }
 
-function normalizeExecution(raw: ExecutionRow, docId: string): ExecutionRow {
-  return {
-    ...raw,
-    id: typeof raw.id === "number" ? raw.id : Number(docId),
-    courseId: Number(raw.courseId),
-    amount: Number(raw.amount) || 0,
-  };
-}
-
-/** 서버 스냅샷에 아직 없는 방금 등록한 로컬 집행을 잠깐 보존한다. */
-function mergePendingExecutions(
-  local: ExecutionRow[],
-  remote: ExecutionRow[],
-): ExecutionRow[] {
-  const remoteIds = new Set(remote.map((e) => e.id));
-  const cutoff = Date.now() - PENDING_EXEC_MS;
-  const pending = local.filter((e) => !remoteIds.has(e.id) && e.id >= cutoff);
-  if (pending.length === 0) return remote;
-  return [...pending, ...remote];
-}
-
 /**
- * Firestore 컬렉션을 스냅샷 전체로 치환 구독한다.
- * docChanges 델타만 쓰면 초기 로드·캐시·로컬 잔여 데이터가 섞여 집행액이 틀어진다.
+ * Firestore의 courses/executions/logs 컬렉션을 실시간 구독하고, 로컬에서 발생한
+ * 변경 액션을 같은 컬렉션에 write-through 한다. 원격 변경 병합은 budgetReducer의
+ * REMOTE_* 액션을 그대로 재사용해 로컬/원격 상태가 항상 같은 로직으로 계산되게 한다.
  */
 export function useFirestoreSync(
   state: BudgetState,
@@ -112,11 +82,10 @@ export function useFirestoreSync(
       collection(db, COURSES),
       (snap) => {
         setStatus("synced");
-        const courses = snap.docs.map((d) => {
-          const data = d.data() as Course;
-          return { ...data, id: typeof data.id === "number" ? data.id : Number(d.id) };
+        snap.docChanges().forEach((change) => {
+          if (change.type === "removed") return;
+          dispatch({ type: "REMOTE_COURSE_SYNCED", course: change.doc.data() as Course });
         });
-        dispatch({ type: "REMOTE_COURSES_REPLACED", courses });
       },
       (err) => {
         console.error("[FirestoreSync] courses 구독 실패", err);
@@ -128,9 +97,13 @@ export function useFirestoreSync(
       collection(db, EXECUTIONS),
       (snap) => {
         setStatus("synced");
-        const remote = snap.docs.map((d) => normalizeExecution(d.data() as ExecutionRow, d.id));
-        const executions = mergePendingExecutions(stateRef.current.executions, remote);
-        dispatch({ type: "REMOTE_EXECUTIONS_REPLACED", executions });
+        snap.docChanges().forEach((change) => {
+          if (change.type === "removed") {
+            dispatch({ type: "REMOTE_EXECUTION_DELETED", id: Number(change.doc.id) });
+            return;
+          }
+          dispatch({ type: "REMOTE_EXECUTION_SYNCED", execution: change.doc.data() as ExecutionRow });
+        });
       },
       (err) => {
         console.error("[FirestoreSync] executions 구독 실패", err);
@@ -142,8 +115,10 @@ export function useFirestoreSync(
       collection(db, LOGS),
       (snap) => {
         setStatus("synced");
-        const logs = snap.docs.map((d) => d.data() as AdjustmentLog);
-        dispatch({ type: "REMOTE_LOGS_REPLACED", logs });
+        snap.docChanges().forEach((change) => {
+          if (change.type === "removed") return;
+          dispatch({ type: "REMOTE_LOG_ADDED", log: change.doc.data() as import("../types").AdjustmentLog });
+        });
       },
       (err) => {
         console.error("[FirestoreSync] logs 구독 실패", err);
@@ -182,16 +157,12 @@ export function useFirestoreSync(
         switch (action.type) {
           case "UPDATE_ITEM": {
             const fallback = next.courses.find((c) => c.id === action.courseId);
-            const reconciledItem = fallback?.items.find((i) => i.id === action.itemId);
             const log = next.logs[0];
-            const patchForServer = reconciledItem
-              ? { ...action.patch, executed: reconciledItem.executed }
-              : action.patch;
             const writes: Promise<void>[] = [
               mergeCourseWrite(action.courseId, fallback, (serverCourse) => ({
                 ...serverCourse,
                 items: serverCourse.items.map((item: BudgetItem) =>
-                  item.id !== action.itemId ? item : { ...item, ...patchForServer },
+                  item.id !== action.itemId ? item : { ...item, ...action.patch },
                 ),
               })),
             ];
@@ -220,31 +191,20 @@ export function useFirestoreSync(
           case "ADD_EXECUTION": {
             const execution = next.executions[0];
             const fallbackCourse = next.courses.find((c) => c.id === action.row.courseId);
-            const executed = getItemExecutedSum(next.executions, action.row.courseId, action.row.itemId);
             const writes: Promise<void>[] = [];
             if (execution) writes.push(setDoc(doc(db, EXECUTIONS, String(execution.id)), execution));
-            writes.push(setItemExecutedAbsolute(action.row.courseId, action.row.itemId, executed, fallbackCourse));
+            writes.push(applyExecutedDelta(action.row.courseId, action.row.itemId, action.row.amount, fallbackCourse));
             await Promise.all(writes);
             break;
           }
           case "UPDATE_EXECUTION": {
             const old = prev.executions.find((e) => e.id === action.id);
             const execution = next.executions.find((e) => e.id === action.id);
+            const amountDiff = old ? (action.patch.amount ?? old.amount) - old.amount : 0;
             const fallbackCourse = old ? next.courses.find((c) => c.id === old.courseId) : undefined;
             const writes: Promise<void>[] = [];
             if (execution) writes.push(setDoc(doc(db, EXECUTIONS, String(execution.id)), execution));
-            if (old) {
-              const targets = new Set([
-                `${old.courseId}::${old.itemId}`,
-                `${execution?.courseId ?? old.courseId}::${execution?.itemId ?? old.itemId}`,
-              ]);
-              for (const key of targets) {
-                const [courseId, itemId] = key.split("::");
-                const sum = getItemExecutedSum(next.executions, Number(courseId), itemId);
-                const fb = next.courses.find((c) => c.id === Number(courseId)) ?? fallbackCourse;
-                writes.push(setItemExecutedAbsolute(Number(courseId), itemId, sum, fb));
-              }
-            }
+            if (old) writes.push(applyExecutedDelta(old.courseId, old.itemId, amountDiff, fallbackCourse));
             await Promise.all(writes);
             break;
           }
@@ -252,10 +212,7 @@ export function useFirestoreSync(
             const old = prev.executions.find((e) => e.id === action.id);
             const fallbackCourse = old ? next.courses.find((c) => c.id === old.courseId) : undefined;
             const writes: Promise<void>[] = [deleteDoc(doc(db, EXECUTIONS, String(action.id)))];
-            if (old) {
-              const sum = getItemExecutedSum(next.executions, old.courseId, old.itemId);
-              writes.push(setItemExecutedAbsolute(old.courseId, old.itemId, sum, fallbackCourse));
-            }
+            if (old) writes.push(applyExecutedDelta(old.courseId, old.itemId, -old.amount, fallbackCourse));
             await Promise.all(writes);
             break;
           }
@@ -268,7 +225,7 @@ export function useFirestoreSync(
             break;
           }
           default:
-            return;
+            return; // UI 전용/원격 병합 액션은 write-through 하지 않음
         }
       };
 
