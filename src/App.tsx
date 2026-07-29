@@ -649,11 +649,15 @@ export default function App() {
                 <ItemEditor
                   course={selectedCourse}
                   editingItemId={editingItemId}
+                  executions={executions}
                   onUpdate={(itemId, patch, reason) =>
                     dispatchWithToast({ type: "UPDATE_ITEM", courseId: selectedCourseId, itemId, patch, reason })
                   }
                   onAdd={(item) => dispatchWithToast({ type: "ADD_ITEM", courseId: selectedCourseId, item })}
                   onDelete={(itemId) => dispatchWithToast({ type: "DELETE_ITEM", courseId: selectedCourseId, itemId })}
+                  onAddExecution={(row) => dispatchWithToast({ type: "ADD_EXECUTION", row })}
+                  onUpdateExecution={(id, patch) => dispatchWithToast({ type: "UPDATE_EXECUTION", id, patch })}
+                  onDeleteExecution={(id) => dispatchWithToast({ type: "DELETE_EXECUTION", id })}
                 />
                 <div className="flex justify-end print-hide">
                   <button
