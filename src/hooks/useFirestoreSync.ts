@@ -56,6 +56,9 @@ export function useFirestoreSync(
         setStatus("synced");
         snap.docChanges().forEach((change) => {
           if (change.type === "removed") return;
+          // 내가 방금 쓴 값의 메아리는 무시한다. 로컬에는 이미 반영돼 있어
+          // 다시 병합하면 화면 숫자가 잠깐 튀었다 돌아온다.
+          if (change.doc.metadata.hasPendingWrites) return;
           dispatch({ type: "REMOTE_COURSE_SYNCED", course: change.doc.data() as Course });
         });
       },
@@ -70,6 +73,7 @@ export function useFirestoreSync(
       (snap) => {
         setStatus("synced");
         snap.docChanges().forEach((change) => {
+          if (change.doc.metadata.hasPendingWrites) return;
           if (change.type === "removed") {
             dispatch({ type: "REMOTE_EXECUTION_DELETED", id: Number(change.doc.id) });
             return;
@@ -92,6 +96,7 @@ export function useFirestoreSync(
         setStatus("synced");
         snap.docChanges().forEach((change) => {
           if (change.type === "removed") return;
+          if (change.doc.metadata.hasPendingWrites) return;
           dispatch({ type: "REMOTE_LOG_ADDED", log: change.doc.data() as import("../types").AdjustmentLog });
         });
       },

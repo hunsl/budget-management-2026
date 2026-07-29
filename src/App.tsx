@@ -159,7 +159,7 @@ export default function App() {
   }, [state.courses]);
 
   // localStorage 영속성 + 다른 탭 동기화
-  const { lastSavedAt } = usePersistence(state, dispatch);
+  const { lastSavedAt } = usePersistence(state, dispatch, { preferRemote: firebaseConfigured });
 
   // 저장 상태 표시 (Firebase 미설정 시에는 기존 로컬 저장 타이머 사용)
   useEffect(() => {

@@ -99,6 +99,13 @@ function syncCoursesExecutedFromRemoteChange(
   return applyExecutedDeltaToCourses(courses, courseId, itemId, delta);
 }
 
+/** 원격 문서가 로컬과 값이 같은지 비교한다. 같으면 상태 참조를 그대로 유지해 리렌더를 막는다. */
+function isSameDoc(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (!a || !b) return false;
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
 // ─── Reducer ──────────────────────────────────────────────────
 export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetState {
   switch (action.type) {
@@ -247,7 +254,9 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
     // ─── Firestore 원격 변경 병합 (다른 사용자/다른 탭에서 들어온 변경) ───
 
     case "REMOTE_COURSE_SYNCED": {
-      const exists = state.courses.some((c) => c.id === action.course.id);
+      const current = state.courses.find((c) => c.id === action.course.id);
+      if (current && isSameDoc(current, action.course)) return state;
+      const exists = Boolean(current);
       return {
         ...state,
         courses: exists
@@ -258,6 +267,7 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
 
     case "REMOTE_EXECUTION_SYNCED": {
       const old = state.executions.find((e) => e.id === action.execution.id);
+      if (old && isSameDoc(old, action.execution)) return state;
       const nextExecutions = old
         ? state.executions.map((e) => (e.id === action.execution.id ? action.execution : e))
         : [action.execution, ...state.executions];
