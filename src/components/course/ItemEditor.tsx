@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Course, BudgetItem } from "../../types";
-import { parseNumber, formatWon, generateNewItemId } from "../../store/utils";
+import { parseNumber, formatWon, formatPct, generateNewItemId } from "../../store/utils";
 
 type Props = {
   course: Course;
@@ -115,11 +115,29 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete }:
 
       {item ? (
         <div className="space-y-4">
-          <div className="rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 flex items-center justify-between">
-            <div className="text-sm">
-              선택: <span className="font-bold text-slate-800">{item.name}</span>
+          <div className="rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <div className="text-sm">
+                선택: <span className="font-bold text-slate-800">{item.name}</span>
+              </div>
+              <span className="text-xs text-slate-400 font-mono tabular-nums">현재 조정금액 {formatWon(item.adjusted)}</span>
             </div>
-            <span className="text-xs text-slate-400 tabular-nums">현재 {formatWon(item.adjusted)}</span>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="rounded-lg bg-white border border-slate-200 px-3 py-2">
+                <div className="text-[10px] text-slate-400 font-medium">집행액</div>
+                <div className="text-sm font-bold font-mono tabular-nums text-amber-700">{formatWon(item.executed)}</div>
+              </div>
+              <div className="rounded-lg bg-white border border-slate-200 px-3 py-2">
+                <div className="text-[10px] text-slate-400 font-medium">잔액</div>
+                <div className="text-sm font-bold font-mono tabular-nums text-slate-700">{formatWon(item.adjusted - item.executed)}</div>
+              </div>
+              <div className="rounded-lg bg-white border border-slate-200 px-3 py-2">
+                <div className="text-[10px] text-slate-400 font-medium">집행률</div>
+                <div className="text-sm font-bold font-mono tabular-nums text-indigo-700">
+                  {formatPct(item.adjusted === 0 ? 0 : item.executed / item.adjusted)}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
             <div><label className={labelCls}>예산구분</label><select className={inputCls} value={form.group} onChange={(e) => f("group", e.target.value)}>{GROUPS.map((g) => <option key={g}>{g}</option>)}</select></div>
