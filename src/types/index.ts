@@ -69,6 +69,7 @@ export type EditForm = {
   qty2: string;
   qty3: string;
   adjusted: string;
+  executed: string;
   calc: string;
   reason: string;
 };

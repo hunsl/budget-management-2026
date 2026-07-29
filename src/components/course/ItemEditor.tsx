@@ -20,21 +20,27 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete }:
 
   const [form, setForm] = useState({
     group: "", name: "", unitPrice: "", qty1: "", qty2: "", qty3: "",
-    adjusted: "", calc: "", reason: "",
+    adjusted: "", executed: "", calc: "", reason: "",
   });
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItem, setNewItem] = useState({ group: "교육훈련비", name: "", unitPrice: "", qty1: "1", calc: "" });
   const [justSaved, setJustSaved] = useState(false);
 
+  // 항목 선택이 바뀔 때만 폼을 채운다.
+  // item 객체 참조(집행액 원격 동기화 등)로 리셋하면 작성 중이던 값이 날아감.
   useEffect(() => {
     if (!item) return;
     setForm({
       group: item.group, name: item.name,
       unitPrice: String(item.unitPrice), qty1: String(item.qty1 ?? 1),
       qty2: String(item.qty2 ?? 1), qty3: String(item.qty3 ?? 1),
-      adjusted: String(item.adjusted), calc: item.calc, reason: "",
+      adjusted: String(item.adjusted), executed: String(item.executed),
+      calc: item.calc, reason: "",
     });
-  }, [item]);
+  }, [editingItemId, item?.id]); // eslint-disable-line react-hooks/exhaustive-deps -- 선택/항목 등장 시에만 초기화
+
+  const draftAdjusted = parseNumber(form.adjusted);
+  const draftExecuted = parseNumber(form.executed);
 
   const handleSave = () => {
     if (!item) return;
@@ -42,7 +48,9 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete }:
       group: form.group, name: form.name,
       unitPrice: parseNumber(form.unitPrice),
       qty1: parseNumber(form.qty1, 1), qty2: parseNumber(form.qty2, 1), qty3: parseNumber(form.qty3, 1),
-      adjusted: parseNumber(form.adjusted), calc: form.calc,
+      adjusted: draftAdjusted,
+      executed: Math.max(0, draftExecuted),
+      calc: form.calc,
     }, form.reason || "수정 사유 미입력");
     setJustSaved(true);
     setTimeout(() => setJustSaved(false), 1500);
@@ -125,16 +133,16 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete }:
             <div className="grid grid-cols-3 gap-2">
               <div className="rounded-lg bg-white border border-slate-200 px-3 py-2">
                 <div className="text-[10px] text-slate-400 font-medium">집행액</div>
-                <div className="text-sm font-bold font-mono tabular-nums text-amber-700">{formatWon(item.executed)}</div>
+                <div className="text-sm font-bold font-mono tabular-nums text-amber-700">{formatWon(draftExecuted)}</div>
               </div>
               <div className="rounded-lg bg-white border border-slate-200 px-3 py-2">
                 <div className="text-[10px] text-slate-400 font-medium">잔액</div>
-                <div className="text-sm font-bold font-mono tabular-nums text-slate-700">{formatWon(item.adjusted - item.executed)}</div>
+                <div className="text-sm font-bold font-mono tabular-nums text-slate-700">{formatWon(draftAdjusted - draftExecuted)}</div>
               </div>
               <div className="rounded-lg bg-white border border-slate-200 px-3 py-2">
                 <div className="text-[10px] text-slate-400 font-medium">집행률</div>
                 <div className="text-sm font-bold font-mono tabular-nums text-indigo-700">
-                  {formatPct(item.adjusted === 0 ? 0 : item.executed / item.adjusted)}
+                  {formatPct(draftAdjusted === 0 ? 0 : draftExecuted / draftAdjusted)}
                 </div>
               </div>
             </div>
@@ -147,7 +155,16 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete }:
             <div><label className={labelCls}>수량2</label><input className={inputCls} value={form.qty2} onChange={(e) => f("qty2", e.target.value)} /></div>
             <div><label className={labelCls}>수량3</label><input className={inputCls} value={form.qty3} onChange={(e) => f("qty3", e.target.value)} /></div>
             <div><label className={labelCls}>조정금액</label><input className={`${inputCls} font-bold`} value={form.adjusted} onChange={(e) => f("adjusted", e.target.value)} /></div>
-            <div><label className={labelCls}>산출근거</label><input className={inputCls} value={form.calc} onChange={(e) => f("calc", e.target.value)} /></div>
+            <div>
+              <label className={labelCls}>집행액</label>
+              <input
+                className={`${inputCls} font-bold text-amber-800`}
+                value={form.executed}
+                onChange={(e) => f("executed", e.target.value)}
+                placeholder="0"
+              />
+            </div>
+            <div className="xs:col-span-2"><label className={labelCls}>산출근거</label><input className={inputCls} value={form.calc} onChange={(e) => f("calc", e.target.value)} /></div>
             <div className="xs:col-span-2">
               <label className={labelCls}>수정 사유 <span className="text-rose-500">*</span></label>
               <input className={inputCls} value={form.reason} onChange={(e) => f("reason", e.target.value)} placeholder="수정 사유를 입력하세요" />

@@ -49,6 +49,56 @@ export type BudgetAction =
   | { type: "REMOTE_EXECUTION_DELETED"; id: number }
   | { type: "REMOTE_LOG_ADDED"; log: AdjustmentLog };
 
+/** 과정 항목의 executed에 델타를 더한다 (음수면 차감, 0 미만은 0으로 클램프). */
+function applyExecutedDeltaToCourses(
+  courses: Course[],
+  courseId: number,
+  itemId: string,
+  delta: number,
+): Course[] {
+  if (delta === 0) return courses;
+  return courses.map((course) =>
+    course.id !== courseId
+      ? course
+      : {
+          ...course,
+          items: course.items.map((item) =>
+            item.id !== itemId
+              ? item
+              : { ...item, executed: Math.max(0, item.executed + delta) },
+          ),
+        },
+  );
+}
+
+function getItemExecuted(courses: Course[], courseId: number, itemId: string): number {
+  return courses.find((c) => c.id === courseId)?.items.find((i) => i.id === itemId)?.executed ?? 0;
+}
+
+function sumExecutionsForItem(executions: ExecutionRow[], courseId: number, itemId: string): number {
+  return executions
+    .filter((e) => e.courseId === courseId && e.itemId === itemId)
+    .reduce((s, e) => s + e.amount, 0);
+}
+
+/**
+ * 원격 집행 변경을 courses.item.executed에 반영한다.
+ * courses 스냅샷이 먼저 와 이미 합계와 일치하면 건너뛰어 이중 가산을 막는다.
+ */
+function syncCoursesExecutedFromRemoteChange(
+  courses: Course[],
+  nextExecutions: ExecutionRow[],
+  courseId: number,
+  itemId: string,
+  delta: number,
+): Course[] {
+  if (delta === 0) return courses;
+  const sumAfter = sumExecutionsForItem(nextExecutions, courseId, itemId);
+  const current = getItemExecuted(courses, courseId, itemId);
+  if (current === sumAfter) return courses; // course sync가 이미 반영함
+  return applyExecutedDeltaToCourses(courses, courseId, itemId, delta);
+}
+
 // ─── Reducer ──────────────────────────────────────────────────
 export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetState {
   switch (action.type) {
@@ -201,20 +251,75 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
     }
 
     case "REMOTE_EXECUTION_SYNCED": {
-      const exists = state.executions.some((e) => e.id === action.execution.id);
-      return {
-        ...state,
-        executions: exists
-          ? state.executions.map((e) => (e.id === action.execution.id ? action.execution : e))
-          : [action.execution, ...state.executions],
-      };
+      const old = state.executions.find((e) => e.id === action.execution.id);
+      const nextExecutions = old
+        ? state.executions.map((e) => (e.id === action.execution.id ? action.execution : e))
+        : [action.execution, ...state.executions];
+
+      // 집행내역만 오고 courses.item.executed가 안 따라오면 화면 반영이 깨지므로
+      // 로컬 ADD/UPDATE와 동일하게 항목 집행액을 델타로 맞춘다.
+      // courses 스냅샷이 먼저 반영된 경우에는 합계가 이미 맞아 건너뛴다.
+      let courses = state.courses;
+      if (!old) {
+        courses = syncCoursesExecutedFromRemoteChange(
+          courses,
+          nextExecutions,
+          action.execution.courseId,
+          action.execution.itemId,
+          action.execution.amount,
+        );
+      } else {
+        const sameTarget =
+          old.courseId === action.execution.courseId && old.itemId === action.execution.itemId;
+        if (sameTarget) {
+          const amountDiff = action.execution.amount - old.amount;
+          courses = syncCoursesExecutedFromRemoteChange(
+            courses,
+            nextExecutions,
+            old.courseId,
+            old.itemId,
+            amountDiff,
+          );
+        } else {
+          const withoutOld = nextExecutions.filter((e) => e.id !== action.execution.id);
+          courses = syncCoursesExecutedFromRemoteChange(
+            courses,
+            withoutOld,
+            old.courseId,
+            old.itemId,
+            -old.amount,
+          );
+          courses = syncCoursesExecutedFromRemoteChange(
+            courses,
+            nextExecutions,
+            action.execution.courseId,
+            action.execution.itemId,
+            action.execution.amount,
+          );
+        }
+      }
+
+      return { ...state, executions: nextExecutions, courses };
     }
 
-    case "REMOTE_EXECUTION_DELETED":
+    case "REMOTE_EXECUTION_DELETED": {
+      const target = state.executions.find((e) => e.id === action.id);
+      if (!target) {
+        return { ...state, executions: state.executions.filter((e) => e.id !== action.id) };
+      }
+      const nextExecutions = state.executions.filter((e) => e.id !== action.id);
       return {
         ...state,
-        executions: state.executions.filter((e) => e.id !== action.id),
+        executions: nextExecutions,
+        courses: syncCoursesExecutedFromRemoteChange(
+          state.courses,
+          nextExecutions,
+          target.courseId,
+          target.itemId,
+          -target.amount,
+        ),
       };
+    }
 
     case "REMOTE_LOG_ADDED": {
       if (state.logs.some((l) => l.id === action.log.id)) return state;

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot, runTransaction, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { budgetReducer, type BudgetAction, type BudgetState } from "../store/budgetReducer";
-import type { Course, ExecutionRow } from "../types";
+import type { BudgetItem, Course, ExecutionRow } from "../types";
 
 const COURSES = "courses";
 const EXECUTIONS = "executions";
@@ -21,7 +21,7 @@ async function applyExecutedDelta(
   delta: number,
   fallbackCourse: Course | undefined,
 ) {
-  if (delta === 0 && fallbackCourse) return; // 변화 없으면 굳이 쓰지 않음
+  if (delta === 0) return;
   const courseRef = doc(db, COURSES, String(courseId));
   await runTransaction(db, async (tx) => {
     const snap = await tx.get(courseRef);
@@ -31,9 +31,29 @@ async function applyExecutedDelta(
     }
     const serverCourse = snap.data() as Course;
     const items = serverCourse.items.map((item) =>
-      item.id !== itemId ? item : { ...item, executed: item.executed + delta },
+      item.id !== itemId ? item : { ...item, executed: Math.max(0, item.executed + delta) },
     );
     tx.set(courseRef, { ...serverCourse, items });
+  });
+}
+
+/**
+ * 서버에 있는 과정 문서를 읽어 mutate한 뒤 저장한다.
+ * 로컬 스냅샷 전체를 덮어쓰면 다른 사용자가 올린 집행액이 사라질 수 있어 트랜잭션으로 병합한다.
+ */
+async function mergeCourseWrite(
+  courseId: number,
+  fallbackCourse: Course | undefined,
+  mutate: (serverCourse: Course) => Course,
+) {
+  const courseRef = doc(db, COURSES, String(courseId));
+  await runTransaction(db, async (tx) => {
+    const snap = await tx.get(courseRef);
+    const base = snap.exists()
+      ? (snap.data() as Course)
+      : fallbackCourse;
+    if (!base) return;
+    tx.set(courseRef, mutate(base));
   });
 }
 
@@ -136,18 +156,36 @@ export function useFirestoreSync(
       const run = async () => {
         switch (action.type) {
           case "UPDATE_ITEM": {
-            const course = next.courses.find((c) => c.id === action.courseId);
+            const fallback = next.courses.find((c) => c.id === action.courseId);
             const log = next.logs[0];
-            const writes: Promise<void>[] = [];
-            if (course) writes.push(setDoc(doc(db, COURSES, String(course.id)), course));
+            const writes: Promise<void>[] = [
+              mergeCourseWrite(action.courseId, fallback, (serverCourse) => ({
+                ...serverCourse,
+                items: serverCourse.items.map((item: BudgetItem) =>
+                  item.id !== action.itemId ? item : { ...item, ...action.patch },
+                ),
+              })),
+            ];
             if (log) writes.push(setDoc(doc(db, LOGS, log.id), log));
             await Promise.all(writes);
             break;
           }
-          case "ADD_ITEM":
+          case "ADD_ITEM": {
+            const fallback = next.courses.find((c) => c.id === action.courseId);
+            await mergeCourseWrite(action.courseId, fallback, (serverCourse) => {
+              if (serverCourse.items.some((i) => i.id === action.item.id)) return serverCourse;
+              return { ...serverCourse, items: [...serverCourse.items, action.item] };
+            });
+            break;
+          }
           case "DELETE_ITEM": {
-            const course = next.courses.find((c) => c.id === action.courseId);
-            if (course) await setDoc(doc(db, COURSES, String(course.id)), course);
+            const fallback = next.courses.find((c) => c.id === action.courseId);
+            await mergeCourseWrite(action.courseId, fallback, (serverCourse) => ({
+              ...serverCourse,
+              items: serverCourse.items.map((item) =>
+                item.id !== action.itemId ? item : { ...item, isDeleted: true },
+              ),
+            }));
             break;
           }
           case "ADD_EXECUTION": {
