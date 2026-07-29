@@ -58,7 +58,7 @@ function applyExecutedDeltaToCourses(
 ): Course[] {
   if (delta === 0) return courses;
   return courses.map((course) =>
-    course.id !== courseId
+    Number(course.id) !== Number(courseId)
       ? course
       : {
           ...course,
@@ -72,13 +72,13 @@ function applyExecutedDeltaToCourses(
 }
 
 function getItemExecuted(courses: Course[], courseId: number, itemId: string): number {
-  return courses.find((c) => c.id === courseId)?.items.find((i) => i.id === itemId)?.executed ?? 0;
+  return courses.find((c) => Number(c.id) === Number(courseId))?.items.find((i) => i.id === itemId)?.executed ?? 0;
 }
 
 function sumExecutionsForItem(executions: ExecutionRow[], courseId: number, itemId: string): number {
   return executions
-    .filter((e) => e.courseId === courseId && e.itemId === itemId)
-    .reduce((s, e) => s + e.amount, 0);
+    .filter((e) => Number(e.courseId) === Number(courseId) && String(e.itemId) === String(itemId))
+    .reduce((s, e) => s + Number(e.amount), 0);
 }
 
 /**
@@ -177,15 +177,21 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
       };
 
     case "ADD_EXECUTION": {
-      const newRow: ExecutionRow = { ...action.row, id: Date.now() };
+      const newRow: ExecutionRow = {
+        ...action.row,
+        id: Date.now(),
+        courseId: Number(action.row.courseId),
+        itemId: String(action.row.itemId),
+        amount: Number(action.row.amount) || 0,
+      };
       return {
         ...state,
         executions: [newRow, ...state.executions],
         courses: state.courses.map((course) =>
-          course.id !== action.row.courseId ? course : {
+          Number(course.id) !== Number(newRow.courseId) ? course : {
             ...course,
             items: course.items.map((item) =>
-              item.id !== action.row.itemId ? item : { ...item, executed: item.executed + action.row.amount }
+              item.id !== newRow.itemId ? item : { ...item, executed: item.executed + newRow.amount }
             ),
           }
         ),

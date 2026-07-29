@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { collection, deleteDoc, doc, onSnapshot, runTransaction, setDoc, writeBatch } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { budgetReducer, type BudgetAction, type BudgetState } from "../store/budgetReducer";
 import type { Course, ExecutionRow } from "../types";
@@ -10,31 +10,18 @@ const LOGS = "logs";
 
 export type SyncStatus = "offline" | "syncing" | "synced";
 
-/**
- * courses/{courseId}의 item.executed를 서버에 실제로 저장된 값 기준으로 델타 반영한다.
- * (로컬에서 계산해둔 값을 그대로 덮어쓰면, 여러 사용자가 동시에 같은 과정에 집행을
- * 등록할 때 한쪽 변경이 씹히는 경쟁 상태가 생길 수 있어 트랜잭션으로 처리한다.)
- */
-async function applyExecutedDelta(
-  courseId: number,
-  itemId: string,
-  delta: number,
-  fallbackCourse: Course | undefined,
-) {
-  if (delta === 0) return;
-  const courseRef = doc(db, COURSES, String(courseId));
-  await runTransaction(db, async (tx) => {
-    const snap = await tx.get(courseRef);
-    if (!snap.exists()) {
-      if (fallbackCourse) tx.set(courseRef, fallbackCourse);
-      return;
-    }
-    const serverCourse = snap.data() as Course;
-    const items = serverCourse.items.map((item) =>
-      item.id !== itemId ? item : { ...item, executed: Math.max(0, item.executed + delta) },
-    );
-    tx.set(courseRef, { ...serverCourse, items });
-  });
+/** Firestore에서 온 집행내역 필드 타입을 로컬과 맞게 정규화한다. */
+function normalizeExecution(raw: Partial<ExecutionRow> & Record<string, unknown>, docId: string): ExecutionRow {
+  return {
+    id: typeof raw.id === "number" ? raw.id : Number(docId),
+    courseId: Number(raw.courseId),
+    itemId: String(raw.itemId ?? ""),
+    date: String(raw.date ?? ""),
+    amount: Number(raw.amount) || 0,
+    vendor: String(raw.vendor ?? "-"),
+    proofNo: String(raw.proofNo ?? "-"),
+    memo: String(raw.memo ?? "-"),
+  };
 }
 
 /** 과정 문서를 로컬 최신본 그대로 저장한다. */
@@ -87,7 +74,10 @@ export function useFirestoreSync(
             dispatch({ type: "REMOTE_EXECUTION_DELETED", id: Number(change.doc.id) });
             return;
           }
-          dispatch({ type: "REMOTE_EXECUTION_SYNCED", execution: change.doc.data() as ExecutionRow });
+          dispatch({
+            type: "REMOTE_EXECUTION_SYNCED",
+            execution: normalizeExecution(change.doc.data() as Partial<ExecutionRow> & Record<string, unknown>, change.doc.id),
+          });
         });
       },
       (err) => {
@@ -157,30 +147,34 @@ export function useFirestoreSync(
             break;
           }
           case "ADD_EXECUTION": {
+            // reducer가 새 행을 맨 앞에 넣으므로 [0]이 방금 등록한 건
             const execution = next.executions[0];
-            const fallbackCourse = next.courses.find((c) => c.id === action.row.courseId);
-            const writes: Promise<void>[] = [];
-            if (execution) writes.push(setDoc(doc(db, EXECUTIONS, String(execution.id)), execution));
-            writes.push(applyExecutedDelta(action.row.courseId, action.row.itemId, action.row.amount, fallbackCourse));
-            await Promise.all(writes);
+            const course = next.courses.find((c) => Number(c.id) === Number(action.row.courseId));
+            if (!execution) throw new Error("저장할 집행내역을 찾지 못했습니다.");
+            if (!course) throw new Error("저장할 과정 데이터를 찾지 못했습니다.");
+            await Promise.all([
+              setDoc(doc(db, EXECUTIONS, String(execution.id)), normalizeExecution(execution, String(execution.id))),
+              setCourseDoc(course),
+            ]);
             break;
           }
           case "UPDATE_EXECUTION": {
             const old = prev.executions.find((e) => e.id === action.id);
             const execution = next.executions.find((e) => e.id === action.id);
-            const amountDiff = old ? (action.patch.amount ?? old.amount) - old.amount : 0;
-            const fallbackCourse = old ? next.courses.find((c) => c.id === old.courseId) : undefined;
-            const writes: Promise<void>[] = [];
-            if (execution) writes.push(setDoc(doc(db, EXECUTIONS, String(execution.id)), execution));
-            if (old) writes.push(applyExecutedDelta(old.courseId, old.itemId, amountDiff, fallbackCourse));
+            const course = old ? next.courses.find((c) => c.id === old.courseId) : undefined;
+            if (!execution) throw new Error("수정할 집행내역을 찾지 못했습니다.");
+            const writes: Promise<void>[] = [
+              setDoc(doc(db, EXECUTIONS, String(execution.id)), normalizeExecution(execution, String(execution.id))),
+            ];
+            if (course) writes.push(setCourseDoc(course));
             await Promise.all(writes);
             break;
           }
           case "DELETE_EXECUTION": {
             const old = prev.executions.find((e) => e.id === action.id);
-            const fallbackCourse = old ? next.courses.find((c) => c.id === old.courseId) : undefined;
+            const course = old ? next.courses.find((c) => c.id === old.courseId) : undefined;
             const writes: Promise<void>[] = [deleteDoc(doc(db, EXECUTIONS, String(action.id)))];
-            if (old) writes.push(applyExecutedDelta(old.courseId, old.itemId, -old.amount, fallbackCourse));
+            if (course) writes.push(setCourseDoc(course));
             await Promise.all(writes);
             break;
           }

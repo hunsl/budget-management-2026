@@ -43,15 +43,17 @@ export function ItemEditor({
 
   const itemExecs = useMemo(
     () => executions
-      .filter((e) => e.courseId === course.id && e.itemId === editingItemId)
+      .filter((e) => Number(e.courseId) === Number(course.id) && String(e.itemId) === String(editingItemId))
       .slice()
-      .sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id),
+      .sort((a, b) => b.date.localeCompare(a.date) || Number(b.id) - Number(a.id)),
     [executions, course.id, editingItemId],
   );
   const execSum = useMemo(
-    () => itemExecs.reduce((s, e) => s + e.amount, 0),
+    () => itemExecs.reduce((s, e) => s + Number(e.amount), 0),
     [itemExecs],
   );
+
+  const [execError, setExecError] = useState("");
 
   // 항목 선택이 바뀔 때만 폼을 채운다.
   // item 객체 참조(집행액 원격 동기화 등)로 리셋하면 작성 중이던 값이 날아감.
@@ -67,6 +69,7 @@ export function ItemEditor({
     setExecForm({ date: today, amount: "", vendor: "", proofNo: "", memo: "" });
     setEditExecId(null);
     setEditExecForm({});
+    setExecError("");
   }, [editingItemId, item?.id]); // eslint-disable-line react-hooks/exhaustive-deps -- 선택/항목 등장 시에만 초기화
 
   // 집행내역 CRUD로 item.executed가 바뀌면 입력란도 맞춰 둔다.
@@ -109,10 +112,14 @@ export function ItemEditor({
   const handleAddExecution = () => {
     if (!item) return;
     const amount = parseNumber(execForm.amount);
-    if (amount <= 0) return;
+    if (!execForm.amount.trim() || amount <= 0) {
+      setExecError("집행금액을 0보다 크게 입력해주세요.");
+      return;
+    }
+    setExecError("");
     onAddExecution({
-      courseId: course.id,
-      itemId: item.id,
+      courseId: Number(course.id),
+      itemId: String(item.id),
       date: execForm.date || today,
       amount,
       vendor: execForm.vendor.trim() || "-",
@@ -293,11 +300,13 @@ export function ItemEditor({
                 </div>
               </div>
               <button
+                type="button"
                 onClick={handleAddExecution}
                 className="rounded-lg bg-amber-600 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-700 transition-all"
               >
                 집행 등록
               </button>
+              {execError && <p className="text-[11px] text-rose-600 font-medium">{execError}</p>}
             </div>
 
             <div className="overflow-x-auto rounded-lg border border-amber-100 bg-white">
