@@ -45,58 +45,60 @@ export type BudgetAction =
   | { type: "HYDRATE"; courses: Course[]; executions: ExecutionRow[]; logs: AdjustmentLog[] }
   | { type: "SET_CURRENT_USER"; name: string }
   | { type: "REMOTE_COURSE_SYNCED"; course: Course }
+  | { type: "REMOTE_COURSES_REPLACED"; courses: Course[] }
   | { type: "REMOTE_EXECUTION_SYNCED"; execution: ExecutionRow }
+  | { type: "REMOTE_EXECUTIONS_REPLACED"; executions: ExecutionRow[] }
   | { type: "REMOTE_EXECUTION_DELETED"; id: number }
-  | { type: "REMOTE_LOG_ADDED"; log: AdjustmentLog };
+  | { type: "REMOTE_LOG_ADDED"; log: AdjustmentLog }
+  | { type: "REMOTE_LOGS_REPLACED"; logs: AdjustmentLog[] };
 
-/** 과정 항목의 executed에 델타를 더한다 (음수면 차감, 0 미만은 0으로 클램프). */
-function applyExecutedDeltaToCourses(
+/** 항목별 집행내역 합계로 executed를 맞춘다.
+ * - 내역이 있으면 합계 사용
+ * - 이전에 내역이 있었는데 없어졌으면 0
+ * - 내역이 한 번도 없으면(수동 입력) 기존 executed 유지
+ */
+export function reconcileCoursesExecuted(
   courses: Course[],
+  executions: ExecutionRow[],
+  previousExecutions?: ExecutionRow[],
+): Course[] {
+  const sums = new Map<string, number>();
+  for (const e of executions) {
+    const key = `${e.courseId}::${e.itemId}`;
+    sums.set(key, (sums.get(key) ?? 0) + e.amount);
+  }
+
+  const previousKeys = new Set<string>();
+  if (previousExecutions) {
+    for (const e of previousExecutions) {
+      previousKeys.add(`${e.courseId}::${e.itemId}`);
+    }
+  }
+
+  return courses.map((course) => ({
+    ...course,
+    items: course.items.map((item) => {
+      const key = `${course.id}::${item.id}`;
+      if (sums.has(key)) {
+        const executed = sums.get(key) ?? 0;
+        return item.executed === executed ? item : { ...item, executed };
+      }
+      if (previousKeys.has(key) && item.executed !== 0) {
+        return { ...item, executed: 0 };
+      }
+      return item;
+    }),
+  }));
+}
+
+export function getItemExecutedSum(
+  executions: ExecutionRow[],
   courseId: number,
   itemId: string,
-  delta: number,
-): Course[] {
-  if (delta === 0) return courses;
-  return courses.map((course) =>
-    course.id !== courseId
-      ? course
-      : {
-          ...course,
-          items: course.items.map((item) =>
-            item.id !== itemId
-              ? item
-              : { ...item, executed: Math.max(0, item.executed + delta) },
-          ),
-        },
-  );
-}
-
-function getItemExecuted(courses: Course[], courseId: number, itemId: string): number {
-  return courses.find((c) => c.id === courseId)?.items.find((i) => i.id === itemId)?.executed ?? 0;
-}
-
-function sumExecutionsForItem(executions: ExecutionRow[], courseId: number, itemId: string): number {
+): number {
   return executions
     .filter((e) => e.courseId === courseId && e.itemId === itemId)
     .reduce((s, e) => s + e.amount, 0);
-}
-
-/**
- * 원격 집행 변경을 courses.item.executed에 반영한다.
- * courses 스냅샷이 먼저 와 이미 합계와 일치하면 건너뛰어 이중 가산을 막는다.
- */
-function syncCoursesExecutedFromRemoteChange(
-  courses: Course[],
-  nextExecutions: ExecutionRow[],
-  courseId: number,
-  itemId: string,
-  delta: number,
-): Course[] {
-  if (delta === 0) return courses;
-  const sumAfter = sumExecutionsForItem(nextExecutions, courseId, itemId);
-  const current = getItemExecuted(courses, courseId, itemId);
-  if (current === sumAfter) return courses; // course sync가 이미 반영함
-  return applyExecutedDeltaToCourses(courses, courseId, itemId, delta);
 }
 
 // ─── Reducer ──────────────────────────────────────────────────
@@ -137,16 +139,19 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
         editedBy: state.currentUser,
       };
 
+      const courses = state.courses.map((course) =>
+        course.id !== action.courseId ? course : {
+          ...course,
+          items: course.items.map((item) =>
+            item.id !== action.itemId ? item : { ...item, ...action.patch }
+          ),
+        }
+      );
+
+      // 집행내역이 있는 항목은 합계가 진실 — 수동 집행액 입력을 덮어 일치시킨다.
       return {
         ...state,
-        courses: state.courses.map((course) =>
-          course.id !== action.courseId ? course : {
-            ...course,
-            items: course.items.map((item) =>
-              item.id !== action.itemId ? item : { ...item, ...action.patch }
-            ),
-          }
-        ),
+        courses: reconcileCoursesExecuted(courses, state.executions),
         logs: [log, ...state.logs],
       };
     }
@@ -178,59 +183,38 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
 
     case "ADD_EXECUTION": {
       const newRow: ExecutionRow = { ...action.row, id: Date.now() };
+      const executions = [newRow, ...state.executions];
       return {
         ...state,
-        executions: [newRow, ...state.executions],
-        courses: state.courses.map((course) =>
-          course.id !== action.row.courseId ? course : {
-            ...course,
-            items: course.items.map((item) =>
-              item.id !== action.row.itemId ? item : { ...item, executed: item.executed + action.row.amount }
-            ),
-          }
-        ),
+        executions,
+        courses: reconcileCoursesExecuted(state.courses, executions, state.executions),
       };
     }
 
     case "UPDATE_EXECUTION": {
-      const old = state.executions.find((e) => e.id === action.id);
-      const amountDiff = (action.patch.amount ?? old?.amount ?? 0) - (old?.amount ?? 0);
+      const executions = state.executions.map((e) =>
+        e.id !== action.id ? e : { ...e, ...action.patch }
+      );
       return {
         ...state,
-        executions: state.executions.map((e) =>
-          e.id !== action.id ? e : { ...e, ...action.patch }
-        ),
-        courses: amountDiff === 0 ? state.courses : state.courses.map((course) =>
-          course.id !== old?.courseId ? course : {
-            ...course,
-            items: course.items.map((item) =>
-              item.id !== old?.itemId ? item : { ...item, executed: item.executed + amountDiff }
-            ),
-          }
-        ),
+        executions,
+        courses: reconcileCoursesExecuted(state.courses, executions, state.executions),
       };
     }
 
     case "DELETE_EXECUTION": {
-      const target = state.executions.find((e) => e.id === action.id);
+      const executions = state.executions.filter((e) => e.id !== action.id);
       return {
         ...state,
-        executions: state.executions.filter((e) => e.id !== action.id),
-        courses: !target ? state.courses : state.courses.map((course) =>
-          course.id !== target.courseId ? course : {
-            ...course,
-            items: course.items.map((item) =>
-              item.id !== target.itemId ? item : { ...item, executed: Math.max(0, item.executed - target.amount) }
-            ),
-          }
-        ),
+        executions,
+        courses: reconcileCoursesExecuted(state.courses, executions, state.executions),
       };
     }
 
     case "HYDRATE":
       return {
         ...state,
-        courses: action.courses,
+        courses: reconcileCoursesExecuted(action.courses, action.executions, state.executions),
         executions: action.executions,
         logs: action.logs,
       };
@@ -238,86 +222,50 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
     case "SET_CURRENT_USER":
       return { ...state, currentUser: action.name };
 
-    // ─── Firestore 원격 변경 병합 (다른 사용자/다른 탭에서 들어온 변경) ───
+    // ─── Firestore 원격 변경 병합 ───
 
     case "REMOTE_COURSE_SYNCED": {
       const exists = state.courses.some((c) => c.id === action.course.id);
+      const courses = exists
+        ? state.courses.map((c) => (c.id === action.course.id ? action.course : c))
+        : [...state.courses, action.course];
       return {
         ...state,
-        courses: exists
-          ? state.courses.map((c) => (c.id === action.course.id ? action.course : c))
-          : [...state.courses, action.course],
+        courses: reconcileCoursesExecuted(courses, state.executions, state.executions),
       };
     }
 
-    case "REMOTE_EXECUTION_SYNCED": {
-      const old = state.executions.find((e) => e.id === action.execution.id);
-      const nextExecutions = old
-        ? state.executions.map((e) => (e.id === action.execution.id ? action.execution : e))
-        : [action.execution, ...state.executions];
-
-      // 집행내역만 오고 courses.item.executed가 안 따라오면 화면 반영이 깨지므로
-      // 로컬 ADD/UPDATE와 동일하게 항목 집행액을 델타로 맞춘다.
-      // courses 스냅샷이 먼저 반영된 경우에는 합계가 이미 맞아 건너뛴다.
-      let courses = state.courses;
-      if (!old) {
-        courses = syncCoursesExecutedFromRemoteChange(
-          courses,
-          nextExecutions,
-          action.execution.courseId,
-          action.execution.itemId,
-          action.execution.amount,
-        );
-      } else {
-        const sameTarget =
-          old.courseId === action.execution.courseId && old.itemId === action.execution.itemId;
-        if (sameTarget) {
-          const amountDiff = action.execution.amount - old.amount;
-          courses = syncCoursesExecutedFromRemoteChange(
-            courses,
-            nextExecutions,
-            old.courseId,
-            old.itemId,
-            amountDiff,
-          );
-        } else {
-          const withoutOld = nextExecutions.filter((e) => e.id !== action.execution.id);
-          courses = syncCoursesExecutedFromRemoteChange(
-            courses,
-            withoutOld,
-            old.courseId,
-            old.itemId,
-            -old.amount,
-          );
-          courses = syncCoursesExecutedFromRemoteChange(
-            courses,
-            nextExecutions,
-            action.execution.courseId,
-            action.execution.itemId,
-            action.execution.amount,
-          );
-        }
-      }
-
-      return { ...state, executions: nextExecutions, courses };
-    }
-
-    case "REMOTE_EXECUTION_DELETED": {
-      const target = state.executions.find((e) => e.id === action.id);
-      if (!target) {
-        return { ...state, executions: state.executions.filter((e) => e.id !== action.id) };
-      }
-      const nextExecutions = state.executions.filter((e) => e.id !== action.id);
+    case "REMOTE_COURSES_REPLACED":
       return {
         ...state,
-        executions: nextExecutions,
-        courses: syncCoursesExecutedFromRemoteChange(
-          state.courses,
-          nextExecutions,
-          target.courseId,
-          target.itemId,
-          -target.amount,
-        ),
+        courses: reconcileCoursesExecuted(action.courses, state.executions, state.executions),
+      };
+
+    case "REMOTE_EXECUTION_SYNCED": {
+      const exists = state.executions.some((e) => e.id === action.execution.id);
+      const executions = exists
+        ? state.executions.map((e) => (e.id === action.execution.id ? action.execution : e))
+        : [action.execution, ...state.executions];
+      return {
+        ...state,
+        executions,
+        courses: reconcileCoursesExecuted(state.courses, executions, state.executions),
+      };
+    }
+
+    case "REMOTE_EXECUTIONS_REPLACED":
+      return {
+        ...state,
+        executions: action.executions,
+        courses: reconcileCoursesExecuted(state.courses, action.executions, state.executions),
+      };
+
+    case "REMOTE_EXECUTION_DELETED": {
+      const executions = state.executions.filter((e) => e.id !== action.id);
+      return {
+        ...state,
+        executions,
+        courses: reconcileCoursesExecuted(state.courses, executions, state.executions),
       };
     }
 
@@ -325,6 +273,9 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
       if (state.logs.some((l) => l.id === action.log.id)) return state;
       return { ...state, logs: [action.log, ...state.logs] };
     }
+
+    case "REMOTE_LOGS_REPLACED":
+      return { ...state, logs: action.logs };
 
     default:
       return state;

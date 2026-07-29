@@ -60,9 +60,9 @@ export default function App() {
   const requireAuth = firebaseConfigured;
   const { user, status: authStatus, login } = useAuth();
 
-  // localStorage에서 복원된 상태로 초기화
+  // Firebase가 원본일 때는 localStorage로 시작하지 않음 (동기화 꼬임 방지)
   const [state, dispatch] = useReducer(budgetReducer, initialState, (init) => {
-    const persisted = loadPersistedState();
+    const persisted = loadPersistedState({ preferRemote: firebaseConfigured });
     return persisted ? { ...init, ...persisted } : init;
   });
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
@@ -109,8 +109,8 @@ export default function App() {
     });
   }, [state.courses]);
 
-  // localStorage 영속성 + 다른 탭 동기화
-  const { lastSavedAt } = usePersistence(state, dispatch);
+  // localStorage 영속성 (+ Firebase 미사용 시에만 탭 간 HYDRATE)
+  const { lastSavedAt } = usePersistence(state, dispatch, { preferRemote: firebaseConfigured });
 
   // 저장 상태 표시 (Firebase 미설정 시에는 기존 로컬 저장 타이머 사용)
   useEffect(() => {
