@@ -87,51 +87,41 @@ export default function App() {
   const [isPrinting, setIsPrinting] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
   const importInputRef = useRef<HTMLInputElement>(null);
-  const restoreOnceRef = useRef(false);
   const { addToast } = useToast();
 
   // Firestore 실시간 동기화 (로그인 완료 후에만 활성화)
   const firestoreEnabled = requireAuth && authStatus === "signedIn";
   const { status: firestoreStatus, dispatchSynced } = useFirestoreSync(state, dispatch, firestoreEnabled);
 
-  const restoreSavedBudget = useCallback(
-    (reason: "auto" | "manual") => {
-      setIsRestoring(true);
-      savePersistedData({
-        version: 1,
-        savedAt: new Date().toISOString(),
-        exportedBy: "system-restore",
-        data: {
-          courses: savedBudget20260722.courses,
-          executions: savedBudget20260722.executions,
-          logs: savedBudget20260722.logs,
-        },
-      });
-      return dispatchSynced({
-        type: "HYDRATE",
+  const restoreSavedBudget = useCallback(() => {
+    setIsRestoring(true);
+    savePersistedData({
+      version: 1,
+      savedAt: new Date().toISOString(),
+      exportedBy: "system-restore",
+      data: {
         courses: savedBudget20260722.courses,
         executions: savedBudget20260722.executions,
         logs: savedBudget20260722.logs,
-      }).then((ok) => {
-        setIsRestoring(false);
-        if (!ok) {
-          restoreOnceRef.current = false;
-          addToast("error", "기본 데이터 복원 저장에 실패했습니다. 상단 '기본데이터 복원'을 다시 눌러주세요.");
-          return false;
-        }
-        localStorage.setItem(FORCE_SEED_KEY, "done");
-        localStorage.setItem(RESTORE_KEY, "yes");
-        addToast(
-          "success",
-          reason === "manual"
-            ? "2026-07-22 기본 예산 데이터로 복원했습니다."
-            : "과정 데이터가 비어 있어 기본 예산 데이터로 복원했습니다.",
-        );
-        return true;
-      });
-    },
-    [dispatchSynced, addToast],
-  );
+      },
+    });
+    return dispatchSynced({
+      type: "HYDRATE",
+      courses: savedBudget20260722.courses,
+      executions: savedBudget20260722.executions,
+      logs: savedBudget20260722.logs,
+    }).then((ok) => {
+      setIsRestoring(false);
+      if (!ok) {
+        addToast("error", "기본 데이터 복원 저장에 실패했습니다. 상단 '기본데이터 복원'을 다시 눌러주세요.");
+        return false;
+      }
+      localStorage.setItem(FORCE_SEED_KEY, "done");
+      localStorage.setItem(RESTORE_KEY, "yes");
+      addToast("success", "2026-07-22 기본 예산 데이터로 복원했습니다.");
+      return true;
+    });
+  }, [dispatchSynced, addToast]);
 
   useEffect(() => {
     if (!user) return;
@@ -139,20 +129,8 @@ export default function App() {
     dispatch({ type: "SET_CURRENT_USER", name });
   }, [user]);
 
-  // 로그인하면 바로 1회 기본 데이터(2026-07-22)를 서버/화면에 다시 올린다
-  useEffect(() => {
-    if (!firestoreEnabled) return;
-    if (restoreOnceRef.current || isRestoring) return;
-    if (localStorage.getItem(FORCE_SEED_KEY) === "done" && state.courses.length >= EXPECTED_COURSE_COUNT) {
-      return;
-    }
-
-    restoreOnceRef.current = true;
-    const t = window.setTimeout(() => {
-      restoreSavedBudget("auto");
-    }, 500);
-    return () => window.clearTimeout(t);
-  }, [firestoreEnabled, state.courses.length, isRestoring, restoreSavedBudget]);
+  // 주의: 자동 복원(HYDRATE)은 저장한 데이터를 다시 덮어쓰므로 사용하지 않는다.
+  // 복원이 필요할 때만 상단 「기본데이터 복원」 버튼을 누른다.
 
   // 반응형 감지
   useEffect(() => {
@@ -263,8 +241,7 @@ export default function App() {
       "2026-07-22 기본 예산 데이터(과정 14개)로 서버 데이터를 덮어쓸까요?\n현재 화면/서버의 과정·집행내역이 기본 백업으로 대체됩니다.",
     );
     if (!ok) return;
-    restoreOnceRef.current = true;
-    restoreSavedBudget("manual");
+    restoreSavedBudget();
   }, [isRestoring, restoreSavedBudget]);
 
   const handleImportBackup = useCallback((file: File | undefined) => {

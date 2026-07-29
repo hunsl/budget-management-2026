@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot, runTransaction, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { budgetReducer, type BudgetAction, type BudgetState } from "../store/budgetReducer";
-import type { BudgetItem, Course, ExecutionRow } from "../types";
+import type { Course, ExecutionRow } from "../types";
 
 const COURSES = "courses";
 const EXECUTIONS = "executions";
@@ -37,24 +37,9 @@ async function applyExecutedDelta(
   });
 }
 
-/**
- * 서버에 있는 과정 문서를 읽어 mutate한 뒤 저장한다.
- * 로컬 스냅샷 전체를 덮어쓰면 다른 사용자가 올린 집행액이 사라질 수 있어 트랜잭션으로 병합한다.
- */
-async function mergeCourseWrite(
-  courseId: number,
-  fallbackCourse: Course | undefined,
-  mutate: (serverCourse: Course) => Course,
-) {
-  const courseRef = doc(db, COURSES, String(courseId));
-  await runTransaction(db, async (tx) => {
-    const snap = await tx.get(courseRef);
-    const base = snap.exists()
-      ? (snap.data() as Course)
-      : fallbackCourse;
-    if (!base) return;
-    tx.set(courseRef, mutate(base));
-  });
+/** 과정 문서를 로컬 최신본 그대로 저장한다. */
+async function setCourseDoc(course: Course) {
+  await setDoc(doc(db, COURSES, String(course.id)), course);
 }
 
 /**
@@ -156,36 +141,19 @@ export function useFirestoreSync(
       const run = async () => {
         switch (action.type) {
           case "UPDATE_ITEM": {
-            const fallback = next.courses.find((c) => c.id === action.courseId);
+            const course = next.courses.find((c) => c.id === action.courseId);
             const log = next.logs[0];
-            const writes: Promise<void>[] = [
-              mergeCourseWrite(action.courseId, fallback, (serverCourse) => ({
-                ...serverCourse,
-                items: serverCourse.items.map((item: BudgetItem) =>
-                  item.id !== action.itemId ? item : { ...item, ...action.patch },
-                ),
-              })),
-            ];
+            if (!course) throw new Error("저장할 과정 데이터를 찾지 못했습니다.");
+            const writes: Promise<void>[] = [setCourseDoc(course)];
             if (log) writes.push(setDoc(doc(db, LOGS, log.id), log));
             await Promise.all(writes);
             break;
           }
-          case "ADD_ITEM": {
-            const fallback = next.courses.find((c) => c.id === action.courseId);
-            await mergeCourseWrite(action.courseId, fallback, (serverCourse) => {
-              if (serverCourse.items.some((i) => i.id === action.item.id)) return serverCourse;
-              return { ...serverCourse, items: [...serverCourse.items, action.item] };
-            });
-            break;
-          }
+          case "ADD_ITEM":
           case "DELETE_ITEM": {
-            const fallback = next.courses.find((c) => c.id === action.courseId);
-            await mergeCourseWrite(action.courseId, fallback, (serverCourse) => ({
-              ...serverCourse,
-              items: serverCourse.items.map((item) =>
-                item.id !== action.itemId ? item : { ...item, isDeleted: true },
-              ),
-            }));
+            const course = next.courses.find((c) => c.id === action.courseId);
+            if (!course) throw new Error("저장할 과정 데이터를 찾지 못했습니다.");
+            await setCourseDoc(course);
             break;
           }
           case "ADD_EXECUTION": {
