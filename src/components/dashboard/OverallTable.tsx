@@ -1,5 +1,5 @@
 import type { Course } from "../../types";
-import { formatWon, formatPct, courseTotals } from "../../store/utils";
+import { formatWon, formatPct, courseTotals, isExecutionAlert } from "../../store/utils";
 
 type Props = {
   courses: Course[];
@@ -51,6 +51,7 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
           <tbody>
             {rows.map((row, idx) => {
               const active = row.id === selectedCourseId;
+              const executionAlert = isExecutionAlert(row.adjusted, row.executed);
               const isUnset = row.category === "미지정";
               const barWidth = row.adjusted > 0 ? Math.min(100, (row.executed / row.adjusted) * 100) : 0;
               const dotColor = CATEGORY_DOT[row.category] ?? "bg-slate-300";
@@ -61,8 +62,11 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
                   className={`cursor-pointer transition-all duration-150 border-b border-slate-50 ${
                     active
                       ? "bg-gradient-to-r from-slate-800 to-slate-900 text-white"
-                      : "hover:bg-slate-50/80"
+                      : executionAlert
+                        ? "bg-rose-50/80 text-rose-950 hover:bg-rose-100"
+                        : "hover:bg-slate-50/80"
                   }`}
+                  title={executionAlert ? "집행률 100% 이상 — 확인 필요" : undefined}
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2.5">
@@ -91,16 +95,18 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-2">
-                      <div className={`w-16 h-1.5 rounded-full overflow-hidden ${active ? "bg-white/10" : "bg-slate-100"}`}>
+                      <div className={`w-16 h-1.5 rounded-full overflow-hidden ${active ? "bg-white/10" : executionAlert ? "bg-rose-200" : "bg-slate-100"}`}>
                         <div className={`h-full rounded-full transition-all duration-500 ${
+                          executionAlert ? (active ? "bg-rose-300" : "bg-gradient-to-r from-rose-500 to-red-500") :
                           barWidth > 80 ? (active ? "bg-emerald-400" : "bg-gradient-to-r from-emerald-500 to-teal-400") :
                           barWidth > 50 ? (active ? "bg-sky-400" : "bg-gradient-to-r from-indigo-500 to-cyan-400") :
                           active ? "bg-amber-400" : "bg-gradient-to-r from-amber-500 to-orange-400"
                         }`} style={{ width: `${barWidth}%` }} />
                       </div>
-                      <span className={`text-xs font-mono tabular-nums font-bold w-10 text-right ${active ? "text-slate-200" : "text-indigo-700"}`}>
+                      <span className={`text-xs font-mono tabular-nums font-bold w-10 text-right ${active ? "text-slate-200" : executionAlert ? "text-rose-700" : "text-indigo-700"}`}>
                         {formatPct(row.executionRate)}
                       </span>
+                      {executionAlert && <span className="text-[10px] font-bold text-rose-700">확인</span>}
                     </div>
                   </td>
                 </tr>
