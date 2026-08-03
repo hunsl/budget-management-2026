@@ -1,5 +1,5 @@
 import type { Course, FilterMode, SortMode } from "../../types";
-import { toItemDetailed, formatWon, formatPct } from "../../store/utils";
+import { toItemDetailed, formatWon, formatPct, isExecutionAlert } from "../../store/utils";
 import { useMemo } from "react";
 
 type Props = {
@@ -39,6 +39,7 @@ export function CourseReviewTable({
   }, [items]);
 
   const statusStyle = (status: string) =>
+    status === "집행초과" ? "text-rose-700 bg-rose-50 ring-rose-200" :
     status === "증액" ? "text-amber-700 bg-amber-50 ring-amber-200" :
     status === "감액" ? "text-emerald-700 bg-emerald-50 ring-emerald-200" :
     "text-slate-500 bg-slate-50 ring-slate-200";
@@ -103,15 +104,21 @@ export function CourseReviewTable({
                 { original: 0, adjusted: 0, executed: 0, variance: 0, remaining: 0 }
               );
               return [
-                ...groupItems.map((item) => (
+                ...groupItems.map((item) => {
+                  const executionAlert = isExecutionAlert(item.adjusted, item.executed);
+                  const displayStatus = executionAlert ? "집행초과" : item.status;
+                  return (
                   <tr
                     key={item.id}
                     onClick={() => onSelectItem(item.id)}
                     className={`cursor-pointer border-b border-slate-50 transition-all duration-150 ${
                       item.id === editingItemId
                         ? "bg-indigo-50/80 ring-1 ring-inset ring-indigo-200"
-                        : "hover:bg-slate-50/80"
+                        : executionAlert
+                          ? "bg-rose-50/80 hover:bg-rose-100"
+                          : "hover:bg-slate-50/80"
                     }`}
+                    title={executionAlert ? "집행률 100% 이상 — 확인 필요" : undefined}
                   >
                     <td className="px-3 py-2.5 text-[11px] text-slate-400">{item.group}</td>
                     <td className="px-3 py-2.5 text-xs font-medium text-slate-800">{item.name}</td>
@@ -124,16 +131,17 @@ export function CourseReviewTable({
                     <td className="px-3 py-2.5 text-right text-[11px] font-mono tabular-nums text-slate-500">
                       {item.original > 0 ? `${(item.changeRate * 100).toFixed(1)}%` : "—"}
                     </td>
-                    <td className="px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums text-amber-700">{formatWon(item.executed)}</td>
-                    <td className="px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums text-slate-700">{formatWon(item.remaining)}</td>
-                    <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-indigo-700">{formatPct(item.executionRate)}</td>
+                    <td className={`px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums ${executionAlert ? "text-rose-700" : "text-amber-700"}`}>{formatWon(item.executed)}</td>
+                    <td className={`px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums ${executionAlert ? "text-rose-700" : "text-slate-700"}`}>{formatWon(item.remaining)}</td>
+                    <td className={`px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums ${executionAlert ? "text-rose-700" : "text-indigo-700"}`}>{formatPct(item.executionRate)}</td>
                     <td className="px-3 py-2.5 text-center">
-                      <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ring-1 ring-inset ${statusStyle(item.status)}`}>
-                        {item.status}
+                      <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ring-1 ring-inset ${statusStyle(displayStatus)}`}>
+                        {displayStatus}
                       </span>
                     </td>
                   </tr>
-                )),
+                  );
+                }),
                 <tr key={`sub-${group}`} className="border-t-2 border-slate-200 bg-slate-50/80 font-semibold text-xs text-slate-700">
                   <td className="px-3 py-2.5" colSpan={3}>
                     <span className="text-slate-500">{group}</span> 소계

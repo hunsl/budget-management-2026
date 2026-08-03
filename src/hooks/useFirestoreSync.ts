@@ -135,6 +135,15 @@ export function useFirestoreSync(
 
       const run = async () => {
         switch (action.type) {
+          case "RENAME_COURSE": {
+            const course = next.courses.find((c) => c.id === action.courseId);
+            const log = next.logs[0];
+            if (!course) throw new Error("저장할 과정을 찾지 못했습니다.");
+            const writes: Promise<void>[] = [setCourseDoc(course)];
+            if (log?.kind === "course") writes.push(setDoc(doc(db, LOGS, log.id), log));
+            await Promise.all(writes);
+            break;
+          }
           case "UPDATE_ITEM": {
             const course = next.courses.find((c) => c.id === action.courseId);
             const log = next.logs[0];

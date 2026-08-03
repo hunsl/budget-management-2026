@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
-import type { Course, BudgetItem, ExecutionRow } from "../../types";
+import type { Course, BudgetItem, ExecutionRow, AdjustmentLog } from "../../types";
 import { parseNumber, formatWon, formatPct, generateNewItemId } from "../../store/utils";
 
 type Props = {
   course: Course;
   editingItemId: string;
   executions: ExecutionRow[];
+  logs: AdjustmentLog[];
   onUpdate: (itemId: string, patch: Partial<BudgetItem>, reason: string) => void;
   onAdd: (item: BudgetItem) => void;
   onDelete: (itemId: string) => void;
@@ -21,11 +22,15 @@ const inputCls = "mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 p
 const labelCls = "text-[11px] font-medium text-slate-500 uppercase tracking-wider";
 
 export function ItemEditor({
-  course, editingItemId, executions,
+  course, editingItemId, executions, logs,
   onUpdate, onAdd, onDelete,
   onAddExecution, onUpdateExecution, onDeleteExecution,
 }: Props) {
   const item = course.items.find((i) => i.id === editingItemId && !i.isDeleted);
+  const itemLogs = item
+    ? logs.filter((log) => log.courseId === course.id && log.itemId === item.id && log.kind !== "course")
+    : [];
+  const latestRound = itemLogs.find((log) => log.adjustmentRound)?.adjustmentRound ?? 0;
 
   const [form, setForm] = useState({
     group: "", name: "", unitPrice: "", qty1: "", qty2: "", qty3: "",
@@ -202,8 +207,11 @@ export function ItemEditor({
                 <span className="ml-2 text-[11px] text-slate-400">{item.group}</span>
               </div>
               <span className="text-xs text-slate-400 font-mono tabular-nums">현재 조정금액 {formatWon(item.adjusted)}</span>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
+             </div>
+             <div className="text-[11px] font-medium text-indigo-600">
+               2026.07.22 기준 · {latestRound > 0 ? `${latestRound}차 조정` : "추가 조정 전"}
+             </div>
+             <div className="grid grid-cols-3 gap-2">
               <div className="rounded-lg bg-white border border-slate-200 px-3 py-2">
                 <div className="text-[10px] text-slate-400 font-medium">집행액</div>
                 <div className="text-sm font-bold font-mono tabular-nums text-amber-700">{formatWon(draftExecuted)}</div>
@@ -265,6 +273,36 @@ export function ItemEditor({
           </div>
 
           {/* ─── 이 항목의 집행내역 ─── */}
+          <div className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-4">
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <h3 className="text-xs font-bold text-indigo-900">이 항목의 조정 이력</h3>
+                <p className="mt-0.5 text-[10px] text-indigo-700/80">2026.07.22 이후 변경을 차수별로 보관합니다.</p>
+              </div>
+              {latestRound > 0 && <span className="rounded-full bg-indigo-100 px-2 py-1 text-[10px] font-bold text-indigo-700">현재 {latestRound}차</span>}
+            </div>
+            {itemLogs.length === 0 ? (
+              <p className="mt-3 text-xs text-slate-500">저장하면 1차 조정부터 이곳에 남습니다.</p>
+            ) : (
+              <div className="mt-3 space-y-2">
+                {itemLogs.slice(0, 8).map((log) => (
+                  <div key={log.id} className="rounded-lg border border-indigo-100 bg-white/80 px-3 py-2 text-xs">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-semibold text-indigo-800">{log.adjustmentRound ? `${log.adjustmentRound}차 조정` : "기존 조정"}</span>
+                      <span className="text-[10px] text-slate-400">{log.editedAt.slice(0, 16).replace("T", " ")}</span>
+                    </div>
+                    {log.before.adjusted !== undefined && log.after.adjusted !== undefined && (
+                      <div className="mt-1 text-slate-600">
+                        {formatWon(log.before.adjusted)} <span className="text-slate-300">→</span> <strong>{formatWon(log.after.adjusted)}</strong>
+                      </div>
+                    )}
+                    <div className="mt-1 text-[11px] text-slate-500">사유: {log.reason || "미입력"}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="rounded-xl border border-amber-200/80 bg-amber-50/40 p-4 space-y-3">
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <div>

@@ -46,6 +46,10 @@ export type AdjustmentLog = {
   reason: string;
   editedAt: string;
   editedBy: string;
+  adjustmentRound?: number;
+  kind?: "item" | "course";
+  courseNameBefore?: string;
+  courseNameAfter?: string;
 };
 
 // ─── 경고 ────────────────────────────────────────────────────

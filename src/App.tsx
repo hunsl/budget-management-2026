@@ -20,6 +20,7 @@ import { DashboardHeader } from "./components/dashboard/DashboardHeader";
 import { OverallTable } from "./components/dashboard/OverallTable";
 import { GroupSummary } from "./components/dashboard/GroupSummary";
 import { CourseReviewTable } from "./components/course/CourseReviewTable";
+import { CourseNameEditor } from "./components/course/CourseNameEditor";
 import { ItemEditor } from "./components/course/ItemEditor";
 import { ExecutionManager } from "./components/execution/ExecutionManager";
 import { AnalysisReport } from "./components/report/AnalysisReport";
@@ -206,6 +207,9 @@ export default function App() {
           return;
         }
         switch (action.type) {
+          case "RENAME_COURSE":
+            addToast("success", "과정명이 변경되었습니다.");
+            break;
           case "UPDATE_ITEM":
             addToast("success", "예산현액이 업데이트되었습니다");
             break;
@@ -567,9 +571,12 @@ export default function App() {
             {/* 현재 선택 과정 + 요약 칩 */}
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-2 md:gap-3 min-w-0">
-                <h2 className="text-lg md:text-xl font-extrabold text-slate-900 truncate font-display">{selectedCourse.name}</h2>
-                {categoryBadge(selectedCourse.category)}
-                <span className="text-xs text-slate-400 bg-slate-100 rounded-full px-2.5 py-0.5 hidden sm:inline">{selectedCourse.manager}</span>
+                <CourseNameEditor
+                  name={selectedCourse.name}
+                  category={selectedCourse.category}
+                  manager={selectedCourse.manager}
+                  onSave={(name) => dispatchWithToast({ type: "RENAME_COURSE", courseId: selectedCourse.id, name })}
+                />
               </div>
               <div className="flex items-center gap-2 text-sm overflow-x-auto pb-1 md:pb-0">
                 {(() => {
@@ -596,6 +603,21 @@ export default function App() {
                 })()}
               </div>
             </div>
+
+            {warnings.some((warning) => warning.level === "critical") && (
+              <div className="flex flex-col gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-900 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-start gap-2 text-sm">
+                  <span aria-hidden="true">⚠️</span>
+                  <div>
+                    <strong>집행 확인 필요</strong>
+                    <p className="mt-0.5 text-xs text-rose-700">집행률이 100% 이상이거나 예산이 없는 항목을 확인해 주세요.</p>
+                  </div>
+                </div>
+                <button type="button" onClick={() => setActiveTab("report")} className="rounded-lg bg-rose-600 px-3 py-2 text-xs font-semibold text-white hover:bg-rose-700">
+                  경고 확인하기
+                </button>
+              </div>
+            )}
 
             {/* 탭 네비게이션 */}
             <div className="flex items-center gap-0.5 md:gap-1 glass-card rounded-2xl p-1 md:p-1.5 shadow-glass ring-1 ring-white/60 print-hide overflow-x-auto">
@@ -716,6 +738,7 @@ export default function App() {
                   course={selectedCourse}
                   editingItemId={editingItemId}
                   executions={executions}
+                  logs={logs}
                   onUpdate={(itemId, patch, reason) =>
                     dispatchWithToast({ type: "UPDATE_ITEM", courseId: selectedCourseId, itemId, patch, reason })
                   }

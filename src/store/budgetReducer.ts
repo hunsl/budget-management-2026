@@ -36,6 +36,7 @@ export type BudgetAction =
   | { type: "SET_FILTER"; mode: FilterMode }
   | { type: "SET_SORT"; mode: SortMode }
   | { type: "SET_REPORT_TYPE"; reportType: ReportType }
+  | { type: "RENAME_COURSE"; courseId: number; name: string }
   | { type: "UPDATE_ITEM"; courseId: number; itemId: string; patch: Partial<BudgetItem>; reason: string }
   | { type: "ADD_ITEM"; courseId: number; item: BudgetItem }
   | { type: "DELETE_ITEM"; courseId: number; itemId: string }
@@ -128,20 +129,53 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
     case "SET_REPORT_TYPE":
       return { ...state, reportType: action.reportType };
 
+    case "RENAME_COURSE": {
+      const course = state.courses.find((c) => c.id === action.courseId);
+      const name = action.name.trim();
+      if (!course || !name || course.name === name) return state;
+      const log: AdjustmentLog = {
+        id: `log-${Date.now()}`,
+        courseId: action.courseId,
+        itemId: "__course__",
+        before: {},
+        after: {},
+        reason: "과정명 변경",
+        editedAt: new Date().toISOString(),
+        editedBy: state.currentUser,
+        kind: "course",
+        courseNameBefore: course.name,
+        courseNameAfter: name,
+      };
+      return {
+        ...state,
+        courses: state.courses.map((c) => c.id === action.courseId ? { ...c, name } : c),
+        logs: [log, ...state.logs],
+      };
+    }
+
     case "UPDATE_ITEM": {
       const before = state.courses
         .find((c) => c.id === action.courseId)
         ?.items.find((i) => i.id === action.itemId);
 
+      const nextItem = before ? { ...before, ...action.patch } : action.patch;
+      const baselineTime = new Date(savedBudget20260722.savedAt).getTime();
+      const adjustmentRound = state.logs.filter((entry) =>
+        entry.courseId === action.courseId &&
+        entry.itemId === action.itemId &&
+        new Date(entry.editedAt).getTime() >= baselineTime,
+      ).length + 1;
       const log: AdjustmentLog = {
         id: `log-${Date.now()}`,
         courseId: action.courseId,
         itemId: action.itemId,
         before: before ? { ...before } : {},
-        after: action.patch,
+        after: nextItem,
         reason: action.reason,
         editedAt: new Date().toISOString(),
         editedBy: state.currentUser,
+        adjustmentRound,
+        kind: "item",
       };
 
       return {
