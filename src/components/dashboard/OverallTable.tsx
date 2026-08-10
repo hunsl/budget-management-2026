@@ -66,7 +66,7 @@ export function OverallTable({ courses, commonCourse, totalBudget, selectedCours
                         ? "bg-rose-50/80 text-rose-950 hover:bg-rose-100"
                         : "hover:bg-slate-50/80"
                   }`}
-                  title={executionAlert ? "집행률 100% 이상 — 확인 필요" : undefined}
+                  title={executionAlert ? "집행률 100% 초과 — 확인 필요" : undefined}
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2.5">
