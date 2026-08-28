@@ -19,6 +19,11 @@ export function formatWon(n: number): string {
   return `${new Intl.NumberFormat("ko-KR").format(Math.round(n || 0))}원`;
 }
 
+/** 표 전용 금액 표시: 열 제목에 단위를 두고 셀에서는 숫자만 보여줍니다. */
+export function formatAmount(n: number): string {
+  return new Intl.NumberFormat("ko-KR").format(Math.round(n || 0));
+}
+
 export function formatPct(n: number): string {
   return `${((n || 0) * 100).toFixed(1)}%`;
 }

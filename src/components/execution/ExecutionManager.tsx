@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Course, ExecutionRow } from "../../types";
-import { formatWon, parseNumber } from "../../store/utils";
+import { formatAmount, parseNumber } from "../../store/utils";
 
 type Props = {
   course: Course;
@@ -84,7 +84,7 @@ export function ExecutionManager({ course, executions, onAdd, onUpdate, onDelete
         <div className="flex gap-2 flex-wrap">
           {Object.entries(monthlyTotal).map(([month, total]) => (
             <span key={month} className="rounded-lg bg-slate-100 px-3 py-1.5 text-[11px] text-slate-600 font-medium tabular-nums">
-              {month}: {formatWon(total)}
+              {month}: {formatAmount(total)}원
             </span>
           ))}
         </div>
@@ -132,7 +132,7 @@ export function ExecutionManager({ course, executions, onAdd, onUpdate, onDelete
                     {isEditing
                       ? <input className="rounded-lg border border-slate-200 px-2 py-1 text-xs w-28 text-right"
                           value={String(editForm.amount ?? row.amount)} onChange={(e) => setEditForm((p) => ({ ...p, amount: parseNumber(e.target.value) }))} />
-                      : formatWon(row.amount)}
+                      : formatAmount(row.amount)}
                   </td>
                   <td className="px-3 py-2.5 text-xs">
                     {isEditing
