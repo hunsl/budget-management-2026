@@ -467,6 +467,21 @@ export default function App() {
               </div>
             </div>
 
+            {warnings.some((warning) => warning.level === "critical") && (
+              <div className="flex flex-col gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-900 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-start gap-2 text-sm">
+                  <span aria-hidden="true">⚠️</span>
+                  <div>
+                    <strong>집행 확인 필요</strong>
+                    <p className="mt-0.5 text-xs text-rose-700">집행률이 100% 이상이거나 예산이 없는 항목을 확인해 주세요.</p>
+                  </div>
+                </div>
+                <button type="button" onClick={() => setActiveTab("report")} className="rounded-lg bg-rose-600 px-3 py-2 text-xs font-semibold text-white hover:bg-rose-700">
+                  경고 확인하기
+                </button>
+              </div>
+            )}
+
             {/* 탭 네비게이션 */}
             {warnings.some((warning) => warning.level === "critical") && (
               <div className="flex flex-col gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-800 shadow-sm sm:flex-row sm:items-center sm:justify-between">

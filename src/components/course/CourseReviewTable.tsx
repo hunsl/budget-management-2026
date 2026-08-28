@@ -115,7 +115,9 @@ export function CourseReviewTable({
                         ? item.id === editingItemId ? "bg-rose-100/90 ring-1 ring-inset ring-rose-300" : "bg-rose-50/70 hover:bg-rose-100"
                         : item.id === editingItemId
                         ? "bg-indigo-50/80 ring-1 ring-inset ring-indigo-200"
-                        : "hover:bg-slate-50/80"
+                        : executionAlert
+                          ? "bg-rose-50/80 hover:bg-rose-100"
+                          : "hover:bg-slate-50/80"
                     }`}
                     title={executionAlert ? "집행률 100% 이상 — 확인 필요" : undefined}
                   >
