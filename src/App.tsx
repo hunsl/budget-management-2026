@@ -2,7 +2,6 @@ import { useReducer, useMemo, useState, useCallback, useEffect, useRef } from "r
 import { budgetReducer, initialState } from "./store/budgetReducer";
 import { courseTotals, formatWon, formatPct, buildWarnings } from "./store/utils";
 import { downloadOverallCSV, downloadCourseCSV, downloadExecutionCSV } from "./store/download";
-import { matchesSavedBudgetCourses, savedBudget20260722 } from "./data/savedBudget";
 import { useToast } from "./components/shared/Toast";
 import {
   downloadBudgetBackup,
@@ -11,28 +10,19 @@ import {
   savePersistedData,
   usePersistence,
 } from "./hooks/usePersistence";
-import { firebaseConfigured } from "./lib/firebase";
-import { useAuth } from "./hooks/useAuth";
-import { useFirestoreSync } from "./hooks/useFirestoreSync";
-import { LoginScreen } from "./components/auth/LoginScreen";
 
 import { DashboardHeader } from "./components/dashboard/DashboardHeader";
 import { OverallTable } from "./components/dashboard/OverallTable";
 import { GroupSummary } from "./components/dashboard/GroupSummary";
 import { CourseReviewTable } from "./components/course/CourseReviewTable";
 import { ItemEditor } from "./components/course/ItemEditor";
+import { CourseNameEditor } from "./components/course/CourseNameEditor";
 import { ExecutionManager } from "./components/execution/ExecutionManager";
 import { AnalysisReport } from "./components/report/AnalysisReport";
 import { LogPanel } from "./components/shared/LogPanel";
+import { BudgetAdjustmentPanel } from "./components/dashboard/BudgetAdjustmentPanel";
 
 type Tab = "dashboard" | "review" | "execution" | "report" | "log";
-
-const TOTAL_BUDGET = 278_500_000;
-const RESTORE_KEY = "budget-mgmt-2026-restored-from-20260722";
-/** 서버/로컬이 비어 데이터가 날아간 경우 1회 강제 복원 (키 변경 시 전원 재복원) */
-const FORCE_SEED_KEY = "budget-mgmt-2026-force-seed-20260722-v4";
-
-const EXPECTED_COURSE_COUNT = savedBudget20260722.courses.length;
 
 const CATEGORY_COLOR: Record<string, string> = {
   "강사양성형": "bg-violet-50 text-violet-700 ring-violet-200",
@@ -60,77 +50,18 @@ function categoryBadge(category: string) {
 }
 
 export default function App() {
-  // 로그인 필요 여부: Firebase 설정이 안 되어 있으면(로컬 개발 초기 단계) 기존처럼 로그인 없이 동작
-  const requireAuth = firebaseConfigured;
-  const { user, status: authStatus, login } = useAuth();
-
-  // localStorage에서 복원된 상태로 초기화 (비어 있으면 기본 백업 사용)
+  // localStorage에서 복원된 상태로 초기화
   const [state, dispatch] = useReducer(budgetReducer, initialState, (init) => {
     const persisted = loadPersistedState();
-    if (!persisted) return init;
-    const courses = Array.isArray(persisted.courses) ? persisted.courses : [];
-    // 과정이 비었거나 기본 백업보다 현저히 적으면 날아간 캐시로 보고 기본 데이터 사용
-    if (courses.length < EXPECTED_COURSE_COUNT) {
-      return {
-        ...init,
-        courses: savedBudget20260722.courses,
-        executions: savedBudget20260722.executions,
-        logs: savedBudget20260722.logs,
-      };
-    }
-    return { ...init, ...persisted };
+    return persisted ? { ...init, ...persisted } : init;
   });
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [syncStatus, setSyncStatus] = useState<"synced" | "saving">("synced");
   const [isPrinting, setIsPrinting] = useState(false);
-  const [isRestoring, setIsRestoring] = useState(false);
   const importInputRef = useRef<HTMLInputElement>(null);
   const { addToast } = useToast();
-
-  // Firestore 실시간 동기화 (로그인 완료 후에만 활성화)
-  const firestoreEnabled = requireAuth && authStatus === "signedIn";
-  const { status: firestoreStatus, dispatchSynced } = useFirestoreSync(state, dispatch, firestoreEnabled);
-
-  const restoreSavedBudget = useCallback(() => {
-    setIsRestoring(true);
-    savePersistedData({
-      version: 1,
-      savedAt: new Date().toISOString(),
-      exportedBy: "system-restore",
-      data: {
-        courses: savedBudget20260722.courses,
-        executions: savedBudget20260722.executions,
-        logs: savedBudget20260722.logs,
-      },
-    });
-    return dispatchSynced({
-      type: "HYDRATE",
-      courses: savedBudget20260722.courses,
-      executions: savedBudget20260722.executions,
-      logs: savedBudget20260722.logs,
-    }).then((ok) => {
-      setIsRestoring(false);
-      if (!ok) {
-        addToast("error", "기본 데이터 복원 저장에 실패했습니다. 상단 '기본데이터 복원'을 다시 눌러주세요.");
-        return false;
-      }
-      localStorage.setItem(FORCE_SEED_KEY, "done");
-      localStorage.setItem(RESTORE_KEY, "yes");
-      addToast("success", "2026-07-22 기본 예산 데이터로 복원했습니다.");
-      return true;
-    });
-  }, [dispatchSynced, addToast]);
-
-  useEffect(() => {
-    if (!user) return;
-    const name = user.displayName || user.email?.split("@")[0] || "사용자";
-    dispatch({ type: "SET_CURRENT_USER", name });
-  }, [user]);
-
-  // 주의: 자동 복원(HYDRATE)은 저장한 데이터를 다시 덮어쓰므로 사용하지 않는다.
-  // 복원이 필요할 때만 상단 「기본데이터 복원」 버튼을 누른다.
 
   // 반응형 감지
   useEffect(() => {
@@ -144,36 +75,17 @@ export default function App() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  useEffect(() => {
-    if (firebaseConfigured) return; // Firestore가 데이터 원본일 때는 로컬 스냅샷으로 되돌리지 않음
-    if (matchesSavedBudgetCourses(state.courses)) return;
-    if (localStorage.getItem(RESTORE_KEY) === "yes") return;
-
-    localStorage.setItem(RESTORE_KEY, "yes");
-    dispatch({
-      type: "HYDRATE",
-      courses: savedBudget20260722.courses,
-      executions: savedBudget20260722.executions,
-      logs: savedBudget20260722.logs,
-    });
-  }, [state.courses]);
-
   // localStorage 영속성 + 다른 탭 동기화
-  const { lastSavedAt } = usePersistence(state, dispatch, { preferRemote: firebaseConfigured });
+  const { lastSavedAt } = usePersistence(state, dispatch);
 
-  // 저장 상태 표시 (Firebase 미설정 시에는 기존 로컬 저장 타이머 사용)
+  // 저장 상태 표시
   useEffect(() => {
-    if (firebaseConfigured) return;
     setSyncStatus("saving");
     const timer = setTimeout(() => setSyncStatus("synced"), 800);
     return () => clearTimeout(timer);
-  }, [state.courses, state.executions, state.logs]);
+  }, [state.courses, state.executions, state.logs, state.budgetReduction, state.budgetChanges]);
 
-  const effectiveSyncStatus: "synced" | "syncing" | "offline" = firebaseConfigured
-    ? firestoreStatus
-    : syncStatus === "synced" ? "synced" : "syncing";
-
-  const { courses, executions, logs, selectedCourseId, editingItemId, filterMode, sortMode, reportType } = state;
+  const { courses, executions, logs, selectedCourseId, editingItemId, filterMode, sortMode, reportType, budgetBase, budgetReduction, budgetChanges } = state;
 
   const programCourses = useMemo(() => courses.filter((c) => c.id !== 0), [courses]);
   const commonCourse = useMemo(() => courses.find((c) => c.id === 0), [courses]);
@@ -197,52 +109,44 @@ export default function App() {
 
   const warnings = useMemo(() => buildWarnings(courses), [courses]);
 
-  // Toast 연동 dispatch 래퍼 (Firestore write-through 포함, 실제 저장 성공 여부에 따라 토스트 표시)
+  // Toast 연동 dispatch 래퍼
   const dispatchWithToast = useCallback(
     (action: Parameters<typeof dispatch>[0]) => {
-      dispatchSynced(action).then((ok) => {
-        if (!ok) {
-          addToast("error", "서버 저장에 실패했습니다. 화면에는 반영됐지만 다른 사람에게는 공유되지 않았어요. 새로고침 후 다시 시도해주세요.");
-          return;
-        }
-        switch (action.type) {
-          case "UPDATE_ITEM":
-            addToast("success", "예산현액이 업데이트되었습니다");
-            break;
-          case "ADD_ITEM":
-            addToast("success", "새 예산 항목이 추가되었습니다");
-            break;
-          case "DELETE_ITEM":
-            addToast("info", "예산 항목이 삭제되었습니다");
-            break;
-          case "ADD_EXECUTION":
-            addToast("success", "집행 내역이 등록되었습니다");
-            break;
-          case "UPDATE_EXECUTION":
-            addToast("success", "집행 내역이 수정되었습니다");
-            break;
-          case "DELETE_EXECUTION":
-            addToast("info", "집행 내역이 삭제되었습니다");
-            break;
-        }
-      });
+      dispatch(action);
+      switch (action.type) {
+        case "UPDATE_ITEM":
+          addToast("success", "예산현액이 업데이트되었습니다");
+          break;
+        case "SET_BUDGET_REDUCTION":
+          addToast("success", "현재 예산현액과 변경 이력이 업데이트되었습니다");
+          break;
+        case "RENAME_COURSE":
+          addToast("success", "과정명이 저장되었습니다.");
+          break;
+        case "ADD_ITEM":
+          addToast("success", "새 예산 항목이 추가되었습니다");
+          break;
+        case "DELETE_ITEM":
+          addToast("info", "예산 항목이 삭제되었습니다");
+          break;
+        case "ADD_EXECUTION":
+          addToast("success", "집행 내역이 등록되었습니다");
+          break;
+        case "UPDATE_EXECUTION":
+          addToast("success", "집행 내역이 수정되었습니다");
+          break;
+        case "DELETE_EXECUTION":
+          addToast("info", "집행 내역이 삭제되었습니다");
+          break;
+      }
     },
-    [dispatchSynced, addToast],
+    [dispatch, addToast],
   );
 
   const handleExportBackup = useCallback(() => {
     downloadBudgetBackup(state);
     addToast("success", "공유용 백업 파일을 저장했습니다.");
   }, [state, addToast]);
-
-  const handleRestoreSavedBudget = useCallback(() => {
-    if (isRestoring) return;
-    const ok = window.confirm(
-      "2026-07-22 기본 예산 데이터(과정 14개)로 서버 데이터를 덮어쓸까요?\n현재 화면/서버의 과정·집행내역이 기본 백업으로 대체됩니다.",
-    );
-    if (!ok) return;
-    restoreSavedBudget();
-  }, [isRestoring, restoreSavedBudget]);
 
   const handleImportBackup = useCallback((file: File | undefined) => {
     if (!file) return;
@@ -252,23 +156,16 @@ export default function App() {
       try {
         const backup = parseBudgetBackup(String(reader.result ?? ""));
         savePersistedData(backup);
-        dispatchSynced({
+        dispatch({
           type: "HYDRATE",
           courses: backup.data.courses,
           executions: backup.data.executions,
           logs: backup.data.logs,
-        }).then((ok) => {
-          if (firebaseConfigured && !ok) {
-            addToast("error", "화면에는 반영됐지만 서버 저장에 실패했습니다. 네트워크/권한을 확인하고 다시 불러와 주세요.");
-            return;
-          }
-          addToast(
-            "success",
-            firebaseConfigured
-              ? "백업 파일을 불러와 모든 사용자에게 반영했습니다."
-              : "백업 파일을 불러왔습니다. 현재 상태로 이어서 작업할 수 있습니다.",
-          );
+          budgetBase: backup.data.budgetBase,
+          budgetReduction: backup.data.budgetReduction,
+          budgetChanges: backup.data.budgetChanges,
         });
+        addToast("success", "백업 파일을 불러왔습니다. 현재 상태로 이어서 작업할 수 있습니다.");
       } catch (error) {
         console.error(error);
         addToast("error", "백업 파일을 읽지 못했습니다. JSON 파일을 확인해주세요.");
@@ -281,12 +178,13 @@ export default function App() {
       if (importInputRef.current) importInputRef.current.value = "";
     };
     reader.readAsText(file, "utf-8");
-  }, [addToast, dispatchSynced]);
+  }, [addToast]);
 
   const totalAllocated = programSummary.adjusted + commonSummary.adjusted;
   const totalExecuted = programSummary.executed + commonSummary.executed;
   const overallExecRate = totalAllocated === 0 ? 0 : totalExecuted / totalAllocated;
-  const unallocated = TOTAL_BUDGET - totalAllocated;
+  const totalBudget = budgetBase - budgetReduction;
+  const unallocated = totalBudget - totalAllocated;
   const lastSavedLabel = lastSavedAt
     ? new Intl.DateTimeFormat("ko-KR", {
         month: "2-digit",
@@ -303,18 +201,6 @@ export default function App() {
     { id: "report", label: "분석 리포트", icon: "📈" },
     { id: "log", label: "수정 이력", icon: "🕓" },
   ];
-
-  if (requireAuth && authStatus === "loading") {
-    return (
-      <div className="h-full min-h-screen bg-mesh-1 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 flex items-center justify-center">
-        <div className="text-sm text-slate-400">불러오는 중...</div>
-      </div>
-    );
-  }
-
-  if (requireAuth && authStatus === "signedOut") {
-    return <LoginScreen onLogin={login} />;
-  }
 
   return (
     <div className="h-full bg-mesh-1 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 text-slate-900 flex flex-col">
@@ -348,47 +234,27 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-3 md:gap-5 flex-shrink-0">
-            {/* 저장/동기화 상태 표시 */}
+            {/* 저장 상태 표시 */}
             <div className="hidden xs:flex items-center gap-1.5">
-              <div className={`w-2 h-2 rounded-full transition-colors ${
-                effectiveSyncStatus === "synced" ? "bg-emerald-400"
-                : effectiveSyncStatus === "offline" ? "bg-rose-400"
-                : "bg-amber-400 animate-pulse"
-              }`} />
+              <div className={`w-2 h-2 rounded-full transition-colors ${syncStatus === "synced" ? "bg-emerald-400" : "bg-amber-400 animate-pulse"}`} />
               <span className="text-[10px] font-medium text-slate-400">
-                {effectiveSyncStatus === "synced" ? (firebaseConfigured ? "실시간 동기화됨" : "저장 완료")
-                  : effectiveSyncStatus === "offline" ? "오프라인"
-                  : "저장 중..."}
+                {syncStatus === "synced" ? "저장 완료" : "저장 중..."}
               </span>
             </div>
-            {requireAuth && user && (
-              <div className="hidden md:flex items-center gap-1.5 text-[11px] text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                {state.currentUser}
-              </div>
-            )}
-            <div className="flex items-center gap-1.5">
+            <div className="hidden md:flex items-center gap-1.5">
               <button
                 onClick={handleExportBackup}
-                className="hidden md:inline-flex rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/15 transition-all focus-ring"
+                className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/15 transition-all focus-ring"
                 title={`마지막 저장: ${lastSavedLabel}`}
               >
                 백업 저장
               </button>
               <button
                 onClick={() => importInputRef.current?.click()}
-                className="hidden md:inline-flex rounded-xl border border-white/10 bg-slate-950/20 px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-white/10 transition-all focus-ring"
+                className="rounded-xl border border-white/10 bg-slate-950/20 px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-white/10 transition-all focus-ring"
                 title="공유받은 JSON 백업 파일 불러오기"
               >
                 백업 불러오기
-              </button>
-              <button
-                onClick={handleRestoreSavedBudget}
-                disabled={isRestoring}
-                className="rounded-xl border border-amber-300/30 bg-amber-500/20 px-3 py-2 text-xs font-semibold text-amber-100 hover:bg-amber-500/30 transition-all focus-ring disabled:opacity-50"
-                title="2026-07-22 기본 예산 데이터로 복원"
-              >
-                {isRestoring ? "복원 중..." : "기본데이터 복원"}
               </button>
             </div>
             {/* 미니 집행률 게이지 */}
@@ -413,7 +279,7 @@ export default function App() {
               <div className="text-right">
                 <div className="text-[10px] text-slate-400 uppercase tracking-wider">총 사업비</div>
                 <div className="text-base md:text-xl font-extrabold bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent font-mono">
-                  {formatWon(TOTAL_BUDGET)}
+                  {formatWon(totalBudget)}
                 </div>
               </div>
               <div className="hidden md:block w-px h-8 bg-white/20" />
@@ -540,7 +406,7 @@ export default function App() {
             <div className="text-[11px] text-slate-500 space-y-1.5">
               <div className="flex justify-between">
                 <span>총 사업비</span>
-                <span className="font-bold text-slate-800 font-mono">{formatWon(TOTAL_BUDGET)}</span>
+                <span className="font-bold text-slate-800 font-mono">{formatWon(totalBudget)}</span>
               </div>
               <div className="flex justify-between">
                 <span>과정 합산</span>
@@ -567,9 +433,13 @@ export default function App() {
             {/* 현재 선택 과정 + 요약 칩 */}
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-2 md:gap-3 min-w-0">
-                <h2 className="text-lg md:text-xl font-extrabold text-slate-900 truncate font-display">{selectedCourse.name}</h2>
-                {categoryBadge(selectedCourse.category)}
-                <span className="text-xs text-slate-400 bg-slate-100 rounded-full px-2.5 py-0.5 hidden sm:inline">{selectedCourse.manager}</span>
+                <CourseNameEditor
+                  name={selectedCourse.name}
+                  category={selectedCourse.category}
+                  manager={selectedCourse.manager}
+                  onSave={(name) => dispatchWithToast({ type: "RENAME_COURSE", courseId: selectedCourse.id, name })}
+                />
+                <span className="hidden items-center rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold text-indigo-600 md:inline-flex">기준일 2026.07.22</span>
               </div>
               <div className="flex items-center gap-2 text-sm overflow-x-auto pb-1 md:pb-0">
                 {(() => {
@@ -598,6 +468,16 @@ export default function App() {
             </div>
 
             {/* 탭 네비게이션 */}
+            {warnings.some((warning) => warning.level === "critical") && (
+              <div className="flex flex-col gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-800 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-start gap-2.5 text-sm">
+                  <span className="mt-0.5 text-base" aria-hidden="true">⚠️</span>
+                  <div><strong>집행 확인 필요</strong><span className="ml-1.5 text-xs text-rose-700">집행률 100% 이상 또는 예산을 초과한 항목이 있습니다.</span></div>
+                </div>
+                <button onClick={() => setActiveTab("report")} className="self-start rounded-lg border border-rose-300 bg-white px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 sm:self-auto">경고 확인하기</button>
+              </div>
+            )}
+
             <div className="flex items-center gap-0.5 md:gap-1 glass-card rounded-2xl p-1 md:p-1.5 shadow-glass ring-1 ring-white/60 print-hide overflow-x-auto">
               {tabs.map((tab) => (
                 <button
@@ -665,7 +545,7 @@ export default function App() {
                   {tabs.find(t => t.id === activeTab)?.label} | {selectedCourse.name} | 출력일: {new Date().toLocaleDateString('ko-KR')}
                 </div>
                 <div style={{ fontSize: '9pt', textAlign: 'right', marginTop: '4pt', color: '#64748b' }}>
-                  총 사업비: {formatWon(TOTAL_BUDGET)} | 과정 합산: {formatWon(programSummary.adjusted)} | 집행액: {formatWon(programSummary.executed)}
+                  현재 예산현액: {formatWon(totalBudget)} | 과정 합산: {formatWon(programSummary.adjusted)} | 집행액: {formatWon(programSummary.executed)}
                 </div>
               </div>
             </div>
@@ -675,16 +555,23 @@ export default function App() {
             {activeTab === "dashboard" && (
               <div className="space-y-4 md:space-y-5 animate-fade-up">
                 <DashboardHeader
-                  totalBudget={TOTAL_BUDGET}
+                  totalBudget={totalBudget}
+                  budgetReduction={budgetReduction}
                   programSummary={programSummary}
                   commonSummary={commonSummary}
                   selectedCourse={selectedCourse}
+                />
+                <BudgetAdjustmentPanel
+                  baseBudget={budgetBase}
+                  reduction={budgetReduction}
+                  changes={budgetChanges}
+                  onChange={(reduction, reason) => dispatchWithToast({ type: "SET_BUDGET_REDUCTION", reduction, reason })}
                 />
                 <div className="grid gap-4 md:gap-5 xl:grid-cols-[1.2fr,0.8fr]">
                   <OverallTable
                     courses={programCourses}
                     commonCourse={commonCourse}
-                    totalBudget={TOTAL_BUDGET}
+                    totalBudget={totalBudget}
                     selectedCourseId={selectedCourseId}
                     onSelect={(id) => dispatch({ type: "SELECT_COURSE", courseId: id })}
                   />
@@ -715,15 +602,12 @@ export default function App() {
                 <ItemEditor
                   course={selectedCourse}
                   editingItemId={editingItemId}
-                  executions={executions}
                   onUpdate={(itemId, patch, reason) =>
                     dispatchWithToast({ type: "UPDATE_ITEM", courseId: selectedCourseId, itemId, patch, reason })
                   }
                   onAdd={(item) => dispatchWithToast({ type: "ADD_ITEM", courseId: selectedCourseId, item })}
                   onDelete={(itemId) => dispatchWithToast({ type: "DELETE_ITEM", courseId: selectedCourseId, itemId })}
-                  onAddExecution={(row) => dispatchWithToast({ type: "ADD_EXECUTION", row })}
-                  onUpdateExecution={(id, patch) => dispatchWithToast({ type: "UPDATE_EXECUTION", id, patch })}
-                  onDeleteExecution={(id) => dispatchWithToast({ type: "DELETE_EXECUTION", id })}
+                  logs={logs}
                 />
                 <div className="flex justify-end print-hide">
                   <button
@@ -777,6 +661,24 @@ export default function App() {
                     <p className="text-xs text-slate-400 mt-0.5">예산 항목 변경 추적</p>
                   </div>
                   <span className="text-xs text-slate-500 bg-slate-100 rounded-full px-3 py-1">총 {logs.length}건</span>
+                </div>
+                <div className="mb-5 rounded-2xl border border-amber-100 bg-amber-50/70 p-4">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-sm font-bold text-amber-900">총 예산현액 변경 이력</h3>
+                      <p className="mt-0.5 text-[11px] text-amber-700">미배분 감액을 반영한 총액 변경 내역입니다.</p>
+                    </div>
+                    <span className="rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-amber-700">{budgetChanges.length}건</span>
+                  </div>
+                  <div className="space-y-2">
+                    {budgetChanges.map((change) => (
+                      <div key={change.id} className="grid gap-1 rounded-xl border border-amber-100 bg-white/75 px-3 py-2.5 text-xs md:grid-cols-[auto,1fr,auto] md:items-center md:gap-3">
+                        <span className="font-mono text-[11px] text-slate-400">{new Date(change.changedAt).toLocaleString("ko-KR", { dateStyle: "short", timeStyle: "short" })}</span>
+                        <span className="text-slate-600">{change.reason}</span>
+                        <span className="font-mono font-bold text-slate-800">{formatWon(change.before)} <span className="text-amber-500">− {formatWon(change.reduction)}</span> = {formatWon(change.after)}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <LogPanel logs={logs} courseId={selectedCourseId} />
                 {logs.length > 0 && (

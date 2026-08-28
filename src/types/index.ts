@@ -46,6 +46,20 @@ export type AdjustmentLog = {
   reason: string;
   editedAt: string;
   editedBy: string;
+  adjustmentRound?: number;
+  kind?: "item" | "course";
+  courseNameBefore?: string;
+  courseNameAfter?: string;
+};
+
+export type BudgetChange = {
+  id: string;
+  changedAt: string;
+  before: number;
+  reduction: number;
+  after: number;
+  reason: string;
+  editedBy: string;
 };
 
 // ─── 경고 ────────────────────────────────────────────────────
@@ -69,7 +83,6 @@ export type EditForm = {
   qty2: string;
   qty3: string;
   adjusted: string;
-  executed: string;
   calc: string;
   reason: string;
 };

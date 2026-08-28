@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { BudgetAction, BudgetState } from "../store/budgetReducer";
 import { matchesSavedBudgetCourses, savedBudget20260722 } from "../data/savedBudget";
 
@@ -10,14 +10,14 @@ export type PersistedData = {
   version: number;
   savedAt: string;
   exportedBy?: string;
-  data: Pick<BudgetState, "courses" | "executions" | "logs">;
+  data: Pick<BudgetState, "courses" | "executions" | "logs"> & Partial<Pick<BudgetState, "budgetBase" | "budgetReduction" | "budgetChanges">>;
 };
 
 type PersistedDataLike = {
   version?: number;
   savedAt?: string;
   exportedBy?: string;
-  data?: Partial<Pick<BudgetState, "courses" | "executions" | "logs">>;
+  data?: Partial<Pick<BudgetState, "courses" | "executions" | "logs" | "budgetBase" | "budgetReduction" | "budgetChanges">>;
 };
 
 function normalizePersistedData(value: unknown): PersistedData {
@@ -34,6 +34,9 @@ function normalizePersistedData(value: unknown): PersistedData {
       courses: parsed.data.courses,
       executions: Array.isArray(parsed.data.executions) ? parsed.data.executions : [],
       logs: Array.isArray(parsed.data.logs) ? parsed.data.logs : [],
+      budgetBase: typeof parsed.data.budgetBase === "number" ? parsed.data.budgetBase : undefined,
+      budgetReduction: typeof parsed.data.budgetReduction === "number" ? parsed.data.budgetReduction : undefined,
+      budgetChanges: Array.isArray(parsed.data.budgetChanges) ? parsed.data.budgetChanges : undefined,
     },
   };
 }
@@ -47,6 +50,9 @@ export function createPersistedData(state: BudgetState): PersistedData {
       courses: state.courses,
       executions: state.executions,
       logs: state.logs,
+      budgetBase: state.budgetBase,
+      budgetReduction: state.budgetReduction,
+      budgetChanges: state.budgetChanges,
     },
   };
 }
@@ -102,6 +108,9 @@ export function loadPersistedState(): Partial<BudgetState> | null {
       courses: parsed.data.courses,
       executions: parsed.data.executions,
       logs: parsed.data.logs,
+      ...(typeof parsed.data.budgetBase === "number" ? { budgetBase: parsed.data.budgetBase } : {}),
+      ...(typeof parsed.data.budgetReduction === "number" ? { budgetReduction: parsed.data.budgetReduction } : {}),
+      ...(Array.isArray(parsed.data.budgetChanges) ? { budgetChanges: parsed.data.budgetChanges } : {}),
     };
   } catch (error) {
     keepUnreadableSnapshot(raw);
@@ -110,54 +119,39 @@ export function loadPersistedState(): Partial<BudgetState> | null {
   }
 }
 
-/**
- * 상태 변경을 localStorage에 저장하고 다른 탭의 변경을 감지합니다.
- * preferRemote(Firestore 사용) 모드에서는 탭 간 동기화를 Firestore가 담당하므로
- * storage 이벤트로 HYDRATE 하지 않는다. 두 탭이 서로의 저장을 되받아
- * 무한히 HYDRATE → 저장 → HYDRATE 하면 화면 숫자가 계속 떨린다.
- */
+/** 상태 변경을 localStorage에 저장하고 다른 탭의 변경을 감지합니다. */
 export function usePersistence(
   state: BudgetState,
   dispatch: React.Dispatch<BudgetAction>,
-  options?: { preferRemote?: boolean },
 ) {
-  const preferRemote = options?.preferRemote ?? false;
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
-  const lastWrittenRef = useRef<string | null>(null);
 
   useEffect(() => {
     const persisted = createPersistedData(state);
-    const snapshot = JSON.stringify(persisted.data);
-    if (lastWrittenRef.current === snapshot) return; // 내용이 같으면 저장/타임스탬프 갱신 생략
-    lastWrittenRef.current = snapshot;
     savePersistedData(persisted);
     setLastSavedAt(persisted.savedAt);
-  }, [state.courses, state.executions, state.logs, state.currentUser]);
+  }, [state.courses, state.executions, state.logs, state.currentUser, state.budgetBase, state.budgetReduction, state.budgetChanges]);
 
   const handleStorageChange = useCallback(
     (e: StorageEvent) => {
-      if (preferRemote) return;
       if (e.key !== STORAGE_KEY || !e.newValue) return;
       try {
         const incoming = parseBudgetBackup(e.newValue);
-        const snapshot = JSON.stringify(incoming.data);
-        if (lastWrittenRef.current === snapshot) {
-          setLastSavedAt(incoming.savedAt);
-          return; // 내가 쓴 값이 돌아온 것뿐이면 상태를 건드리지 않는다
-        }
-        lastWrittenRef.current = snapshot;
         dispatch({
           type: "HYDRATE",
           courses: incoming.data.courses,
           executions: incoming.data.executions,
           logs: incoming.data.logs,
+          budgetBase: incoming.data.budgetBase,
+          budgetReduction: incoming.data.budgetReduction,
+          budgetChanges: incoming.data.budgetChanges,
         });
         setLastSavedAt(incoming.savedAt);
       } catch {
         // Ignore malformed data from other tabs.
       }
     },
-    [dispatch, preferRemote],
+    [dispatch],
   );
 
   useEffect(() => {

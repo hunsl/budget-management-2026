@@ -91,10 +91,10 @@ export function ExecutionManager({ course, executions, onAdd, onUpdate, onDelete
       </div>
 
       {/* 집행내역 목록 */}
-      <div className="overflow-x-auto rounded-xl border border-slate-200">
-        <table className="min-w-full text-sm">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-inner">
+        <table className="min-w-[820px] w-full text-sm border-separate border-spacing-0">
           <thead>
-            <tr className="bg-slate-50/80 text-[10px] text-slate-500 uppercase tracking-wider">
+            <tr className="sticky top-0 z-10 bg-slate-900 text-[10px] text-slate-200 uppercase tracking-wider shadow-sm">
               <th className="px-3 py-3 text-left font-semibold">일자</th>
               <th className="px-3 py-3 text-left font-semibold">항목</th>
               <th className="px-3 py-3 text-right font-semibold">금액</th>
@@ -120,7 +120,7 @@ export function ExecutionManager({ course, executions, onAdd, onUpdate, onDelete
               const itemName = activeItems.find((i) => i.id === row.itemId)?.name ?? row.itemId;
               const isEditing = editId === row.id;
               return (
-                <tr key={row.id} className="border-b border-slate-50 hover:bg-slate-50/80 transition-colors">
+                <tr key={row.id} className="border-b border-slate-100 even:bg-slate-50/60 hover:bg-cyan-50/70 transition-colors">
                   <td className="px-3 py-2.5 text-xs tabular-nums">
                     {isEditing
                       ? <input type="date" className="rounded-lg border border-slate-200 px-2 py-1 text-xs w-32"
@@ -128,7 +128,7 @@ export function ExecutionManager({ course, executions, onAdd, onUpdate, onDelete
                       : row.date}
                   </td>
                   <td className="px-3 py-2.5 text-xs text-slate-600">{itemName}</td>
-                  <td className="px-3 py-2.5 text-right text-xs font-semibold tabular-nums">
+                  <td className="px-3 py-2.5 text-right text-xs font-semibold tabular-nums text-indigo-900 bg-indigo-50/30">
                     {isEditing
                       ? <input className="rounded-lg border border-slate-200 px-2 py-1 text-xs w-28 text-right"
                           value={String(editForm.amount ?? row.amount)} onChange={(e) => setEditForm((p) => ({ ...p, amount: parseNumber(e.target.value) }))} />

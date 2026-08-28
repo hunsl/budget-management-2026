@@ -23,6 +23,10 @@ export function formatPct(n: number): string {
   return `${((n || 0) * 100).toFixed(1)}%`;
 }
 
+export function isExecutionAlert(adjusted: number, executed: number): boolean {
+  return adjusted === 0 ? executed > 0 : executed >= adjusted;
+}
+
 export function parseNumber(value: string | number | undefined, fallback = 0): number {
   if (typeof value === "number") return Number.isFinite(value) ? value : fallback;
   const parsed = Number(String(value ?? "").replace(/,/g, "").trim());
@@ -56,6 +60,16 @@ export function buildWarnings(courses: Course[]): WarningItem[] {
   courses.forEach((course) => {
     const totals = courseTotals(course);
 
+    if (isExecutionAlert(totals.adjusted, totals.executed)) {
+      warnings.push({
+        id: `w-${seq++}`,
+        level: "critical",
+        courseId: course.id,
+        type: "집행 확인",
+        message: `[${course.name}] 집행률 ${totals.adjusted === 0 ? "예산 없음" : formatPct(totals.executionRate)} — 확인 필요`,
+      });
+    }
+
     // 증액 경고
     if (totals.adjusted > totals.original) {
       warnings.push({
@@ -80,7 +94,7 @@ export function buildWarnings(courses: Course[]): WarningItem[] {
 
     course.items.filter((i) => !i.isDeleted).forEach((item) => {
       // 초과집행
-      if (item.executed > item.adjusted) {
+      if (isExecutionAlert(item.adjusted, item.executed)) {
         warnings.push({
           id: `w-${seq++}`,
           level: "critical",

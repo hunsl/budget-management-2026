@@ -3,6 +3,7 @@ import { formatWon, formatPct } from "../../store/utils";
 
 type Props = {
   totalBudget: number;
+  budgetReduction: number;
   programSummary: { adjusted: number; executed: number; remaining: number };
   commonSummary: { adjusted: number; executed: number };
   selectedCourse: Course;
@@ -27,7 +28,7 @@ function MiniGauge({ rate, size = 56, stroke = 4, color = "#34d399" }: { rate: n
   );
 }
 
-export function DashboardHeader({ totalBudget, programSummary, commonSummary, selectedCourse }: Props) {
+export function DashboardHeader({ totalBudget, budgetReduction, programSummary, commonSummary, selectedCourse }: Props) {
   const totalExecuted = programSummary.executed + commonSummary.executed;
   const totalAdjusted = programSummary.adjusted + commonSummary.adjusted;
   const execRate = totalAdjusted === 0 ? 0 : totalExecuted / totalAdjusted;
@@ -59,16 +60,17 @@ export function DashboardHeader({ totalBudget, programSummary, commonSummary, se
           <div className="flex items-center gap-4 md:gap-5">
             <MiniGauge rate={execRate} size={isMobileView ? 52 : 64} stroke={isMobileView ? 4 : 5} />
             <div>
-              <div className="text-[10px] text-slate-400 uppercase tracking-wider">총 사업비 (고정)</div>
+              <div className="text-[10px] text-slate-400 uppercase tracking-wider">현재 예산현액</div>
               <div className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent mt-1 font-mono">
                 {formatWon(totalBudget)}
               </div>
             </div>
           </div>
           <div className="text-left sm:text-right">
-            <div className="text-[10px] text-slate-400 uppercase tracking-wider">미배분 잔여</div>
+            <div className="text-[10px] text-slate-400 uppercase tracking-wider">미배분 감액 반영</div>
             <div className={`text-xl md:text-2xl font-bold mt-1 font-mono ${unallocated >= 0 ? "text-sky-300" : "text-rose-400"}`}>
-              {unallocated >= 0 ? "+" : ""}{formatWon(unallocated)}
+              <span className="block text-amber-300 text-sm">-{formatWon(budgetReduction)}</span>
+              <span className="block text-xs text-slate-300 mt-0.5">잔여 {formatWon(unallocated)}</span>
             </div>
           </div>
         </div>

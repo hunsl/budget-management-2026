@@ -1,5 +1,5 @@
 import type { Course, FilterMode, SortMode } from "../../types";
-import { toItemDetailed, formatWon, formatPct } from "../../store/utils";
+import { toItemDetailed, formatWon, formatPct, isExecutionAlert } from "../../store/utils";
 import { useMemo } from "react";
 
 type Props = {
@@ -39,12 +39,13 @@ export function CourseReviewTable({
   }, [items]);
 
   const statusStyle = (status: string) =>
+    status === "집행초과" ? "text-rose-700 bg-rose-50 ring-rose-200" :
     status === "증액" ? "text-amber-700 bg-amber-50 ring-amber-200" :
     status === "감액" ? "text-emerald-700 bg-emerald-50 ring-emerald-200" :
     "text-slate-500 bg-slate-50 ring-slate-200";
 
   return (
-    <div className="rounded-2xl glass-card shadow-glass p-5">
+    <div className="rounded-2xl glass-card shadow-glass p-5 ring-1 ring-slate-200/50">
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-5">
         <div>
           <h2 className="text-base font-bold text-slate-800">{course.name} — 예산 검토표</h2>
@@ -73,16 +74,16 @@ export function CourseReviewTable({
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-slate-200">
-        <table className="min-w-full text-sm">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-inner">
+        <table className="min-w-[1180px] w-full text-sm border-separate border-spacing-0">
           <thead>
-            <tr className="bg-slate-50/80 text-[10px] text-slate-500 uppercase tracking-wider">
+            <tr className="sticky top-0 z-10 bg-indigo-950 text-[10px] text-indigo-100 uppercase tracking-wider shadow-sm">
               <th className="px-3 py-3 text-left font-semibold">예산구분</th>
               <th className="px-3 py-3 text-left font-semibold">세부항목</th>
               <th className="px-3 py-3 text-left font-semibold">산출근거</th>
               <th className="px-3 py-3 text-right font-semibold">계획금액</th>
-              <th className="px-3 py-3 text-right font-semibold">조정금액</th>
-              <th className="px-3 py-3 text-right font-semibold">조정차액</th>
+              <th className="px-3 py-3 text-right font-semibold bg-indigo-900">조정금액</th>
+              <th className="px-3 py-3 text-right font-semibold bg-slate-800">조정차액</th>
               <th className="px-3 py-3 text-right font-semibold">증감률</th>
               <th className="px-3 py-3 text-right font-semibold">집행액</th>
               <th className="px-3 py-3 text-right font-semibold">잔액</th>
@@ -103,50 +104,55 @@ export function CourseReviewTable({
                 { original: 0, adjusted: 0, executed: 0, variance: 0, remaining: 0 }
               );
               return [
-                ...groupItems.map((item) => (
-                  <tr
+                ...groupItems.map((item) => {
+                  const executionAlert = isExecutionAlert(item.adjusted, item.executed);
+                  const displayStatus = executionAlert ? "집행초과" : item.status;
+                  return <tr
                     key={item.id}
                     onClick={() => onSelectItem(item.id)}
-                    className={`cursor-pointer border-b border-slate-50 transition-all duration-150 ${
-                      item.id === editingItemId
+                    className={`cursor-pointer border-b border-slate-100 transition-all duration-150 even:bg-slate-50/50 ${
+                      executionAlert
+                        ? item.id === editingItemId ? "bg-rose-100/90 ring-1 ring-inset ring-rose-300" : "bg-rose-50/70 hover:bg-rose-100"
+                        : item.id === editingItemId
                         ? "bg-indigo-50/80 ring-1 ring-inset ring-indigo-200"
                         : "hover:bg-slate-50/80"
                     }`}
+                    title={executionAlert ? "집행률 100% 이상 — 확인 필요" : undefined}
                   >
                     <td className="px-3 py-2.5 text-[11px] text-slate-400">{item.group}</td>
                     <td className="px-3 py-2.5 text-xs font-medium text-slate-800">{item.name}</td>
                     <td className="px-3 py-2.5 text-slate-400 text-[11px] max-w-[120px] truncate">{item.calc}</td>
-                    <td className="px-3 py-2.5 text-right text-xs font-mono tabular-nums text-slate-600">{formatWon(item.original)}</td>
-                    <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-slate-900">{formatWon(item.adjusted)}</td>
-                    <td className={`px-3 py-2.5 text-right text-xs font-semibold font-mono tabular-nums ${item.variance > 0 ? "text-amber-600" : item.variance < 0 ? "text-emerald-600" : "text-slate-400"}`}>
+                    <td className="px-3 py-2.5 text-right text-xs tabular-nums text-slate-600">{formatWon(item.original)}</td>
+                    <td className="px-3 py-2.5 text-right text-xs font-semibold tabular-nums text-indigo-900 bg-indigo-50/40">{formatWon(item.adjusted)}</td>
+                    <td className={`px-3 py-2.5 text-right text-xs font-semibold tabular-nums ${item.variance > 0 ? "text-amber-600" : item.variance < 0 ? "text-emerald-600" : "text-slate-400"}`}>
                       {item.variance >= 0 ? "+" : ""}{formatWon(item.variance)}
                     </td>
-                    <td className="px-3 py-2.5 text-right text-[11px] font-mono tabular-nums text-slate-500">
+                    <td className="px-3 py-2.5 text-right text-[11px] tabular-nums text-slate-500">
                       {item.original > 0 ? `${(item.changeRate * 100).toFixed(1)}%` : "—"}
                     </td>
-                    <td className="px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums text-amber-700">{formatWon(item.executed)}</td>
-                    <td className="px-3 py-2.5 text-right text-sm font-semibold font-mono tabular-nums text-slate-700">{formatWon(item.remaining)}</td>
-                    <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-indigo-700">{formatPct(item.executionRate)}</td>
+                    <td className={`px-3 py-2.5 text-right text-xs tabular-nums ${executionAlert ? "font-bold text-rose-700" : "text-slate-600"}`}>{formatWon(item.executed)}</td>
+                    <td className={`px-3 py-2.5 text-right text-xs tabular-nums ${executionAlert ? "font-bold text-rose-700" : "text-slate-500"}`}>{formatWon(item.remaining)}</td>
+                    <td className={`px-3 py-2.5 text-right text-xs tabular-nums font-bold ${executionAlert ? "text-rose-700" : "text-slate-600"}`}>{formatPct(item.executionRate)}</td>
                     <td className="px-3 py-2.5 text-center">
-                      <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ring-1 ring-inset ${statusStyle(item.status)}`}>
-                        {item.status}
+                      <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ring-1 ring-inset ${statusStyle(displayStatus)}`}>
+                        {displayStatus}
                       </span>
                     </td>
-                  </tr>
-                )),
-                <tr key={`sub-${group}`} className="border-t-2 border-slate-200 bg-slate-50/80 font-semibold text-xs text-slate-700">
+                  </tr>;
+                }),
+                <tr key={`sub-${group}`} className="border-t-2 border-slate-300 bg-teal-50/80 font-semibold text-xs text-slate-700">
                   <td className="px-3 py-2.5" colSpan={3}>
                     <span className="text-slate-500">{group}</span> 소계
                   </td>
-                  <td className="px-3 py-2.5 text-right font-mono tabular-nums">{formatWon(sub.original)}</td>
-                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-slate-900">{formatWon(sub.adjusted)}</td>
-                  <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${sub.variance > 0 ? "text-amber-600" : sub.variance < 0 ? "text-emerald-600" : ""}`}>
+                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.original)}</td>
+                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.adjusted)}</td>
+                  <td className={`px-3 py-2.5 text-right tabular-nums ${sub.variance > 0 ? "text-amber-600" : sub.variance < 0 ? "text-emerald-600" : ""}`}>
                     {sub.variance >= 0 ? "+" : ""}{formatWon(sub.variance)}
                   </td>
                   <td className="px-3 py-2.5" />
-                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-amber-700">{formatWon(sub.executed)}</td>
-                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-slate-700">{formatWon(sub.remaining)}</td>
-                  <td className="px-3 py-2.5 text-right text-sm font-bold font-mono tabular-nums text-indigo-700">
+                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.executed)}</td>
+                  <td className="px-3 py-2.5 text-right tabular-nums">{formatWon(sub.remaining)}</td>
+                  <td className="px-3 py-2.5 text-right tabular-nums">
                     {formatPct(sub.adjusted === 0 ? 0 : sub.executed / sub.adjusted)}
                   </td>
                   <td className="px-3 py-2.5" />
