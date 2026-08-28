@@ -24,7 +24,7 @@ export function formatPct(n: number): string {
 }
 
 export function isExecutionAlert(adjusted: number, executed: number): boolean {
-  return adjusted === 0 ? executed > 0 : executed >= adjusted;
+  return adjusted === 0 ? executed > 0 : executed > adjusted;
 }
 
 export function parseNumber(value: string | number | undefined, fallback = 0): number {

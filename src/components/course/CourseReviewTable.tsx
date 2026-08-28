@@ -119,7 +119,7 @@ export function CourseReviewTable({
                           ? "bg-rose-50/80 hover:bg-rose-100"
                           : "hover:bg-slate-50/80"
                     }`}
-                    title={executionAlert ? "집행률 100% 이상 — 확인 필요" : undefined}
+                    title={executionAlert ? "집행률 100% 초과 — 확인 필요" : undefined}
                   >
                     <td className="px-3 py-2.5 text-[11px] text-slate-400">{item.group}</td>
                     <td className="px-3 py-2.5 text-xs font-medium text-slate-800">{item.name}</td>
