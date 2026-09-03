@@ -34,13 +34,24 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
     const ready = new Set<string>();
     let hydrated = false;
     let settingsSeen = false;
+    let settingsExists = false;
+    // Firebase 연결 전부터 사용하던 이 브라우저의 데이터가 있는지 기록한다.
+    // 최초 마이그레이션 때만 기존 로컬 조정 내용을 서버에 올린다.
+    const hadLocalData = Boolean(localStorage.getItem("budget-mgmt-2026"));
 
     const syncSnapshot = () => {
       if (!ready.has("courses") || !ready.has("executions") || !ready.has("logs") || !settingsSeen) return;
       setStatus("synced");
       if (!hydrated) {
         hydrated = true;
-        if (remote.courses.length || remote.executions.length || remote.logs.length) {
+        if (!settingsExists && hadLocalData) {
+          // 구버전 Firebase에는 settings 문서가 없으므로, 조정 작업을 해 온
+          // 기존 PC의 localStorage를 최초 1회 정식 원본으로 마이그레이션한다.
+          void writeAll(stateRef.current).catch((error) => {
+            console.error("[FirestoreSync] 기존 로컬 데이터 마이그레이션 실패", error);
+            setStatus("offline");
+          });
+        } else if (remote.courses.length || remote.executions.length || remote.logs.length) {
           dispatch({ type: "REMOTE_STATE_SYNCED", ...remote });
         } else {
           void writeAll(stateRef.current).catch((error) => { console.error("[FirestoreSync] 초기 데이터 저장 실패", error); setStatus("offline"); });
@@ -63,7 +74,8 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
       ready.add("logs"); syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] logs 구독 실패", error); setStatus("offline"); });
     const unsubSettings = onSnapshot(doc(db, "settings", "budget"), (snap) => {
-      if (snap.exists()) Object.assign(remote, snap.data());
+      settingsExists = snap.exists();
+      if (settingsExists) Object.assign(remote, snap.data());
       settingsSeen = true; syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] 설정 구독 실패", error); setStatus("offline"); });
     return () => { unsubCourses(); unsubExecutions(); unsubLogs(); unsubSettings(); };
