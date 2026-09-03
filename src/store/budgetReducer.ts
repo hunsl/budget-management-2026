@@ -62,6 +62,8 @@ export type BudgetAction =
   | { type: "ADD_EXECUTION"; row: Omit<ExecutionRow, "id"> }
   | { type: "UPDATE_EXECUTION"; id: number; patch: Partial<ExecutionRow> }
   | { type: "DELETE_EXECUTION"; id: number }
+  | { type: "SET_CURRENT_USER"; name: string }
+  | { type: "REMOTE_STATE_SYNCED"; courses: Course[]; executions: ExecutionRow[]; logs: AdjustmentLog[]; budgetBase?: number; budgetReduction?: number; budgetChanges?: BudgetChange[] }
   | { type: "HYDRATE"; courses: Course[]; executions: ExecutionRow[]; logs: AdjustmentLog[]; budgetBase?: number; budgetReduction?: number; budgetChanges?: BudgetChange[] };
 
 // ─── Reducer ──────────────────────────────────────────────────
@@ -85,6 +87,20 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
 
     case "SET_REPORT_TYPE":
       return { ...state, reportType: action.reportType };
+
+    case "SET_CURRENT_USER":
+      return { ...state, currentUser: action.name };
+
+    case "REMOTE_STATE_SYNCED":
+      return {
+        ...state,
+        courses: action.courses,
+        executions: action.executions,
+        logs: action.logs,
+        budgetBase: action.budgetBase ?? state.budgetBase,
+        budgetReduction: action.budgetReduction ?? state.budgetReduction,
+        budgetChanges: action.budgetChanges ?? state.budgetChanges,
+      };
 
     case "SET_BUDGET_REDUCTION": {
       const reduction = Math.max(0, Math.min(state.budgetBase, Math.round(action.reduction)));
