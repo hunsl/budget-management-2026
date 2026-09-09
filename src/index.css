@@ -278,26 +278,118 @@ td.text-right, th.text-right {
    인쇄 전용 스타일
    ═══════════════════════════════════════════════════════════════ */
 @media print {
-  @page { size: A4 landscape; margin: 12mm 10mm 15mm 10mm; }
+  @page { size: A4 landscape; margin: 6mm; }
 
   html, body, #root {
     height: auto !important; overflow: visible !important;
     background: white !important; color: black !important;
-    font-size: 10pt !important;
+    font-size: 9pt !important;
     font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif !important;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  body {
+    margin: 0 !important;
+  }
+
+  .print-root, .print-main, .print-content {
+    display: block !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 
   .print-hide, header, aside, button, select, input, [role="tablist"] { display: none !important; }
   .flex.gap-1.bg-white.rounded-2xl.p-1.shadow-sm, .flex.items-center.gap-1 { display: none !important; }
   .print-header { display: block !important; }
   .flex-1.overflow-y-auto { overflow: visible !important; }
-  .mx-auto.max-w-6xl, .mx-auto.max-w-7xl { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  .mx-auto.max-w-6xl, .mx-auto.max-w-7xl, .print-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .print-toolbar {
+    margin: 0 0 4mm 0 !important;
+    gap: 2mm !important;
+    page-break-inside: avoid !important;
+  }
+  .print-summary-chips {
+    flex-wrap: wrap !important;
+    gap: 2mm !important;
+    padding-bottom: 0 !important;
+  }
+  .print-header-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 3mm 6mm !important;
+    align-items: end !important;
+    border: 1pt solid #94a3b8 !important;
+    border-radius: 8pt !important;
+    padding: 4mm 4.5mm !important;
+    margin: 0 0 4mm 0 !important;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%) !important;
+  }
+  .print-header-kicker {
+    font-size: 8pt !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: #475569 !important;
+    font-weight: 700 !important;
+  }
+  .print-header-title {
+    margin-top: 1mm !important;
+    font-size: 16pt !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    line-height: 1.1 !important;
+  }
+  .print-header-meta {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 2mm !important;
+  }
+  .print-header-meta-item,
+  .print-header-totals span {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5mm !important;
+    border: 0.5pt solid #cbd5e1 !important;
+    border-radius: 6pt !important;
+    padding: 2mm 2.5mm !important;
+    background: rgba(255,255,255,0.9) !important;
+  }
+  .print-header-meta-item span,
+  .print-header-totals span {
+    font-size: 7.5pt !important;
+    color: #64748b !important;
+  }
+  .print-header-meta-item strong,
+  .print-header-totals strong {
+    font-size: 9pt !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+  }
+  .print-header-totals {
+    grid-column: 1 / -1 !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 2mm !important;
+  }
+  .print-stack {
+    gap: 3mm !important;
+    page-break-inside: avoid !important;
+  }
+  .print-grid-stack {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 3mm !important;
+  }
   .hidden.md\:table-cell, .hidden.lg\:table-cell, .hidden.sm\:block { display: table-cell !important; }
 
-  table { width: 100% !important; border-collapse: collapse !important; font-size: 9pt !important; }
+  table { width: 100% !important; border-collapse: collapse !important; font-size: 8.3pt !important; }
   thead { display: table-header-group !important; }
-  th, td { border: 0.5pt solid #d1d5db !important; padding: 4pt 6pt !important; color: black !important; }
+  th, td { border: 0.5pt solid #d1d5db !important; padding: 3pt 5pt !important; color: black !important; }
   th { background-color: #f1f5f9 !important; font-weight: 600 !important; text-align: center !important; }
   tr { background: white !important; color: black !important; }
 
@@ -316,10 +408,19 @@ td.text-right, th.text-right {
   .rounded-2xl, .rounded-3xl, .rounded-xl { border-radius: 4pt !important; }
   .rounded-2xl, .rounded-3xl { border: 0.5pt solid #d1d5db !important; }
   .space-y-5 > *, .space-y-4 > * { page-break-inside: avoid; break-inside: avoid; }
+  .space-y-4 > :not([hidden]) ~ :not([hidden]),
+  .space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 3mm !important; }
 
   .bg-gradient-to-br, .bg-gradient-to-r, .bg-gradient-to-b,
   .glass-card, .glass-card-dark, .bg-mesh-1, .bg-mesh-2 {
     background: #f1f5f9 !important; color: black !important; border: 1pt solid #94a3b8 !important;
+  }
+  .glass-card, .glass-card-dark, .panel-glow, .budget-table-shell {
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+  .glass-card, .glass-card-dark {
+    padding: 3mm !important;
   }
   .bg-gradient-to-br *, .bg-gradient-to-r *, .bg-gradient-to-b * { color: black !important; }
   .backdrop-blur-sm, .backdrop-blur-md, .backdrop-blur-xl { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
@@ -329,4 +430,5 @@ td.text-right, th.text-right {
   .w-16.h-1\.5.rounded-full, .h-1\.5.rounded-full, .h-1.rounded-full { display: none !important; }
   tfoot tr { background-color: #f1f5f9 !important; color: black !important; }
   tfoot tr td { color: black !important; font-weight: 600 !important; }
+  .print-header-meta, .print-header-totals { page-break-inside: avoid !important; }
 }

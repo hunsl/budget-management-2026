@@ -230,7 +230,7 @@ export default function App() {
   const effectiveSyncStatus = firebaseConfigured ? firestoreStatus : syncStatus === "synced" ? "synced" : "syncing";
 
   return (
-    <div className="h-full bg-mesh-1 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 text-slate-900 flex flex-col">
+    <div className="print-root h-full bg-mesh-1 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 text-slate-900 flex flex-col">
       <input
         ref={importInputRef}
         type="file"
@@ -454,11 +454,11 @@ export default function App() {
         </aside>
 
         {/* ── 메인 콘텐츠 ── */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-7xl px-4 py-4 md:p-6 space-y-4 md:space-y-5">
+        <main className="print-main flex-1 overflow-y-auto">
+          <div className="print-content mx-auto max-w-7xl px-4 py-4 md:p-6 space-y-4 md:space-y-5">
 
             {/* 현재 선택 과정 + 요약 칩 */}
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div className="print-toolbar flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-2 md:gap-3 min-w-0">
                 <CourseNameEditor
                   name={selectedCourse.name}
@@ -468,7 +468,7 @@ export default function App() {
                 />
                 <span className="hidden items-center rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold text-indigo-600 md:inline-flex">기준일 2026.07.22</span>
               </div>
-              <div className="flex items-center gap-2 text-sm overflow-x-auto pb-1 md:pb-0">
+              <div className="print-summary-chips flex items-center gap-2 text-sm overflow-x-auto pb-1 md:pb-0">
                 {(() => {
                   const t = courseTotals(selectedCourse);
                   const rate = t.adjusted > 0 ? (t.executed / t.adjusted) * 100 : 0;
@@ -569,25 +569,40 @@ export default function App() {
                     setIsPrinting(false);
                   });
                 }}
-                className="flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition-all"
-                title="현재 탭 인쇄"
+                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 transition-all"
+                title="현재 화면을 여백이 적은 인쇄 레이아웃으로 출력"
               >
-                🖨️
+                <span aria-hidden="true">🖨️</span>
+                <span className="hidden sm:inline">인쇄 / PDF 저장</span>
               </button>
             </div>
 
             {/* 인쇄 전용 헤더 — 인쇄 시에만 렌더링 */}
             {isPrinting && (
             <div className="print-header hidden">
-              <div style={{ borderBottom: '2pt solid black', paddingBottom: '8pt', marginBottom: '12pt' }}>
-                <div style={{ fontSize: '16pt', fontWeight: 'bold', textAlign: 'center' }}>
-                  2026 경기북부 직업교육훈련 예산관리
+              <div className="print-header-card">
+                <div>
+                  <div className="print-header-kicker">2026 경기북부 직업교육훈련</div>
+                  <div className="print-header-title">예산관리 시스템</div>
                 </div>
-                <div style={{ fontSize: '10pt', textAlign: 'center', marginTop: '4pt', color: '#475569' }}>
-                  {tabs.find(t => t.id === activeTab)?.label} | {selectedCourse.name} | 출력일: {new Date().toLocaleDateString('ko-KR')}
+                <div className="print-header-meta">
+                  <div className="print-header-meta-item">
+                    <span>출력 화면</span>
+                    <strong>{tabs.find(t => t.id === activeTab)?.label}</strong>
+                  </div>
+                  <div className="print-header-meta-item">
+                    <span>선택 과정</span>
+                    <strong>{selectedCourse.name}</strong>
+                  </div>
+                  <div className="print-header-meta-item">
+                    <span>출력일</span>
+                    <strong>{new Date().toLocaleDateString('ko-KR')}</strong>
+                  </div>
                 </div>
-                <div style={{ fontSize: '9pt', textAlign: 'right', marginTop: '4pt', color: '#64748b' }}>
-                  현재 예산현액: {formatWon(totalBudget)} | 과정 합산: {formatWon(programSummary.adjusted)} | 집행액: {formatWon(programSummary.executed)}
+                <div className="print-header-totals">
+                  <span>현재 예산현액 <strong>{formatWon(totalBudget)}</strong></span>
+                  <span>과정 합산 <strong>{formatWon(programSummary.adjusted)}</strong></span>
+                  <span>집행액 <strong>{formatWon(programSummary.executed)}</strong></span>
                 </div>
               </div>
             </div>
@@ -595,7 +610,7 @@ export default function App() {
 
             {/* 탭 콘텐츠 */}
             {activeTab === "dashboard" && (
-              <div className="space-y-4 md:space-y-5 animate-fade-up">
+              <div className="print-stack space-y-4 md:space-y-5 animate-fade-up">
                 <DashboardHeader
                   totalBudget={totalBudget}
                   budgetReduction={budgetReduction}
@@ -609,7 +624,7 @@ export default function App() {
                   changes={budgetChanges}
                   onChange={(reduction, reason) => dispatchWithToast({ type: "SET_BUDGET_REDUCTION", reduction, reason })}
                 />
-                <div className="grid gap-4 md:gap-5 xl:grid-cols-[1.2fr,0.8fr]">
+                <div className="print-grid-stack grid gap-4 md:gap-5 xl:grid-cols-[1.2fr,0.8fr]">
                   <OverallTable
                     courses={programCourses}
                     commonCourse={commonCourse}
@@ -631,7 +646,7 @@ export default function App() {
             )}
 
             {activeTab === "review" && (
-              <div className="space-y-4 md:space-y-5 animate-fade-up">
+              <div className="print-stack space-y-4 md:space-y-5 animate-fade-up">
                 <CourseReviewTable
                   course={selectedCourse}
                   editingItemId={editingItemId}
@@ -676,7 +691,7 @@ export default function App() {
             )}
 
             {activeTab === "execution" && (
-              <div className="space-y-4 animate-fade-up">
+              <div className="print-stack space-y-4 animate-fade-up">
                 <ExecutionManager
                   course={selectedCourse}
                   executions={executions}
@@ -696,7 +711,7 @@ export default function App() {
             )}
 
             {activeTab === "report" && (
-              <div className="animate-fade-up">
+              <div className="print-stack animate-fade-up">
               <AnalysisReport
                 courses={courses}
                 summary={{ ...programSummary, original: programSummary.adjusted, variance: 0, executionRate: programSummary.adjusted === 0 ? 0 : programSummary.executed / programSummary.adjusted }}
@@ -709,7 +724,7 @@ export default function App() {
             )}
 
             {activeTab === "log" && (
-              <div className="rounded-2xl glass-card shadow-glass p-4 md:p-6 animate-fade-up">
+              <div className="print-stack rounded-2xl glass-card shadow-glass p-4 md:p-6 animate-fade-up">
                 <div className="flex items-center justify-between mb-5">
                   <div>
                     <h2 className="text-lg font-bold text-slate-800">수정 이력</h2>
