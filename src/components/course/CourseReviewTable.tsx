@@ -49,7 +49,7 @@ export function CourseReviewTable({
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-5">
         <div>
           <h2 className="text-base font-bold text-slate-800">{course.name} — 예산 검토표</h2>
-          <p className="text-[11px] text-slate-400 mt-0.5">항목을 클릭하면 편집기에서 수정할 수 있습니다</p>
+          <p className="text-[11px] text-slate-500 mt-0.5">항목을 클릭하면 아래 편집기와 빠른 집행내역 패널이 함께 바뀝니다.</p>
         </div>
         <div className="flex flex-wrap gap-2 print-hide">
           <select
@@ -74,21 +74,21 @@ export function CourseReviewTable({
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-inner">
-        <table className="min-w-[1180px] w-full text-sm border-separate border-spacing-0">
+      <div className="budget-table-shell">
+        <table className="budget-table min-w-[1180px] text-sm">
           <thead>
-            <tr className="sticky top-0 z-10 bg-indigo-950 text-[10px] text-indigo-100 uppercase tracking-wider shadow-sm">
-              <th className="px-3 py-3 text-left font-semibold">예산구분</th>
-              <th className="px-3 py-3 text-left font-semibold">세부항목</th>
-              <th className="px-3 py-3 text-left font-semibold">산출근거</th>
-              <th className="px-3 py-3 text-right font-semibold">계획금액<br /><span className="text-[9px] font-normal text-indigo-200">(원)</span></th>
-              <th className="px-3 py-3 text-right font-semibold bg-indigo-900">조정금액<br /><span className="text-[9px] font-normal text-indigo-200">(원)</span></th>
-              <th className="px-3 py-3 text-right font-semibold bg-slate-800">조정차액<br /><span className="text-[9px] font-normal text-slate-400">(원)</span></th>
-              <th className="px-3 py-3 text-right font-semibold">증감률</th>
-              <th className="px-3 py-3 text-right font-semibold">집행액</th>
-              <th className="px-3 py-3 text-right font-semibold">잔액</th>
-              <th className="px-3 py-3 text-right font-semibold">집행률</th>
-              <th className="px-3 py-3 text-center font-semibold">상태</th>
+            <tr className="text-[10px] text-indigo-100 uppercase tracking-wider shadow-sm">
+              <th data-tone="indigo" className="px-3 py-3.5 text-left font-semibold">예산구분</th>
+              <th data-tone="indigo" className="px-3 py-3.5 text-left font-semibold">세부항목</th>
+              <th data-tone="indigo" className="px-3 py-3.5 text-left font-semibold">산출근거</th>
+              <th data-tone="indigo" className="px-3 py-3.5 text-right font-semibold">계획금액<br /><span className="text-[9px] font-normal text-indigo-200">(원)</span></th>
+              <th data-tone="indigo" className="px-3 py-3.5 text-right font-semibold">조정금액<br /><span className="text-[9px] font-normal text-indigo-200">(원)</span></th>
+              <th className="px-3 py-3.5 text-right font-semibold">조정차액<br /><span className="text-[9px] font-normal text-slate-300">(원)</span></th>
+              <th className="px-3 py-3.5 text-right font-semibold">증감률</th>
+              <th className="px-3 py-3.5 text-right font-semibold">집행액</th>
+              <th className="px-3 py-3.5 text-right font-semibold">잔액</th>
+              <th className="px-3 py-3.5 text-right font-semibold">집행률</th>
+              <th className="px-3 py-3.5 text-center font-semibold">상태</th>
             </tr>
           </thead>
           <tbody>
@@ -110,54 +110,54 @@ export function CourseReviewTable({
                   return <tr
                     key={item.id}
                     onClick={() => onSelectItem(item.id)}
-                    className={`cursor-pointer border-b border-slate-100 transition-all duration-150 even:bg-slate-50/50 ${
+                   className={`table-row-emphasis cursor-pointer border-b border-slate-100 transition-all duration-150 even:bg-slate-50/70 ${
                       executionAlert
-                        ? item.id === editingItemId ? "bg-rose-100/90 ring-1 ring-inset ring-rose-300" : "bg-rose-50/70 hover:bg-rose-100"
+                        ? item.id === editingItemId ? "bg-rose-100/95 ring-1 ring-inset ring-rose-300" : "bg-rose-50/80 hover:bg-rose-100"
                         : item.id === editingItemId
-                        ? "bg-indigo-50/80 ring-1 ring-inset ring-indigo-200"
+                        ? "bg-indigo-50/90 ring-1 ring-inset ring-indigo-200"
                         : executionAlert
                           ? "bg-rose-50/80 hover:bg-rose-100"
-                          : "hover:bg-slate-50/80"
+                          : "hover:bg-indigo-50/70"
                     }`}
                     title={executionAlert ? "집행률 100% 초과 — 확인 필요" : undefined}
                   >
-                    <td className="px-3 py-2.5 text-[11px] text-slate-400">{item.group}</td>
-                    <td className="px-3 py-2.5 text-xs font-medium text-slate-800">{item.name}</td>
-                    <td className="px-3 py-2.5 text-slate-400 text-[11px] max-w-[120px] truncate">{item.calc}</td>
-                    <td className="px-3 py-2.5 text-right text-sm font-medium tabular-nums text-slate-700 whitespace-nowrap">{formatAmount(item.original)}</td>
-                    <td className="px-3 py-2.5 text-right text-sm font-semibold tabular-nums text-indigo-900 bg-indigo-50/40 whitespace-nowrap">{formatAmount(item.adjusted)}</td>
-                    <td className={`px-3 py-2.5 text-right text-xs font-semibold tabular-nums ${item.variance > 0 ? "text-amber-600" : item.variance < 0 ? "text-emerald-600" : "text-slate-400"}`}>
+                    <td className="px-3 py-3 text-[11px] text-slate-500">{item.group}</td>
+                    <td className="px-3 py-3 text-[13px] font-semibold text-slate-900">{item.name}</td>
+                    <td className="px-3 py-3 text-slate-500 text-[11px] max-w-[140px] truncate">{item.calc}</td>
+                    <td className="px-3 py-3 text-right text-sm font-medium tabular-nums text-slate-800 whitespace-nowrap">{formatAmount(item.original)}</td>
+                    <td className="px-3 py-3 text-right text-sm font-bold tabular-nums text-indigo-950 bg-indigo-50/60 whitespace-nowrap numeric-emphasis">{formatAmount(item.adjusted)}</td>
+                    <td className={`px-3 py-3 text-right text-xs font-semibold tabular-nums ${item.variance > 0 ? "text-amber-700" : item.variance < 0 ? "text-emerald-700" : "text-slate-500"}`}>
                       {item.variance >= 0 ? "+" : ""}{formatAmount(item.variance)}
                     </td>
-                    <td className="px-3 py-2.5 text-right text-[11px] tabular-nums text-slate-500">
+                    <td className="px-3 py-3 text-right text-[11px] tabular-nums text-slate-600">
                       {item.original > 0 ? `${(item.changeRate * 100).toFixed(1)}%` : "—"}
                     </td>
-                    <td className={`px-3 py-2.5 text-right text-sm tabular-nums whitespace-nowrap ${executionAlert ? "font-bold text-rose-700" : "text-slate-700"}`}>{formatAmount(item.executed)}</td>
-                    <td className={`px-3 py-2.5 text-right text-sm tabular-nums whitespace-nowrap ${executionAlert ? "font-bold text-rose-700" : "text-slate-600"}`}>{formatAmount(item.remaining)}</td>
-                    <td className={`px-3 py-2.5 text-right text-xs tabular-nums font-bold ${executionAlert ? "text-rose-700" : "text-slate-600"}`}>{formatPct(item.executionRate)}</td>
-                    <td className="px-3 py-2.5 text-center">
+                    <td className={`px-3 py-3 text-right text-sm tabular-nums whitespace-nowrap ${executionAlert ? "font-bold text-rose-700" : "text-slate-800"}`}>{formatAmount(item.executed)}</td>
+                    <td className={`px-3 py-3 text-right text-sm tabular-nums whitespace-nowrap ${executionAlert ? "font-bold text-rose-700" : "text-slate-700"}`}>{formatAmount(item.remaining)}</td>
+                    <td className={`px-3 py-3 text-right text-xs tabular-nums font-bold ${executionAlert ? "text-rose-700" : "text-slate-700"}`}>{formatPct(item.executionRate)}</td>
+                    <td className="px-3 py-3 text-center">
                       <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ring-1 ring-inset ${statusStyle(displayStatus)}`}>
                         {displayStatus}
                       </span>
                     </td>
                   </tr>;
                 }),
-                <tr key={`sub-${group}`} className="border-t-2 border-slate-300 bg-teal-50/80 font-semibold text-xs text-slate-700">
-                  <td className="px-3 py-2.5" colSpan={3}>
+                <tr key={`sub-${group}`} className="border-t-2 border-slate-300 bg-teal-50/90 font-semibold text-xs text-slate-700">
+                  <td className="px-3 py-3" colSpan={3}>
                     <span className="text-slate-500">{group}</span> 소계
                   </td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatAmount(sub.original)}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatAmount(sub.adjusted)}</td>
-                  <td className={`px-3 py-2.5 text-right tabular-nums ${sub.variance > 0 ? "text-amber-600" : sub.variance < 0 ? "text-emerald-600" : ""}`}>
+                  <td className="px-3 py-3 text-right tabular-nums text-sm">{formatAmount(sub.original)}</td>
+                  <td className="px-3 py-3 text-right tabular-nums text-sm font-bold">{formatAmount(sub.adjusted)}</td>
+                  <td className={`px-3 py-3 text-right tabular-nums ${sub.variance > 0 ? "text-amber-700" : sub.variance < 0 ? "text-emerald-700" : ""}`}>
                     {sub.variance >= 0 ? "+" : ""}{formatAmount(sub.variance)}
                   </td>
-                  <td className="px-3 py-2.5" />
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatAmount(sub.executed)}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">{formatAmount(sub.remaining)}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">
+                  <td className="px-3 py-3" />
+                  <td className="px-3 py-3 text-right tabular-nums text-sm">{formatAmount(sub.executed)}</td>
+                  <td className="px-3 py-3 text-right tabular-nums text-sm">{formatAmount(sub.remaining)}</td>
+                  <td className="px-3 py-3 text-right tabular-nums text-sm">
                     {formatPct(sub.adjusted === 0 ? 0 : sub.executed / sub.adjusted)}
                   </td>
-                  <td className="px-3 py-2.5" />
+                  <td className="px-3 py-3" />
                 </tr>,
               ];
             })}

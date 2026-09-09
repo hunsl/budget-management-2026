@@ -22,6 +22,7 @@
   --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
   --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f43f5e 100%);
+  --font-numeric: Inter, "Pretendard Variable", Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
 }
 
 html, body, #root {
@@ -53,10 +54,16 @@ h1 { font-weight: 800; }
 
 /* ─── 숫자/금액 전용 폰트 ─────────────────────────────────── */
 .font-mono, .tabular-nums {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  font-family: var(--font-numeric);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" on, "zero" on;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
+  font-kerning: normal;
+}
+
+.numeric-emphasis {
+  letter-spacing: -0.04em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 td.text-right, th.text-right {
@@ -112,6 +119,65 @@ td.text-right, th.text-right {
   background: linear-gradient(90deg, #6366f1 0%, #06b6d4 50%, #10b981 100%);
 }
 
+.budget-table-shell {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.94) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.budget-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.budget-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.96) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.budget-table thead th[data-tone="indigo"] {
+  background: linear-gradient(180deg, rgba(49,46,129,0.98) 0%, rgba(30,41,59,0.98) 100%);
+}
+
+.budget-table thead th[data-tone="emerald"] {
+  background: linear-gradient(180deg, rgba(6,95,70,0.98) 0%, rgba(15,23,42,0.98) 100%);
+}
+
+.budget-table tbody tr {
+  animation: row-fade-in 0.28s ease-out both;
+}
+
+.budget-table tbody td {
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.table-row-emphasis {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.table-row-emphasis:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+}
+
+.budget-chip {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(238,242,255,0.75) 100%);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+}
+
+.panel-glow {
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
 /* ─── 애니메이션 ──────────────────────────────────────────── */
 @keyframes toast-in {
   from { opacity: 0; transform: translateX(100%) scale(0.95); }
@@ -157,6 +223,11 @@ td.text-right, th.text-right {
   100% { background-position: 200% 0; }
 }
 
+@keyframes row-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ─── 인터랙션 ────────────────────────────────────────────── */
 .hover-lift {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -181,6 +252,26 @@ td.text-right, th.text-right {
 ::selection {
   background: rgba(99, 102, 241, 0.2);
   color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-toast-in,
+  .animate-save-flash,
+  .animate-fade-up,
+  .animate-badge-pulse,
+  .animate-slide-in-left,
+  .animate-overlay-in,
+  .budget-table tbody tr {
+    animation: none !important;
+  }
+
+  .hover-lift,
+  .table-row-emphasis,
+  .budget-table tbody tr,
+  .budget-table tbody tr:hover {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════

@@ -105,6 +105,10 @@ export default function App() {
     () => courses.find((c) => c.id === selectedCourseId) ?? courses[0],
     [courses, selectedCourseId]
   );
+  const selectedItem = useMemo(
+    () => selectedCourse?.items.find((item) => item.id === editingItemId && !item.isDeleted),
+    [editingItemId, selectedCourse]
+  );
 
   const programSummary = useMemo(() => {
     const totals = programCourses.map((c) => courseTotals(c));
@@ -647,6 +651,19 @@ export default function App() {
                   onDelete={(itemId) => dispatchWithToast({ type: "DELETE_ITEM", courseId: selectedCourseId, itemId })}
                   logs={logs}
                 />
+                {selectedItem && (
+                  <ExecutionManager
+                    course={selectedCourse}
+                    executions={executions}
+                    onAdd={(row) => dispatchWithToast({ type: "ADD_EXECUTION", row })}
+                    onUpdate={(id, patch) => dispatchWithToast({ type: "UPDATE_EXECUTION", id, patch })}
+                    onDelete={(id) => dispatchWithToast({ type: "DELETE_EXECUTION", id })}
+                    lockedItemId={selectedItem.id}
+                    compact
+                    title="선택 항목 집행내역 빠른 등록"
+                    description="검토표에서 항목을 선택하면 탭을 바꾸지 않고 여기서 바로 집행내역을 등록·수정할 수 있습니다."
+                  />
+                )}
                 <div className="flex justify-end print-hide">
                   <button
                     onClick={() => downloadCourseCSV(selectedCourse)}
