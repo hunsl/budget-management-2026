@@ -38,6 +38,12 @@ export function parseNumber(value: string | number | undefined, fallback = 0): n
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+export function normalizeGroupName(group: string): string {
+  const value = String(group ?? "").trim();
+  if (value === "사무관리") return "사무관리비";
+  return value;
+}
+
 export function statusEmoji(original: number, adjusted: number, executionRate: number): string {
   if (adjusted > original) return "🔴";
   if (executionRate < 0.3) return "🟡";
@@ -48,12 +54,13 @@ export function toItemDetailed(course: Course): ItemDetailed[] {
   return course.items
     .filter((i) => !i.isDeleted)
     .map((item) => {
+      const group = normalizeGroupName(item.group);
       const variance = item.adjusted - item.original;
       const remaining = item.adjusted - item.executed;
       const executionRate = item.adjusted === 0 ? 0 : item.executed / item.adjusted;
       const changeRate = item.original === 0 ? 0 : variance / item.original;
       const status = variance > 0 ? "증액" : variance < 0 ? "감액" : "유지";
-      return { ...item, variance, remaining, executionRate, changeRate, status } as ItemDetailed;
+      return { ...item, group, variance, remaining, executionRate, changeRate, status } as ItemDetailed;
     });
 }
 

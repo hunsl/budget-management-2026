@@ -1,5 +1,5 @@
 import type { Course } from "../../types";
-import { formatWon, formatPct } from "../../store/utils";
+import { formatWon, formatPct, normalizeGroupName } from "../../store/utils";
 
 const GROUP_ICON: Record<string, string> = {
   "사무관리비": "📁",
@@ -15,10 +15,11 @@ export function GroupSummary({ courses }: { courses: Course[] }) {
     .flatMap((c) => c.items.filter((i) => !i.isDeleted))
     .reduce<Record<string, { name: string; original: number; adjusted: number; executed: number }>>(
       (acc, item) => {
-        if (!acc[item.group]) acc[item.group] = { name: item.group, original: 0, adjusted: 0, executed: 0 };
-        acc[item.group].original += item.original;
-        acc[item.group].adjusted += item.adjusted;
-        acc[item.group].executed += item.executed;
+        const group = normalizeGroupName(item.group);
+        if (!acc[group]) acc[group] = { name: group, original: 0, adjusted: 0, executed: 0 };
+        acc[group].original += item.original;
+        acc[group].adjusted += item.adjusted;
+        acc[group].executed += item.executed;
         return acc;
       },
       {}
