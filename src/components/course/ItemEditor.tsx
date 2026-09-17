@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AdjustmentLog, BudgetItem, Course } from "../../types";
-import { formatWon, generateNewItemId, parseNumber } from "../../store/utils";
+import { formatWon, generateNewItemId, normalizeGroupName, parseNumber } from "../../store/utils";
 
 type Props = {
   course: Course;
@@ -11,7 +11,7 @@ type Props = {
   logs: AdjustmentLog[];
 };
 
-const GROUPS = ["사무관리", "공통운영비", "교육훈련비", "강사운영비", "강사수당 및 보상금", "회의비", "기타"];
+const GROUPS = ["사무관리비", "공통운영비", "교육훈련비", "강사운영비", "강사수당 및 보상금", "회의비", "기타"];
 const inputCls = "mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm outline-none transition-all focus:border-indigo-300 focus:ring-2 focus:ring-indigo-500/20";
 const labelCls = "text-[11px] font-medium text-slate-500";
 
@@ -29,7 +29,7 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
   useEffect(() => {
     if (!item) return;
     setForm({
-      group: item.group, name: item.name, unitPrice: String(item.unitPrice), qty1: String(item.qty1 ?? 1),
+      group: normalizeGroupName(item.group), name: item.name, unitPrice: String(item.unitPrice), qty1: String(item.qty1 ?? 1),
       qty2: String(item.qty2 ?? 1), qty3: String(item.qty3 ?? 1), adjusted: String(item.adjusted), calc: item.calc, reason: "",
     });
   }, [item]);
@@ -39,7 +39,7 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
   const handleSave = () => {
     if (!item) return;
     onUpdate(item.id, {
-      group: form.group, name: form.name, unitPrice: parseNumber(form.unitPrice),
+      group: normalizeGroupName(form.group), name: form.name, unitPrice: parseNumber(form.unitPrice),
       qty1: parseNumber(form.qty1, 1), qty2: parseNumber(form.qty2, 1), qty3: parseNumber(form.qty3, 1),
       adjusted: parseNumber(form.adjusted), calc: form.calc,
     }, form.reason.trim() || "사유 미입력");
@@ -51,7 +51,7 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
     if (!newItem.name.trim()) return;
     const amount = parseNumber(newItem.unitPrice) * parseNumber(newItem.qty1, 1);
     onAdd({
-      id: generateNewItemId(course.id, course.items), group: newItem.group, name: newItem.name.trim(),
+      id: generateNewItemId(course.id, course.items), group: normalizeGroupName(newItem.group), name: newItem.name.trim(),
       calc: newItem.calc || `${newItem.unitPrice} × ${newItem.qty1}`, unitPrice: parseNumber(newItem.unitPrice),
       qty1: parseNumber(newItem.qty1, 1), original: amount, adjusted: amount, executed: 0,
     });
