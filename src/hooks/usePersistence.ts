@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import type { BudgetAction, BudgetState } from "../store/budgetReducer";
+import { normalizeBudgetSettings, type BudgetAction, type BudgetState } from "../store/budgetReducer";
 import { matchesSavedBudgetCourses, savedBudget20260722 } from "../data/savedBudget";
 
 const STORAGE_KEY = "budget-mgmt-2026";
@@ -94,6 +94,11 @@ export function loadPersistedState(): Partial<BudgetState> | null {
 
   try {
     const parsed = parseBudgetBackup(raw);
+    const normalizedBudget = normalizeBudgetSettings({
+      budgetBase: parsed.data.budgetBase,
+      budgetReduction: parsed.data.budgetReduction,
+      budgetChanges: parsed.data.budgetChanges,
+    });
     const restoredFromSavedData = localStorage.getItem(RESTORE_KEY) === "yes";
     if (!restoredFromSavedData && !matchesSavedBudgetCourses(parsed.data.courses)) {
       localStorage.setItem(RESTORE_KEY, "yes");
@@ -101,6 +106,7 @@ export function loadPersistedState(): Partial<BudgetState> | null {
         courses: savedBudget20260722.courses,
         executions: savedBudget20260722.executions,
         logs: savedBudget20260722.logs,
+        ...normalizedBudget,
       };
     }
 
@@ -108,9 +114,7 @@ export function loadPersistedState(): Partial<BudgetState> | null {
       courses: parsed.data.courses,
       executions: parsed.data.executions,
       logs: parsed.data.logs,
-      ...(typeof parsed.data.budgetBase === "number" ? { budgetBase: parsed.data.budgetBase } : {}),
-      ...(typeof parsed.data.budgetReduction === "number" ? { budgetReduction: parsed.data.budgetReduction } : {}),
-      ...(Array.isArray(parsed.data.budgetChanges) ? { budgetChanges: parsed.data.budgetChanges } : {}),
+      ...normalizedBudget,
     };
   } catch (error) {
     keepUnreadableSnapshot(raw);

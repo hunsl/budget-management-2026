@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebase";
-import { budgetReducer, type BudgetAction, type BudgetState } from "../store/budgetReducer";
+import { budgetReducer, normalizeBudgetSettings, type BudgetAction, type BudgetState } from "../store/budgetReducer";
 import type { AdjustmentLog, Course, ExecutionRow } from "../types";
 
 const COLLECTIONS = { courses: "courses", executions: "executions", logs: "logs" } as const;
@@ -75,7 +75,7 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
     }, (error) => { console.error("[FirestoreSync] logs 구독 실패", error); setStatus("offline"); });
     const unsubSettings = onSnapshot(doc(db, "settings", "budget"), (snap) => {
       settingsExists = snap.exists();
-      if (settingsExists) Object.assign(remote, snap.data());
+      if (settingsExists) Object.assign(remote, normalizeBudgetSettings(snap.data()));
       settingsSeen = true; syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] 설정 구독 실패", error); setStatus("offline"); });
     return () => { unsubCourses(); unsubExecutions(); unsubLogs(); unsubSettings(); };
