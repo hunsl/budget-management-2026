@@ -80,10 +80,10 @@
             "id": "c0-7",
             "group": "교육훈련비",
             "name": "직종설명회 특강 강사료",
-            "calc": "4,400,000 × 1",
-            "unitPrice": 4400000,
+            "calc": "4,000,000 × 1",
+            "unitPrice": 2000000,
             "qty1": 1,
-            "original": 4400000,
+            "original": 2000000,
             "adjusted": 0,
             "executed": 0
           },
@@ -1808,8 +1808,7 @@
         "after": {
           "group": "행사운영비",
           "name": "직종설명회 운영",
-          "adjusted": 0,
-          "calc": "5,500,000 × 1"
+          "adjusted": 0
         },
         "reason": "예산 2차 감액 추가 반영",
         "editedAt": "2026-09-18T08:16:44.867Z",
@@ -1829,8 +1828,7 @@
         "after": {
           "group": "교육훈련비",
           "name": "직종설명회 특강 강사료",
-          "adjusted": 0,
-          "calc": "4,400,000 × 1"
+          "adjusted": 0
         },
         "reason": "예산 2차 감액 추가 반영",
         "editedAt": "2026-09-18T08:16:43.851Z",
