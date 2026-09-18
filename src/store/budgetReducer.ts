@@ -40,7 +40,7 @@ export const initialState: BudgetState = {
     id: "budget-change-20260918",
     changedAt: "2026-09-18T08:16:44.867Z",
     before: BASE_TOTAL_BUDGET - 5_205_000,
-    reduction: INITIAL_BUDGET_REDUCTION,
+    reduction: 9_900_000,
     after: BASE_TOTAL_BUDGET - INITIAL_BUDGET_REDUCTION,
     reason: "2차 감액 추가 반영(교육훈련비 4,400,000원, 행사운영비 5,500,000원)",
     editedBy: "관리자",
