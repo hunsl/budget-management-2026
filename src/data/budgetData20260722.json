@@ -1801,15 +1801,9 @@
         "courseId": 0,
         "itemId": "c0-3",
         "before": {
-          "id": "c0-3",
           "group": "행사운영비",
           "name": "직종설명회 운영",
-          "calc": "5,500,000 × 1",
-          "unitPrice": 5500000,
-          "qty1": 1,
-          "original": 5500000,
-          "adjusted": 5500000,
-          "executed": 0
+          "adjusted": 5500000
         },
         "after": {
           "group": "행사운영비",
@@ -1828,15 +1822,9 @@
         "courseId": 0,
         "itemId": "c0-7",
         "before": {
-          "id": "c0-7",
           "group": "교육훈련비",
           "name": "직종설명회 특강 강사료",
-          "calc": "4,000,000 × 1",
-          "unitPrice": 2000000,
-          "qty1": 1,
-          "original": 2000000,
-          "adjusted": 4400000,
-          "executed": 0
+          "adjusted": 4400000
         },
         "after": {
           "group": "교육훈련비",
