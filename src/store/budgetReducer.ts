@@ -22,7 +22,7 @@ export type BudgetState = {
 };
 
 const BASE_TOTAL_BUDGET = 278_500_000;
-const INITIAL_BUDGET_REDUCTION = 5_205_000;
+const INITIAL_BUDGET_REDUCTION = 15_105_000;
 
 export const initialState: BudgetState = {
   courses: savedBudget20260722.courses,
@@ -37,11 +37,19 @@ export const initialState: BudgetState = {
   budgetBase: BASE_TOTAL_BUDGET,
   budgetReduction: INITIAL_BUDGET_REDUCTION,
   budgetChanges: [{
+    id: "budget-change-20260918",
+    changedAt: "2026-09-18T08:16:44.867Z",
+    before: BASE_TOTAL_BUDGET - 5_205_000,
+    reduction: 9_900_000,
+    after: BASE_TOTAL_BUDGET - INITIAL_BUDGET_REDUCTION,
+    reason: "2차 감액 추가 반영(교육훈련비 4,400,000원, 행사운영비 5,500,000원)",
+    editedBy: "관리자",
+  }, {
     id: "budget-change-20260828",
     changedAt: "2026-08-28T00:00:00.000Z",
     before: BASE_TOTAL_BUDGET,
-    reduction: INITIAL_BUDGET_REDUCTION,
-    after: BASE_TOTAL_BUDGET - INITIAL_BUDGET_REDUCTION,
+    reduction: 5_205_000,
+    after: BASE_TOTAL_BUDGET - 5_205_000,
     reason: "현재 미배분 예산 감액 반영(첨부 세출결산현황 기준)",
     editedBy: "관리자",
   }],

@@ -40,7 +40,7 @@
             "unitPrice": 5500000,
             "qty1": 1,
             "original": 5500000,
-            "adjusted": 5500000,
+            "adjusted": 0,
             "executed": 0
           },
           {
@@ -84,7 +84,7 @@
             "unitPrice": 2000000,
             "qty1": 1,
             "original": 2000000,
-            "adjusted": 4400000,
+            "adjusted": 0,
             "executed": 0
           },
           {
@@ -1796,6 +1796,46 @@
       }
     ],
     "logs": [
+      {
+        "id": "log-1799713004867",
+        "courseId": 0,
+        "itemId": "c0-3",
+        "before": {
+          "group": "행사운영비",
+          "name": "직종설명회 운영",
+          "adjusted": 5500000
+        },
+        "after": {
+          "group": "행사운영비",
+          "name": "직종설명회 운영",
+          "adjusted": 0
+        },
+        "reason": "예산 2차 감액 추가 반영",
+        "editedAt": "2026-09-18T08:16:44.867Z",
+        "editedBy": "관리자",
+        "adjustmentRound": 2,
+        "kind": "item"
+      },
+      {
+        "id": "log-1799713003851",
+        "courseId": 0,
+        "itemId": "c0-7",
+        "before": {
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "adjusted": 4400000
+        },
+        "after": {
+          "group": "교육훈련비",
+          "name": "직종설명회 특강 강사료",
+          "adjusted": 0
+        },
+        "reason": "예산 2차 감액 추가 반영",
+        "editedAt": "2026-09-18T08:16:43.851Z",
+        "editedBy": "관리자",
+        "adjustmentRound": 2,
+        "kind": "item"
+      },
       {
         "id": "log-1782968220914",
         "courseId": 6,
