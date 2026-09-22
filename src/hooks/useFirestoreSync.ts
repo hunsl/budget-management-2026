@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { budgetReducer, type BudgetAction, type BudgetState } from "../store/budgetReducer";
+import { applySecondBudgetReduction } from "../store/secondReduction";
 import type { AdjustmentLog, Course, ExecutionRow } from "../types";
 
 const COLLECTIONS = { courses: "courses", executions: "executions", logs: "logs" } as const;
@@ -17,6 +18,25 @@ function writeAll(data: RemoteData) {
     budgetReduction: data.budgetReduction,
     budgetChanges: data.budgetChanges ?? [],
   });
+  return batch.commit();
+}
+
+const SECOND_REDUCTION_LOG_IDS = ["log-1799713004867", "log-1799713003851"];
+
+function persistSecondReduction(data: RemoteData) {
+  const course = data.courses.find((item) => Number(item.id) === 0);
+  if (!course) return Promise.resolve();
+  const batch = writeBatch(db);
+  batch.set(doc(db, COLLECTIONS.courses, String(course.id)), course);
+  SECOND_REDUCTION_LOG_IDS.forEach((logId) => {
+    const log = data.logs.find((item) => item.id === logId);
+    if (log) batch.set(doc(db, COLLECTIONS.logs, log.id), log);
+  });
+  batch.set(doc(db, "settings", "budget"), {
+    budgetBase: data.budgetBase,
+    budgetReduction: data.budgetReduction,
+    budgetChanges: data.budgetChanges ?? [],
+  }, { merge: true });
   return batch.commit();
 }
 
@@ -39,8 +59,25 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
     // 최초 마이그레이션 때만 기존 로컬 조정 내용을 서버에 올린다.
     const hadLocalData = Boolean(localStorage.getItem("budget-mgmt-2026"));
 
+    let applyingReduction = false;
     const syncSnapshot = () => {
       if (!ready.has("courses") || !ready.has("executions") || !ready.has("logs") || !settingsSeen) return;
+      const migrated = applySecondBudgetReduction(remote);
+      if (migrated.changed) {
+        remote.courses = migrated.data.courses;
+        remote.logs = migrated.data.logs;
+        remote.budgetBase = migrated.data.budgetBase;
+        remote.budgetReduction = migrated.data.budgetReduction;
+        remote.budgetChanges = migrated.data.budgetChanges;
+        if (!applyingReduction) {
+          applyingReduction = true;
+          void persistSecondReduction(remote).catch((error) => {
+            applyingReduction = false;
+            console.error("[FirestoreSync] 2차 감액 반영 실패", error);
+            setStatus("offline");
+          });
+        }
+      }
       setStatus("synced");
       if (!hydrated) {
         hydrated = true;
