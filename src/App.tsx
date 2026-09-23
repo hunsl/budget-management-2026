@@ -87,7 +87,7 @@ export default function App() {
   }, []);
 
   // localStorage 영속성 + 다른 탭 동기화
-  const { lastSavedAt } = usePersistence(state, dispatch);
+  const { lastSavedAt } = usePersistence(state, dispatch, !firestoreEnabled);
 
   // 저장 상태 표시
   useEffect(() => {

@@ -119,18 +119,20 @@ export function loadPersistedState(): Partial<BudgetState> | null {
   }
 }
 
-/** 상태 변경을 localStorage에 저장하고 다른 탭의 변경을 감지합니다. */
+/** 상태 변경을 localStorage에 저장하고 다른 탭의 변경을 감지합니다. Firestore 사용 중에는 끄면 저장이 서로 되먹임되어 숫자가 떨립니다. */
 export function usePersistence(
   state: BudgetState,
   dispatch: React.Dispatch<BudgetAction>,
+  enabled = true,
 ) {
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!enabled) return;
     const persisted = createPersistedData(state);
     savePersistedData(persisted);
     setLastSavedAt(persisted.savedAt);
-  }, [state.courses, state.executions, state.logs, state.currentUser, state.budgetBase, state.budgetReduction, state.budgetChanges]);
+  }, [enabled, state.courses, state.executions, state.logs, state.currentUser, state.budgetBase, state.budgetReduction, state.budgetChanges]);
 
   const handleStorageChange = useCallback(
     (e: StorageEvent) => {
@@ -155,9 +157,10 @@ export function usePersistence(
   );
 
   useEffect(() => {
+    if (!enabled) return;
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
-  }, [handleStorageChange]);
+  }, [enabled, handleStorageChange]);
 
   return { lastSavedAt };
 }

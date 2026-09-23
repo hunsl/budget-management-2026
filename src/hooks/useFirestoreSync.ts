@@ -22,6 +22,48 @@ function withoutUndefined<T>(value: T): T {
 function sameId(left: unknown, right: unknown): boolean {
   return Number(left) === Number(right);
 }
+
+function canonical(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value && typeof value === "object") {
+    return Object.keys(value as Record<string, unknown>).sort().reduce<Record<string, unknown>>((acc, key) => {
+      const entry = (value as Record<string, unknown>)[key];
+      if (entry !== undefined) acc[key] = canonical(entry);
+      return acc;
+    }, {});
+  }
+  return value;
+}
+
+function normalizeRemote(data: RemoteData): RemoteData {
+  return {
+    ...data,
+    courses: [...data.courses].sort((a, b) => Number(a.id) - Number(b.id)),
+    executions: [...data.executions].sort((a, b) => Number(a.id) - Number(b.id)),
+    logs: [...data.logs].sort((a, b) => String(b.editedAt ?? "").localeCompare(String(a.editedAt ?? "")) || String(b.id).localeCompare(String(a.id))),
+  };
+}
+
+function sameSnapshot(state: BudgetState, remote: RemoteData): boolean {
+  const nextBase = remote.budgetBase ?? state.budgetBase;
+  const nextReduction = remote.budgetReduction ?? state.budgetReduction;
+  const nextChanges = remote.budgetChanges ?? state.budgetChanges;
+  return JSON.stringify(canonical({
+    courses: state.courses,
+    executions: state.executions,
+    logs: state.logs,
+    budgetBase: state.budgetBase,
+    budgetReduction: state.budgetReduction,
+    budgetChanges: state.budgetChanges,
+  })) === JSON.stringify(canonical({
+    courses: remote.courses,
+    executions: remote.executions,
+    logs: remote.logs,
+    budgetBase: nextBase,
+    budgetReduction: nextReduction,
+    budgetChanges: nextChanges,
+  }));
+}
 type RemoteData = { courses: Course[]; executions: ExecutionRow[]; logs: AdjustmentLog[]; budgetBase?: number; budgetReduction?: number; budgetChanges?: BudgetState["budgetChanges"] };
 
 function writeAll(data: RemoteData) {
@@ -94,7 +136,12 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
           });
         }
       }
+      const stable = normalizeRemote(remote);
+      remote.courses = stable.courses;
+      remote.executions = stable.executions;
+      remote.logs = stable.logs;
       setStatus("synced");
+      if (sameSnapshot(stateRef.current, remote)) return;
       if (!hydrated) {
         hydrated = true;
         if (!settingsExists && hadLocalData) {
@@ -115,20 +162,29 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
     };
 
     const unsubCourses = onSnapshot(collection(db, COLLECTIONS.courses), (snap) => {
-      remote.courses = snap.docs.map((item) => item.data() as Course);
+      if (snap.metadata.hasPendingWrites) return;
+      remote.courses = snap.docs.map((item) => ({ ...item.data(), id: Number(item.id) }) as Course);
       ready.add("courses"); syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] courses 구독 실패", error); setStatus("offline"); });
     const unsubExecutions = onSnapshot(collection(db, COLLECTIONS.executions), (snap) => {
+      if (snap.metadata.hasPendingWrites) return;
       remote.executions = snap.docs.map((item) => ({ ...item.data(), id: Number(item.id) }) as ExecutionRow);
       ready.add("executions"); syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] executions 구독 실패", error); setStatus("offline"); });
     const unsubLogs = onSnapshot(collection(db, COLLECTIONS.logs), (snap) => {
+      if (snap.metadata.hasPendingWrites) return;
       remote.logs = snap.docs.map((item) => item.data() as AdjustmentLog);
       ready.add("logs"); syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] logs 구독 실패", error); setStatus("offline"); });
     const unsubSettings = onSnapshot(doc(db, "settings", "budget"), (snap) => {
+      if (snap.metadata.hasPendingWrites) return;
       settingsExists = snap.exists();
-      if (settingsExists) Object.assign(remote, snap.data());
+      const settings = snap.data();
+      if (settingsExists && settings) {
+        remote.budgetBase = settings.budgetBase;
+        remote.budgetReduction = settings.budgetReduction;
+        remote.budgetChanges = settings.budgetChanges;
+      }
       settingsSeen = true; syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] 설정 구독 실패", error); setStatus("offline"); });
     return () => { unsubCourses(); unsubExecutions(); unsubLogs(); unsubSettings(); };
