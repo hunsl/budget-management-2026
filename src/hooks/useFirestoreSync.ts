@@ -6,6 +6,22 @@ import { applySecondBudgetReduction } from "../store/secondReduction";
 import type { AdjustmentLog, Course, ExecutionRow } from "../types";
 
 const COLLECTIONS = { courses: "courses", executions: "executions", logs: "logs" } as const;
+
+function withoutUndefined<T>(value: T): T {
+  if (Array.isArray(value)) return value.map((item) => withoutUndefined(item)) as T;
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .filter(([, entry]) => entry !== undefined)
+        .map(([key, entry]) => [key, withoutUndefined(entry)]),
+    ) as T;
+  }
+  return value;
+}
+
+function sameId(left: unknown, right: unknown): boolean {
+  return Number(left) === Number(right);
+}
 type RemoteData = { courses: Course[]; executions: ExecutionRow[]; logs: AdjustmentLog[]; budgetBase?: number; budgetReduction?: number; budgetChanges?: BudgetState["budgetChanges"] };
 
 function writeAll(data: RemoteData) {
@@ -126,10 +142,13 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
     setStatus("syncing");
     const save = async () => {
       switch (action.type) {
-        case "UPDATE_ITEM": case "ADD_ITEM": case "DELETE_ITEM": case "RENAME_COURSE":
-          await setDoc(doc(db, COLLECTIONS.courses, String(action.courseId)), next.courses.find((item) => item.id === action.courseId)!);
-          if (action.type === "UPDATE_ITEM" || action.type === "RENAME_COURSE") await setDoc(doc(db, COLLECTIONS.logs, next.logs[0].id), next.logs[0]);
+        case "UPDATE_ITEM": case "ADD_ITEM": case "DELETE_ITEM": case "RENAME_COURSE": {
+          const course = next.courses.find((item) => sameId(item.id, action.courseId));
+          if (!course) throw new Error("수정할 과정을 찾지 못했습니다.");
+          await setDoc(doc(db, COLLECTIONS.courses, String(course.id)), withoutUndefined(course));
+          if (action.type === "UPDATE_ITEM" || action.type === "RENAME_COURSE") await setDoc(doc(db, COLLECTIONS.logs, next.logs[0].id), withoutUndefined(next.logs[0]));
           break;
+        }
         case "ADD_EXECUTION": case "UPDATE_EXECUTION": case "DELETE_EXECUTION": {
           const oldId = action.type === "ADD_EXECUTION" ? undefined : action.id;
           const old = oldId === undefined ? undefined : previous.executions.find((item) => item.id === oldId);

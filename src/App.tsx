@@ -647,6 +647,16 @@ export default function App() {
 
             {activeTab === "review" && (
               <div className="print-stack space-y-4 md:space-y-5 animate-fade-up">
+                <ItemEditor
+                  course={selectedCourse}
+                  editingItemId={editingItemId}
+                  onUpdate={(itemId, patch, reason) =>
+                    dispatchWithToast({ type: "UPDATE_ITEM", courseId: Number(selectedCourse.id), itemId, patch, reason })
+                  }
+                  onAdd={(item) => dispatchWithToast({ type: "ADD_ITEM", courseId: Number(selectedCourse.id), item })}
+                  onDelete={(itemId) => dispatchWithToast({ type: "DELETE_ITEM", courseId: Number(selectedCourse.id), itemId })}
+                  logs={logs}
+                />
                 <CourseReviewTable
                   course={selectedCourse}
                   editingItemId={editingItemId}
@@ -655,16 +665,6 @@ export default function App() {
                   onSelectItem={(id) => dispatch({ type: "SELECT_ITEM", itemId: id })}
                   onFilterChange={(mode) => dispatch({ type: "SET_FILTER", mode })}
                   onSortChange={(mode) => dispatch({ type: "SET_SORT", mode })}
-                />
-                <ItemEditor
-                  course={selectedCourse}
-                  editingItemId={editingItemId}
-                  onUpdate={(itemId, patch, reason) =>
-                    dispatchWithToast({ type: "UPDATE_ITEM", courseId: selectedCourseId, itemId, patch, reason })
-                  }
-                  onAdd={(item) => dispatchWithToast({ type: "ADD_ITEM", courseId: selectedCourseId, item })}
-                  onDelete={(itemId) => dispatchWithToast({ type: "DELETE_ITEM", courseId: selectedCourseId, itemId })}
-                  logs={logs}
                 />
                 {selectedItem && (
                   <ExecutionManager

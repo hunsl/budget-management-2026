@@ -49,7 +49,7 @@ export function CourseReviewTable({
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-5">
         <div>
           <h2 className="text-base font-bold text-slate-800">{course.name} — 예산 검토표</h2>
-          <p className="text-[11px] text-slate-500 mt-0.5">항목을 클릭하면 아래 편집기와 빠른 집행내역 패널이 함께 바뀝니다.</p>
+          <p className="text-[11px] text-slate-500 mt-0.5">항목을 클릭하면 위쪽 편집기에서 금액과 구분을 수정할 수 있습니다.</p>
         </div>
         <div className="flex flex-wrap gap-2 print-hide">
           <select

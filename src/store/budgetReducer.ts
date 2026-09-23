@@ -185,7 +185,7 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
       return {
         ...state,
         courses: state.courses.map((course) =>
-          course.id !== action.courseId ? course : {
+          Number(course.id) !== Number(action.courseId) ? course : {
             ...course,
             items: course.items.map((item) =>
               item.id !== action.itemId ? item : { ...item, ...action.patch }

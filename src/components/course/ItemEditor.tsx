@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { AdjustmentLog, BudgetItem, Course } from "../../types";
 import { formatWon, generateNewItemId, normalizeGroupName, parseNumber } from "../../store/utils";
 
@@ -11,20 +11,27 @@ type Props = {
   logs: AdjustmentLog[];
 };
 
-const GROUPS = ["사무관리비", "공통운영비", "교육훈련비", "강사운영비", "강사수당 및 보상금", "회의비", "기타"];
+const GROUPS = ["사무관리비", "공공운영비", "교육훈련비", "행사운영비", "행사실비보상금", "보상금", "회의비", "강사운영비", "기타"];
+
+function groupOptions(current: string): string[] {
+  const group = normalizeGroupName(current);
+  return group && !GROUPS.includes(group) ? [group, ...GROUPS] : GROUPS;
+}
 const inputCls = "mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm outline-none transition-all focus:border-indigo-300 focus:ring-2 focus:ring-indigo-500/20";
 const labelCls = "text-[11px] font-medium text-slate-500";
 
 export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, logs }: Props) {
   const item = course.items.find((entry) => entry.id === editingItemId && !entry.isDeleted);
   const itemLogs = item
-    ? logs.filter((log) => log.courseId === course.id && log.itemId === item.id && log.kind !== "course")
+    ? logs.filter((log) => Number(log.courseId) === Number(course.id) && log.itemId === item.id && log.kind !== "course")
     : [];
   const latestRound = itemLogs.find((log) => log.adjustmentRound)?.adjustmentRound ?? 0;
   const [form, setForm] = useState({ group: "", name: "", unitPrice: "", qty1: "", qty2: "", qty3: "", adjusted: "", calc: "", reason: "" });
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItem, setNewItem] = useState({ group: GROUPS[2], name: "", unitPrice: "", qty1: "1", calc: "" });
   const [justSaved, setJustSaved] = useState(false);
+  const editorRef = useRef<HTMLDivElement>(null);
+  const itemKey = item ? `${course.id}:${item.id}` : "";
 
   useEffect(() => {
     if (!item) return;
@@ -32,7 +39,8 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
       group: normalizeGroupName(item.group), name: item.name, unitPrice: String(item.unitPrice), qty1: String(item.qty1 ?? 1),
       qty2: String(item.qty2 ?? 1), qty3: String(item.qty3 ?? 1), adjusted: String(item.adjusted), calc: item.calc, reason: "",
     });
-  }, [item]);
+    editorRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [itemKey]);
 
   const setField = (key: keyof typeof form, value: string) => setForm((prev) => ({ ...prev, [key]: value }));
 
@@ -60,7 +68,7 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
   };
 
   return (
-    <div className="rounded-2xl glass-card p-5 shadow-glass print-hide">
+    <div ref={editorRef} className="rounded-2xl glass-card p-5 shadow-glass print-hide">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
           <h2 className="text-base font-bold text-slate-800">예산 항목 편집</h2>
@@ -75,7 +83,7 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
         <div className="mb-5 space-y-3 rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
           <div className="text-xs font-bold text-indigo-800">새 항목 추가</div>
           <div className="grid grid-cols-1 gap-3 xs:grid-cols-2">
-            <label className={labelCls}>예산 구분<select className={inputCls} value={newItem.group} onChange={(event) => setNewItem((prev) => ({ ...prev, group: event.target.value }))}>{GROUPS.map((group) => <option key={group}>{group}</option>)}</select></label>
+            <label className={labelCls}>예산 구분<select className={inputCls} value={newItem.group} onChange={(event) => setNewItem((prev) => ({ ...prev, group: event.target.value }))}>{groupOptions(newItem.group).map((group) => <option key={group}>{group}</option>)}</select></label>
             <label className={labelCls}>항목명<input className={inputCls} value={newItem.name} onChange={(event) => setNewItem((prev) => ({ ...prev, name: event.target.value }))} placeholder="항목명 입력" /></label>
             <label className={labelCls}>단가<input className={inputCls} value={newItem.unitPrice} onChange={(event) => setNewItem((prev) => ({ ...prev, unitPrice: event.target.value }))} placeholder="0" /></label>
             <label className={labelCls}>수량<input className={inputCls} value={newItem.qty1} onChange={(event) => setNewItem((prev) => ({ ...prev, qty1: event.target.value }))} placeholder="1" /></label>
@@ -94,7 +102,7 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
           </div>
 
           <div className="grid grid-cols-1 gap-3 xs:grid-cols-2">
-            <label className={labelCls}>예산 구분<select className={inputCls} value={form.group} onChange={(event) => setField("group", event.target.value)}>{GROUPS.map((group) => <option key={group}>{group}</option>)}</select></label>
+            <label className={labelCls}>예산 구분<select className={inputCls} value={form.group} onChange={(event) => setField("group", event.target.value)}>{groupOptions(form.group).map((group) => <option key={group}>{group}</option>)}</select></label>
             <label className={labelCls}>항목명<input className={inputCls} value={form.name} onChange={(event) => setField("name", event.target.value)} /></label>
             <label className={labelCls}>단가<input className={inputCls} value={form.unitPrice} onChange={(event) => setField("unitPrice", event.target.value)} /></label>
             <label className={labelCls}>수량 1<input className={inputCls} value={form.qty1} onChange={(event) => setField("qty1", event.target.value)} /></label>
@@ -109,7 +117,7 @@ export function ItemEditor({ course, editingItemId, onUpdate, onAdd, onDelete, l
 
           <div className="border-t border-slate-100 pt-4">
             <div className="mb-2 flex items-center justify-between"><div><h3 className="text-sm font-bold text-slate-800">이 항목의 조정 이력</h3><p className="text-[11px] text-slate-400">이전 금액을 덮어쓰지 않고 변경 차수별로 보관합니다.</p></div><span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-500">총 {itemLogs.length}건</span></div>
-            {itemLogs.length === 0 ? <p className="rounded-lg bg-slate-50 px-3 py-3 text-xs text-slate-400">아직 저장된 추가 조정이 없습니다. 저장하면 1차 조정으로 기록됩니다.</p> : <div className="max-h-48 space-y-2 overflow-y-auto pr-1">{itemLogs.slice(0, 8).map((log) => <div key={log.id} className="flex flex-col gap-1 rounded-lg border border-slate-100 bg-slate-50/70 px-3 py-2 text-xs sm:flex-row sm:items-center sm:justify-between"><div className="flex flex-wrap items-center gap-2"><span className="rounded-md bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700">{log.adjustmentRound ? `${log.adjustmentRound}차 조정` : "기존 조정"}</span><span className="font-semibold text-slate-700 tabular-nums">{formatWon(Number(log.before.adjusted ?? 0))}</span><span className="text-slate-300">→</span><span className="font-bold text-indigo-700 tabular-nums">{formatWon(Number(log.after.adjusted ?? log.before.adjusted ?? 0))}</span><span className="text-slate-400">{log.reason || "사유 미입력"}</span></div><span className="shrink-0 text-[10px] text-slate-400 tabular-nums">{log.editedAt.slice(0, 16).replace("T", " ")}</span></div>)}</div>}
+            {itemLogs.length === 0 ? <p className="rounded-lg bg-slate-50 px-3 py-3 text-xs text-slate-400">아직 저장된 추가 조정이 없습니다. 저장하면 1차 조정으로 기록됩니다.</p> : <div className="max-h-48 space-y-2 overflow-y-auto pr-1">{itemLogs.slice(0, 8).map((log) => <div key={log.id} className="flex flex-col gap-1 rounded-lg border border-slate-100 bg-slate-50/70 px-3 py-2 text-xs sm:flex-row sm:items-center sm:justify-between"><div className="flex flex-wrap items-center gap-2"><span className="rounded-md bg-indigo-100 px-1.5 py-0.5 text-[10px] font-bold text-indigo-700">{log.adjustmentRound ? `${log.adjustmentRound}차 조정` : "기존 조정"}</span><span className="font-semibold text-slate-700 tabular-nums">{formatWon(Number(log.before.adjusted ?? 0))}</span><span className="text-slate-300">→</span><span className="font-bold text-indigo-700 tabular-nums">{formatWon(Number(log.after.adjusted ?? log.before.adjusted ?? 0))}</span><span className="text-slate-400">{log.reason || "사유 미입력"}</span></div><span className="shrink-0 text-[10px] text-slate-400 tabular-nums">{(log.editedAt ?? "").slice(0, 16).replace("T", " ")}</span></div>)}</div>}
           </div>
         </div>
       ) : <div className="flex flex-col items-center justify-center gap-3 py-12 text-slate-400"><div className="text-4xl">🧾</div><div className="text-center"><p className="mb-0.5 text-sm font-semibold text-slate-600">선택된 항목이 없습니다</p><p className="text-xs">위 검토표에서 항목을 선택하면 편집할 수 있습니다.</p></div></div>}
