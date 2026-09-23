@@ -113,12 +113,14 @@ export function budgetReducer(state: BudgetState, action: BudgetAction): BudgetS
     case "SET_BUDGET_REDUCTION": {
       const reduction = Math.max(0, Math.min(state.budgetBase, Math.round(action.reduction)));
       if (reduction === state.budgetReduction) return state;
+      const before = state.budgetBase - state.budgetReduction;
+      const after = state.budgetBase - reduction;
       const change: BudgetChange = {
         id: `budget-change-${Date.now()}`,
         changedAt: new Date().toISOString(),
-        before: state.budgetBase - state.budgetReduction,
-        reduction,
-        after: state.budgetBase - reduction,
+        before,
+        reduction: before - after,
+        after,
         reason: action.reason.trim() || "미배분 예산 감액 조정",
         editedBy: state.currentUser,
       };

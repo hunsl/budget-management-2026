@@ -62,10 +62,34 @@ export function applySecondBudgetReduction<T extends SecondReductionInput>(remot
   const changes = Array.isArray(remote.budgetChanges) ? remote.budgetChanges : [];
   const recorded = changes.some((change) => change.id === SECOND_REDUCTION_CHANGE_ID);
   const reduction = remote.budgetReduction;
+  const base = remote.budgetBase ?? BASE_TOTAL_BUDGET;
+  const needsItems = cuts.some(({ cut, item }) => item!.adjusted === cut.from);
+  if (reduction === TOTAL_BUDGET_REDUCTION && !needsItems) return { data: remote, changed: false };
+
+  // 2차 9,900,000원이 1차 감액 위에 더해지지 않고 총 감액 자체를 9,900,000원으로 바꿔 저장됐다.
+  if (reduction === SECOND_REDUCTION && !needsItems) {
+    const wrongAfter = base - SECOND_REDUCTION;
+    const correctedAfter = base - TOTAL_BUDGET_REDUCTION;
+    let fixed = false;
+    const nextChanges = changes.map((change) => {
+      if (change.before !== base - FIRST_REDUCTION || change.reduction !== SECOND_REDUCTION || change.after !== wrongAfter) return change;
+      fixed = true;
+      return { ...change, id: SECOND_REDUCTION_CHANGE_ID, after: correctedAfter };
+    });
+    return {
+      changed: true,
+      data: {
+        ...remote,
+        budgetBase: base,
+        budgetReduction: TOTAL_BUDGET_REDUCTION,
+        budgetChanges: fixed ? nextChanges : [secondReductionChange(base), ...nextChanges],
+      },
+    };
+  }
+
   const expectedReduction = reduction === undefined || reduction === FIRST_REDUCTION || reduction === TOTAL_BUDGET_REDUCTION;
   if (!expectedReduction) return { data: remote, changed: false };
 
-  const needsItems = cuts.some(({ cut, item }) => item!.adjusted === cut.from);
   const needsReduction = !recorded && reduction !== TOTAL_BUDGET_REDUCTION;
   const needsHistory = !recorded;
   if (!needsItems && !needsReduction && !needsHistory) return { data: remote, changed: false };
@@ -98,7 +122,6 @@ export function applySecondBudgetReduction<T extends SecondReductionInput>(remot
     });
   }
 
-  const base = remote.budgetBase ?? BASE_TOTAL_BUDGET;
   return {
     changed: true,
     data: {
