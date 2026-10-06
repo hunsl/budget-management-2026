@@ -162,22 +162,18 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
     };
 
     const unsubCourses = onSnapshot(collection(db, COLLECTIONS.courses), (snap) => {
-      if (snap.metadata.hasPendingWrites) return;
       remote.courses = snap.docs.map((item) => ({ ...item.data(), id: Number(item.id) }) as Course);
       ready.add("courses"); syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] courses 구독 실패", error); setStatus("offline"); });
     const unsubExecutions = onSnapshot(collection(db, COLLECTIONS.executions), (snap) => {
-      if (snap.metadata.hasPendingWrites) return;
       remote.executions = snap.docs.map((item) => ({ ...item.data(), id: Number(item.id) }) as ExecutionRow);
       ready.add("executions"); syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] executions 구독 실패", error); setStatus("offline"); });
     const unsubLogs = onSnapshot(collection(db, COLLECTIONS.logs), (snap) => {
-      if (snap.metadata.hasPendingWrites) return;
       remote.logs = snap.docs.map((item) => item.data() as AdjustmentLog);
       ready.add("logs"); syncSnapshot();
     }, (error) => { console.error("[FirestoreSync] logs 구독 실패", error); setStatus("offline"); });
     const unsubSettings = onSnapshot(doc(db, "settings", "budget"), (snap) => {
-      if (snap.metadata.hasPendingWrites) return;
       settingsExists = snap.exists();
       const settings = snap.data();
       if (settingsExists && settings) {
@@ -201,8 +197,10 @@ export function useFirestoreSync(state: BudgetState, dispatch: React.Dispatch<Bu
         case "UPDATE_ITEM": case "ADD_ITEM": case "DELETE_ITEM": case "RENAME_COURSE": {
           const course = next.courses.find((item) => sameId(item.id, action.courseId));
           if (!course) throw new Error("수정할 과정을 찾지 못했습니다.");
-          await setDoc(doc(db, COLLECTIONS.courses, String(course.id)), withoutUndefined(course));
-          if (action.type === "UPDATE_ITEM" || action.type === "RENAME_COURSE") await setDoc(doc(db, COLLECTIONS.logs, next.logs[0].id), withoutUndefined(next.logs[0]));
+          const batch = writeBatch(db);
+          batch.set(doc(db, COLLECTIONS.courses, String(course.id)), withoutUndefined(course));
+          if (action.type === "UPDATE_ITEM" || action.type === "RENAME_COURSE") batch.set(doc(db, COLLECTIONS.logs, next.logs[0].id), withoutUndefined(next.logs[0]));
+          await batch.commit();
           break;
         }
         case "ADD_EXECUTION": case "UPDATE_EXECUTION": case "DELETE_EXECUTION": {
