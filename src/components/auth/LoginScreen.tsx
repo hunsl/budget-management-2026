@@ -26,7 +26,7 @@ export function LoginScreen({ onLogin }: Props) {
 
   return <div className="h-full min-h-screen bg-mesh-1 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 flex items-center justify-center px-4">
     <form onSubmit={submit} className="w-full max-w-sm rounded-2xl glass-card shadow-glass ring-1 ring-white/60 p-8 space-y-3">
-      <div className="text-center mb-6"><div className="text-[11px] text-indigo-500/80 font-semibold uppercase tracking-[0.15em]">2026 경기북부 직업교육훈련</div><div className="text-xl font-extrabold tracking-tight mt-1 text-slate-900 font-display">예산관리 시스템</div></div>
+      <div className="text-center mb-6"><div className="text-[11px] text-indigo-500/80 font-semibold uppercase tracking-[0.15em]">2026 경기북부직업교육</div><div className="text-xl font-extrabold tracking-tight mt-1 text-slate-900 font-display">예산관리 시스템</div></div>
       <label className="block text-xs font-semibold text-slate-500">이메일<input type="email" required autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1.5 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm" /></label>
       <label className="block text-xs font-semibold text-slate-500">비밀번호<input type="password" required autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1.5 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm" /></label>
       {error && <div className="rounded-xl bg-rose-50 text-rose-600 text-xs px-3 py-2.5 ring-1 ring-rose-200">{error}</div>}

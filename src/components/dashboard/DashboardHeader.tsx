@@ -46,7 +46,7 @@ export function DashboardHeader({ totalBudget, budgetReduction, programSummary, 
       <div className="relative">
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between mb-4 md:mb-6">
           <div>
-            <div className="text-[10px] md:text-[11px] text-indigo-300/80 font-semibold uppercase tracking-[0.15em]">2026 경기북부 직업교육훈련</div>
+            <div className="text-[10px] md:text-[11px] text-indigo-300/80 font-semibold uppercase tracking-[0.15em]">2026 경기북부직업교육</div>
             <h1 className="mt-1 md:mt-1.5 text-xl md:text-2xl font-extrabold font-display tracking-tight">예산 총괄 현황</h1>
           </div>
           <div className="rounded-xl bg-white/[0.07] backdrop-blur-sm px-3 md:px-4 py-2 md:py-3 text-right border border-white/10 self-start">

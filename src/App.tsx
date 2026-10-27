@@ -255,7 +255,7 @@ export default function App() {
               </svg>
             </button>
             <div className="min-w-0">
-              <div className="text-[10px] md:text-[11px] text-indigo-300/80 font-semibold uppercase tracking-[0.15em] truncate">2026 경기북부 직업교육훈련</div>
+              <div className="text-[10px] md:text-[11px] text-indigo-300/80 font-semibold uppercase tracking-[0.15em] truncate">2026 경기북부직업교육</div>
               <div className="text-base md:text-lg font-extrabold tracking-tight mt-0.5 truncate font-display">예산관리 시스템</div>
             </div>
           </div>
@@ -582,7 +582,7 @@ export default function App() {
             <div className="print-header hidden">
               <div className="print-header-card">
                 <div>
-                  <div className="print-header-kicker">2026 경기북부 직업교육훈련</div>
+                  <div className="print-header-kicker">2026 경기북부직업교육</div>
                   <div className="print-header-title">예산관리 시스템</div>
                 </div>
                 <div className="print-header-meta">
